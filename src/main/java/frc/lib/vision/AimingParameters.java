@@ -1,7 +1,7 @@
-package com.team254.lib.vision;
+package frc.lib.vision;
 
-import com.team254.lib.geometry.Pose2d;
-import com.team254.lib.geometry.Rotation2d;
+import frc.lib.geometry.Pose2d;
+import frc.lib.geometry.Rotation2d;
 
 public class AimingParameters {
     private final double range;

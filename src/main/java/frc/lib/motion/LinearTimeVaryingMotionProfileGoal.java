@@ -1,6 +1,6 @@
-package com.team254.lib.motion;
+package frc.lib.motion;
 
-import com.team254.lib.util.Util;
+import frc.lib.util.Util;
 
 /**
  * A LinearTimeVaryingMotionProfileGoal defines a goal with a constant velocity whose position is a function of an

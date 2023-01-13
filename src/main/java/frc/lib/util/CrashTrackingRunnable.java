@@ -1,4 +1,4 @@
-package com.team254.lib.util;
+package frc.lib.util;
 
 /**
  * Runnable class with reports all uncaught throws to CrashTracker

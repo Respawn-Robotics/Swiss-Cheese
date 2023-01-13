@@ -1,10 +1,10 @@
-package com.team254.lib.geometry;
+package frc.lib.geometry;
 
-import com.team254.lib.util.Util;
+import frc.lib.util.Util;
 
 import java.text.DecimalFormat;
 
-import static com.team254.lib.util.Util.kEpsilon;
+import static frc.lib.util.Util.kEpsilon;
 
 /**
  * A rotation in a 2d coordinate frame represented a point on the unit circle

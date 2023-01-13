@@ -1,5 +1,4 @@
-package com.team254.lib.util;
-
+package frc.lib.util;
 import edu.wpi.first.hal.util.BoundaryException;
 import edu.wpi.first.wpilibj.Timer;
 

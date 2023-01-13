@@ -1,4 +1,4 @@
-package com.team254.lib.vision;
+package frc.lib.vision;
 
 /**
  * A container class for Targets detected by the vision system, containing the location in three-dimensional space.

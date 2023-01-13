@@ -1,7 +1,7 @@
-package com.team254.lib.physics;
+package frc.lib.physics;
 
-import com.team254.lib.geometry.Rotation2d;
-import com.team254.lib.geometry.Translation2d;
+import frc.lib.geometry.Rotation2d;
+import frc.lib.geometry.Translation2d;
 import java.text.DecimalFormat;
 
 public class SwerveDrive {

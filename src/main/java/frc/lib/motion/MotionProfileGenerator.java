@@ -1,4 +1,4 @@
-package com.team254.lib.motion;
+package frc.lib.motion;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.sound.sampled.Line;
 
-import com.team254.lib.motion.IMotionProfileGoal.CompletionBehavior;
+import frc.lib.motion.IMotionProfileGoal.CompletionBehavior;
 
 /**
  * A MotionProfileGenerator generates minimum-time MotionProfiles to travel from a given MotionState to a given

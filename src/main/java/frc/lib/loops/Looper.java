@@ -1,6 +1,6 @@
-package com.team254.lib.loops;
+package frc.lib.loops;
 
-import com.team254.lib.util.CrashTrackingRunnable;
+import frc.lib.util.CrashTrackingRunnable;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

@@ -1,5 +1,4 @@
-package com.team254.lib.util;
-
+package frc.lib.util;
 public class Units {
     public static final double kGravityInPerSecSq = 386.09;
     public static final double kInchesToMeters = 0.0254;

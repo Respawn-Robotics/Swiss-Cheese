@@ -1,4 +1,4 @@
-package com.team254.lib.loops;
+package frc.lib.loops;
 
 public interface ILooper {
     void register(Loop loop);

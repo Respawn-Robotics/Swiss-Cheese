@@ -1,5 +1,4 @@
-package com.team254.lib.util;
-
+package frc.lib.util;
 /**
  * Class to differentiate between tapping and holding a joystick button/trigger
  */

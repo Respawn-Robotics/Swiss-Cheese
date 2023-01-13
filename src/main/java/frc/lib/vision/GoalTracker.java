@@ -1,6 +1,6 @@
-package com.team254.lib.vision;
+package frc.lib.vision;
 
-import com.team254.lib.geometry.Pose2d;
+import frc.lib.geometry.Pose2d;
 
 import java.util.ArrayList;
 import java.util.Comparator;

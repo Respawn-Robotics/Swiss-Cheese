@@ -1,6 +1,5 @@
-package com.team254.lib.geometry;
-
-import com.team254.lib.util.Util;
+package frc.lib.geometry;
+import frc.lib.util.Util;
 
 /**
  * Represents a 2d pose (rigid transform) containing translational and rotational elements.

@@ -1,6 +1,5 @@
-package com.team254.lib.util;
-
-import com.team254.lib.geometry.Pose2d;
+package frc.lib.util;
+import frc.lib.geometry.Pose2d;
 
 public class ShootingParameters {
     private final InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> mOldBallHoodMap;

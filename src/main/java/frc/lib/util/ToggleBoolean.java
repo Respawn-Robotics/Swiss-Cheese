@@ -1,5 +1,4 @@
-package com.team254.lib.util;
-
+package frc.lib.util;
 public class ToggleBoolean {
     private boolean released = true;
     private boolean retVal = false;

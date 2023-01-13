@@ -1,7 +1,7 @@
-package com.team254.lib.motion;
+package frc.lib.motion;
 
-import com.team254.lib.motion.IMotionProfileGoal.CompletionBehavior;
-import com.team254.lib.util.Util;
+import frc.lib.motion.IMotionProfileGoal.CompletionBehavior;
+import frc.lib.util.Util;
 
 /**
  * A controller for tracking a profile generated to attain a MotionProfileGoal. The controller uses feedforward on

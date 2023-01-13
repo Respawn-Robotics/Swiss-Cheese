@@ -1,6 +1,6 @@
-package com.team254.lib.motion;
+package frc.lib.motion;
 
-import static com.team254.lib.util.Util.epsilonEquals;
+import static frc.lib.util.Util.epsilonEquals;
 
 /**
  * A MotionProfileGoal defines a desired position and maximum velocity (at this position), along with the behavior that

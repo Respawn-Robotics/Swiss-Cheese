@@ -1,4 +1,4 @@
-package com.team254.lib.motion;
+package frc.lib.motion;
 
 public class MotionUtil {
     /**

@@ -1,4 +1,4 @@
-package com.team254.lib.motion;
+package frc.lib.motion;
 
 /**
  * A MotionProfileGoal defines a desired position and maximum velocity (at this position), along with the behavior that

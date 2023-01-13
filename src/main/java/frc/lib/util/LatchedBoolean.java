@@ -1,5 +1,4 @@
-package com.team254.lib.util;
-
+package frc.lib.util;
 /**
  * An iterative boolean latch.
  * <p>

@@ -1,4 +1,4 @@
-package com.team254.lib.util;
+package frc.lib.util;
 
 import java.io.FileWriter;
 import java.io.IOException;

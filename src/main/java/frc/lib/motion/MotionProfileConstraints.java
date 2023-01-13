@@ -1,4 +1,4 @@
-package com.team254.lib.motion;
+package frc.lib.motion;
 
 /**
  * Constraints for constructing a MotionProfile.

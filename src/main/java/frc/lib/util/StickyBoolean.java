@@ -1,5 +1,4 @@
-package com.team254.lib.util;
-
+package frc.lib.util;
 // Read a provided input
 // When the input becomes true, output true until manually cleared
 // Useful for latching

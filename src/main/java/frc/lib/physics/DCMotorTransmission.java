@@ -1,6 +1,6 @@
-package com.team254.lib.physics;
+package frc.lib.physics;
 
-import com.team254.lib.util.Util;
+import frc.lib.util.Util;
 
 /**
  * Model of a DC motor rotating a shaft.  All parameters refer to the output (e.g. should already consider gearing
