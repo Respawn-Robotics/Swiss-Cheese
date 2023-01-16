@@ -10,16 +10,39 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class LimelightSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   private double x,y,a,v;
-  private final NetworkTable m_limelightTable;
+  private final NetworkTable limelightTable;
   private ArrayList<Double> m_targetList;
   private final int MAX_ENTRIES = 50;
   private final NetworkTableEntry m_led_entry;
 
 
   public LimelightSubsystem() {
-    m_limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
+    limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
     m_targetList = new ArrayList<Double>(MAX_ENTRIES);
-    m_led_entry = m_limelightTable.getEntry("ledMode");
+    m_led_entry = limelightTable.getEntry("ledMode");
+  }
+
+  public double LimelightAngleOffset(){
+  NetworkTableEntry y = limelightTable.getEntry("ty");
+  double targetOffsetAngle_Vertical = y.getDouble(0.0);
+  
+  // how many degrees back is your limelight rotated from perfectly vertical?
+  double limelightMountAngleDegrees = 0.0;
+  
+  // distance from the center of the Limelight lens to the floor
+  double limelightLensHeightInches = 7.25;
+  
+  // distance from the target to the floor
+  double goalHeightInches = 22.0;
+  
+  double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
+  double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+  
+  //calculate distance
+  double distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
+  SmartDashboard.putNumber("AngleOffset", distanceFromLimelightToGoalInches);
+
+  return distanceFromLimelightToGoalInches;
   }
 
   public CommandBase RetroReflectiveTape() {
@@ -67,10 +90,10 @@ public class LimelightSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    x = m_limelightTable.getEntry("tx").getDouble(0);
-    y = m_limelightTable.getEntry("ty").getDouble(0);
-    a = m_limelightTable.getEntry("ta").getDouble(0);
-    v = m_limelightTable.getEntry("tv").getDouble(0);
+    x = limelightTable.getEntry("tx").getDouble(0);
+    y = limelightTable.getEntry("ty").getDouble(0);
+    a = limelightTable.getEntry("ta").getDouble(0);
+    v = limelightTable.getEntry("tv").getDouble(0);
 
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
