@@ -145,11 +145,11 @@ public final class Constants {
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
 
-    //Limelight
-    public static final double kImageCaptureLatency = 11.0 / 1000.0; // seconds
-    public static final double kHorizontalFOV = 59.6; // degrees
-    public static final double kVerticalFOV = 49.7; // degrees
-    public static final double kMinStability = 0.5;
-    public static final double kVPW = 2.0 * Math.tan(Math.toRadians(kHorizontalFOV / 2.0));
-    public static final double kVPH = 2.0 * Math.tan(Math.toRadians(kVerticalFOV / 2.0));
+    // //Limelight
+    // public static final double kImageCaptureLatency = 11.0 / 1000.0; // seconds
+    // public static final double kHorizontalFOV = 59.6; // degrees
+    // public static final double kVerticalFOV = 49.7; // degrees
+    // public static final double kMinStability = 0.5;
+    // public static final double kVPW = 2.0 * Math.tan(Math.toRadians(kHorizontalFOV / 2.0));
+    // public static final double kVPH = 2.0 * Math.tan(Math.toRadians(kVerticalFOV / 2.0));
 }

@@ -19,7 +19,7 @@ public class PrintV extends CommandBase {
 
   @Override
   public void execute(){
-    if(limelightSubsystem.seesTarget()){
+    if(limelightSubsystem.isTargetValid()){
         System.out.println("Tape Seen");
     }
 }

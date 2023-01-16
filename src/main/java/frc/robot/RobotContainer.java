@@ -10,8 +10,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.LimelightSubsystem.LimelightConstants;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,15 +18,6 @@ import frc.robot.subsystems.LimelightSubsystem.LimelightConstants;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-    public static final LimelightConstants kLimelightConstants = new LimelightConstants();
-    static {
-        kLimelightConstants.kName = "Limelight";
-        kLimelightConstants.kTableName = "limelight";
-        kLimelightConstants.kHeight = 8.25;  // inches
-        kLimelightConstants.kTurretToLens = new Pose2d(new Translation2d(-1.293, 2.556), Rotation2d.fromDegrees(2.0));
-        kLimelightConstants.kHorizontalPlaneToLens = Rotation2d.fromDegrees(47.5);
-        
-    }
 
     /* Controllers */
     private final Joystick driver = new Joystick(0);
@@ -44,10 +33,7 @@ public class RobotContainer {
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
-
-    LimelightSubsystem Limelight = new LimelightSubsystem(kLimelightConstants);
-
-
+    LimelightSubsystem LimelightSubsystem = new LimelightSubsystem();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -60,6 +46,7 @@ public class RobotContainer {
                 () -> robotCentric.getAsBoolean()
             )
         );        
+        LimelightSubsystem.setDefaultCommand(new PrintV(LimelightSubsystem));
         // Configure the button bindings
         configureButtonBindings();
     }
