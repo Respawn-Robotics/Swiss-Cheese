@@ -21,7 +21,7 @@ public class PrintV extends CommandBase {
   public void execute(){
     if(limelightSubsystem.isTargetValid()){
         System.out.println("Tape Seen");
-        limelightSubsystem.LimelightAngleOffset();
+        limelightSubsystem.LimelightDistanceOffset();
     }
   }
   
