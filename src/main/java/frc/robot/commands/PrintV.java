@@ -5,7 +5,7 @@ import frc.robot.subsystems.LimelightSubsystem;
 
 public class PrintV extends CommandBase {
   // The subsystem the command runs on
-  private final LimelightSubsystem limelightSubsystem;
+  private final LimelightSubsystem limelightSubsystem;  
 
   public PrintV(LimelightSubsystem subsystem) {
     limelightSubsystem = subsystem;
@@ -19,10 +19,7 @@ public class PrintV extends CommandBase {
 
   @Override
   public void execute(){
-    if(limelightSubsystem.isTargetValid()){
-        System.out.println("Tape Seen");
-        limelightSubsystem.LimelightDistanceOffset();
-    }
+  
   }
   
   @Override

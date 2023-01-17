@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -31,7 +32,7 @@ public class RobotContainer {
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
     /* Subsystems */
-    private final Swerve s_Swerve = new Swerve();
+    public final Swerve s_Swerve = new Swerve();
     LimelightSubsystem LimelightSubsystem = new LimelightSubsystem();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -44,7 +45,8 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(rotationAxis), 
                 () -> robotCentric.getAsBoolean()
             )
-        );        
+        );   
+        
         LimelightSubsystem.setDefaultCommand(new PrintV(LimelightSubsystem));
         // Configure the button bindings
         configureButtonBindings();

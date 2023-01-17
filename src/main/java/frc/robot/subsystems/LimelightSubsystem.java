@@ -22,7 +22,7 @@ public class LimelightSubsystem extends SubsystemBase {
     m_led_entry = limelightTable.getEntry("ledMode");
   }
 
-  public double LimelightAngleOffset(){
+  public double LimelightDistanceOffset(){
   NetworkTableEntry y = limelightTable.getEntry("ty");
   double targetOffsetAngle_Vertical = y.getDouble(0.0);
   
@@ -33,14 +33,14 @@ public class LimelightSubsystem extends SubsystemBase {
   double limelightLensHeightInches = 7.25;
   
   // distance from the target to the floor
-  double goalHeightInches = 22.0;
+  double goalHeightInches = 2.0;
   
   double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
   double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
   
   //calculate distance
   double distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
-  SmartDashboard.putNumber("AngleOffset", distanceFromLimelightToGoalInches);
+  SmartDashboard.putNumber("DistanceOffset", distanceFromLimelightToGoalInches);
 
   return distanceFromLimelightToGoalInches;
   }
