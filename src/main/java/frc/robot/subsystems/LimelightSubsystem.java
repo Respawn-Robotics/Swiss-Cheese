@@ -30,10 +30,10 @@ public class LimelightSubsystem extends SubsystemBase {
   double limelightMountAngleDegrees = 0.0;
   
   // distance from the center of the Limelight lens to the floor
-  double limelightLensHeightInches = 7.25;
+  double limelightLensHeightInches = 8;
   
   // distance from the target to the floor
-  double goalHeightInches = 2.0;
+  double goalHeightInches = 23.6875;
   
   double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
   double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
@@ -95,9 +95,17 @@ public class LimelightSubsystem extends SubsystemBase {
     a = limelightTable.getEntry("ta").getDouble(0);
     v = limelightTable.getEntry("tv").getDouble(0);
 
+    LimelightDistanceOffset();
+
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
     SmartDashboard.putNumber("LimelightArea", a);
     SmartDashboard.putNumber("LimeLightV", v);
   }
 }
+
+
+
+
+
+
