@@ -29,6 +29,8 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton followTarget = new JoystickButton(driver, 1);
+    private final JoystickButton togglePipeline = new JoystickButton(driver, XboxController.Button.kX.value);
 
     /* Subsystems */
     public final Swerve s_Swerve = new Swerve();
@@ -60,10 +62,13 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        togglePipeline.onTrue(LimelightSubsystem.togglePipeline());
+        followTarget.whileTrue(new FollowTape(s_Swerve));
+        
     }
 
     /**
-     * Use this to pass the autonomous command to the main {@link Robot} class.
+     * Use this to pass the autonomous command to the main k Robot} class.
      *
      * @return the command to run in autonomous
      */

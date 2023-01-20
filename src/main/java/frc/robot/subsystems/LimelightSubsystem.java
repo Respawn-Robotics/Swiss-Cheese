@@ -14,6 +14,7 @@ public class LimelightSubsystem extends SubsystemBase {
   private ArrayList<Double> m_targetList;
   private final int MAX_ENTRIES = 50;
   private final NetworkTableEntry m_led_entry;
+  private boolean pipeline = true;
 
 
   public LimelightSubsystem() {
@@ -41,17 +42,25 @@ public class LimelightSubsystem extends SubsystemBase {
   //calculate distance
   double distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
   SmartDashboard.putNumber("DistanceOffset", distanceFromLimelightToGoalInches);
+  SmartDashboard.putNumber("AngleOffset", angleToGoalDegrees);
 
   return distanceFromLimelightToGoalInches;
   }
 
-  public CommandBase RetroReflectiveTape() {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
+  public CommandBase togglePipeline() {
     return runOnce(
         () -> {
-          /* one-time action goes here */
+          if(pipeline){
+            System.out.println("Tape");
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(1);
+            pipeline = false;
+          }else{
+            System.out.println("Tag");
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
+            pipeline = true;
+          }
+          NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+          NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
         });
   }
 
@@ -84,7 +93,7 @@ public class LimelightSubsystem extends SubsystemBase {
     }
   }
 
-  public void setLlLedMode(int mode){
+  public void setL1LedMode(int mode){
     m_led_entry.setDouble((mode));
   }
 
@@ -96,16 +105,9 @@ public class LimelightSubsystem extends SubsystemBase {
     v = limelightTable.getEntry("tv").getDouble(0);
 
     LimelightDistanceOffset();
-
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
     SmartDashboard.putNumber("LimelightArea", a);
     SmartDashboard.putNumber("LimeLightV", v);
   }
 }
-
-
-
-
-
-
