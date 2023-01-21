@@ -20,6 +20,7 @@ public class RobotContainer {
 
     /* Controllers */
     private final Joystick driver = new Joystick(0);
+    private final Joystick operator = new Joystick(1);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -29,11 +30,19 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton turnOnCompressor = new JoystickButton(driver, XboxController.Button.kX.value);
+    private final JoystickButton turnOffCompressor = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton solenoidForward = new JoystickButton(driver, XboxController.Button.kB.value);
+
+    private final JoystickButton motorOn = new JoystickButton(operator, XboxController.Button.kA.value);
+    private final JoystickButton motorOff = new JoystickButton(operator, XboxController.Button.kB.value);
+    private final JoystickButton reject = new JoystickButton(operator, XboxController.Button.kX.value);
+
     private final JoystickButton followTarget = new JoystickButton(driver, 1);
     private final JoystickButton togglePipeline = new JoystickButton(driver, XboxController.Button.kX.value);
 
     /* Subsystems */
-    public final Swerve s_Swerve = new Swerve();
+    private final Swerve s_Swerve = new Swerve();
     LimelightSubsystem LimelightSubsystem = new LimelightSubsystem();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -65,6 +74,10 @@ public class RobotContainer {
         togglePipeline.onTrue(LimelightSubsystem.togglePipeline());
         followTarget.whileTrue(new FollowTape(s_Swerve));
         
+
+        motorOn.onTrue(LimelightSubsystem.runMotor());
+        motorOff.onTrue(LimelightSubsystem.disableMotor());
+        reject.onTrue(LimelightSubsystem.reject());
     }
 
     /**
@@ -74,6 +87,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new exampleAuto(s_Swerve);
+        return new exampleAuto(s_Swerve, LimelightSubsystem);
     }
 }
