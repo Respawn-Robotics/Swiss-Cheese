@@ -13,9 +13,9 @@ import frc.robot.subsystems.LimelightSubsystem;
 
 public class FollowTape extends CommandBase {    
     private Swerve s_Swerve;    
-    double KpAim = .025; //controls overshoot of aim
-    double min_command = 0.35; //controls minimum voltage of aim
-    double KpDistance = -0.1235;
+    double KpAim = .075; //controls overshoot of aim
+    double min_command = 0.275; //controls minimum voltage of aim
+    double KpDistance = -0.1;
     LimelightSubsystem LimelightSubsystem = new LimelightSubsystem();
     double tx;
     double ty;
