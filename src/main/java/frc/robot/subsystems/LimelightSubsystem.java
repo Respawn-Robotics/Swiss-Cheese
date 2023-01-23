@@ -1,13 +1,9 @@
 package frc.robot.subsystems;
 import java.util.ArrayList;
 
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -21,10 +17,6 @@ public class LimelightSubsystem extends SubsystemBase {
   private final int MAX_ENTRIES = 50;
   private final NetworkTableEntry m_led_entry;
   private boolean pipeline = true;
-
-  private final DigitalInput limit = new DigitalInput(9);
-  private final TalonFX falcon = new TalonFX(23);
-
 
   public LimelightSubsystem() {
     limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
@@ -73,6 +65,15 @@ public class LimelightSubsystem extends SubsystemBase {
         });
   }
 
+  //pseudocode for team switch
+  public Command TeamAprilTags() {
+    return runOnce(
+      () -> {
+        
+      }
+    );
+  }
+
   public double getV() {
     return v;
   }
@@ -106,44 +107,6 @@ public class LimelightSubsystem extends SubsystemBase {
     return runOnce(
       () -> {
         m_led_entry.setDouble((mode));
-      }
-    );
-  }
-
-  public Command limitMotor() {
-    return runOnce(
-      () -> {
-        if(limit.get()) {
-          System.out.println("LIMIT TOUCHES");
-          falcon.set(TalonFXControlMode.PercentOutput, 0);
-        } else {
-          falcon.set(TalonFXControlMode.PercentOutput, 0.5);
-        }
-      }
-    );
-  }
-
-  public Command runMotor() {
-    return runOnce(
-      () -> {
-        
-          falcon.set(TalonFXControlMode.PercentOutput, 0.5);
-      }
-    );
-  }
-
-  public Command disableMotor() {
-    return runOnce(
-      () -> {
-          falcon.set(TalonFXControlMode.PercentOutput, 0);
-      }
-    );
-  }
-
-  public Command reject() {
-    return runOnce(
-      () -> {
-          falcon.set(TalonFXControlMode.PercentOutput, -0.5);
       }
     );
   }

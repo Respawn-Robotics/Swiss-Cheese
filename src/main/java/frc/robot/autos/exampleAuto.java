@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
 public class exampleAuto extends SequentialCommandGroup {
     public exampleAuto(Swerve s_Swerve, LimelightSubsystem limelightSubsystem){
-        PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("LimelightTest", new PathConstraints(4, 3.0));
+        PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("2MTest", new PathConstraints(1, 1.0));
         PIDController theta = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
         theta.enableContinuousInput(-Math.PI, Math.PI);
 
