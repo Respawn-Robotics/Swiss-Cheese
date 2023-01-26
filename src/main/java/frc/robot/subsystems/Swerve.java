@@ -1,9 +1,6 @@
 package frc.robot.subsystems;
 
 import frc.robot.SwerveModule;
-import frc.robot.commands.FeedForwardCharacterization;
-import frc.robot.commands.FeedForwardCharacterization.FeedForwardCharacterizationData;
-import frc.lib.math.Conversions;
 import frc.robot.Constants;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -11,11 +8,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.DoubleStream;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -23,7 +15,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Swerve extends SubsystemBase {
@@ -42,7 +33,6 @@ public class Swerve extends SubsystemBase {
             new SwerveModule(2, Constants.Swerve.Mod2.constants),
             new SwerveModule(3, Constants.Swerve.Mod3.constants)
         };
-
         swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getModulePositions());
     }
 
@@ -74,70 +64,7 @@ public class Swerve extends SubsystemBase {
         for(SwerveModule mod : mSwerveMods){
             mod.setDesiredState(desiredStates[mod.moduleNumber], false);
         }
-    }    
-
-    public void setDriveCharacterizationVoltage(double voltage) {
-        // Set the module to face forwards
-        angleMotor.set(ControlMode.Position, Conversions.degreesToFalcon(0, Constants.SwerveConstants.angleGearRatio));
-
-        lastAngle = 0;
-
-        // Set the drive motor to the specified voltage
-        driveMotor.set(ControlMode.PercentOutput, voltage / Constants.GlobalConstants.targetVoltage);
-    }
-
-    public void setAngleCharacterizationVoltage(double voltage) {
-        // Set the module to face forwards
-        angleMotor.set(ControlMode.PercentOutput, voltage / Constants.GlobalConstants.targetVoltage);
-
-        lastAngle = 0;
-
-        // Set the drive motor to just enough to overcome static friction
-        driveMotor.set(ControlMode.PercentOutput, 1.1 * Constants.SwerveConstants.driveKS);
-    }
-
-    public Command characterizeCommand(boolean forwards, boolean isDriveMotors) {
-        Consumer<Double> voltageConsumer = isDriveMotors
-                ? (Double voltage) -> {
-                    for (SwerveModule module : mSwerveMods) {
-                        module.setDriveCharacterizationVoltage(voltage);
-                    }
-                }
-                : (Double voltage) -> {
-                    for (SwerveModule module : mSwerveMods) {
-                        module.setAngleCharacterizationVoltage(voltage);
-                    }
-                };
-
-        Supplier<Double> velocitySupplier = isDriveMotors
-                ? () -> {
-                    return DoubleStream.of(
-                                    mSwerveMods[0].getState().speedMetersPerSecond,
-                                    mSwerveMods[1].getState().speedMetersPerSecond,
-                                    mSwerveMods[2].getState().speedMetersPerSecond,
-                                    mSwerveMods[3].getState().speedMetersPerSecond)
-                            .average()
-                            .getAsDouble();
-                }
-                : () -> {
-                    return DoubleStream.of(
-                                    mSwerveMods[0].getAngularVelocity(),
-                                    mSwerveMods[1].getAngularVelocity(),
-                                    mSwerveMods[2].getAngularVelocity(),
-                                    mSwerveMods[3].getAngularVelocity())
-                            .average()
-                            .getAsDouble();
-                };
-
-        return new FeedForwardCharacterization(
-                        this,
-                        forwards,
-                        new FeedForwardCharacterizationData("Swerve Drive"),
-                        voltageConsumer,
-                        velocitySupplier)
-                .beforeStarting(() -> isCharacterizing = true)
-                .finallyDo((boolean interrupted) -> isCharacterizing = false);
-    }
+    } 
 
     public Pose2d getPose() {
         return swerveOdometry.getPoseMeters();
