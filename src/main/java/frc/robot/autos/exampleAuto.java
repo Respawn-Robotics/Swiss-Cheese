@@ -20,8 +20,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class exampleAuto extends SequentialCommandGroup {
     public exampleAuto(Swerve s_Swerve, LimelightSubsystem limelightSubsystem){
-        AutonStop stop = new AutonStop(s_Swerve);
-        PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("BackAndForth", new PathConstraints(4, 3));
+        PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("NoHolo", new PathConstraints(4, 3));
         PIDController theta = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
         theta.enableContinuousInput(-Math.PI, Math.PI);
 
@@ -40,7 +39,7 @@ public class exampleAuto extends SequentialCommandGroup {
 
         addCommands(
             new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialHolonomicPose())),
-            new FollowPathWithEvents(path, exampleTrajectory.getMarkers(), eventMap).andThen(stop)
+            new FollowPathWithEvents(path, exampleTrajectory.getMarkers(), eventMap)
         );
     }
 
