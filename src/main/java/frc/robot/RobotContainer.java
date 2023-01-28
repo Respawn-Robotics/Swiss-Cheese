@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.ctre.phoenix.sensors.Pigeon2;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -33,6 +35,7 @@ public class RobotContainer {
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton followTarget = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton togglePipeline = new JoystickButton(driver, XboxController.Button.kX.value);
+    private final JoystickButton centerRobot = new JoystickButton(driver, XboxController.Button.kY.value);
 
     private final JoystickButton motorOn = new JoystickButton(operator, XboxController.Button.kA.value);
     private final JoystickButton motorOff = new JoystickButton(operator, XboxController.Button.kB.value);
@@ -44,6 +47,7 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     LimelightSubsystem LimelightSubsystem = new LimelightSubsystem();
+    
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -73,11 +77,13 @@ public class RobotContainer {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         togglePipeline.onTrue(LimelightSubsystem.togglePipeline());
         followTarget.whileTrue(new FollowTape(s_Swerve));
+        //centerRobot.whileTrue(new FixOrientation(s_Swerve));
         
 
         motorOn.onTrue(collection.runMotor());
         motorOff.onTrue(collection.disableMotor());
         reject.onTrue(collection.reject());
+        
     }
 
     /**
