@@ -19,7 +19,7 @@ public final class Constants {
         public static final boolean invertGyro = false;
 
         public static final COTSFalconSwerveConstants chosenModule =
-            COTSFalconSwerveConstants.SDSMK4(COTSFalconSwerveConstants.driveGearRatios.SDSMK4_L1);
+            COTSFalconSwerveConstants.SDSMK4(COTSFalconSwerveConstants.driveGearRatios.SDSMK4_L2);
 
         /* Drivetrain Constants */
         public static final double trackWidth = Units.inchesToMeters(19);
@@ -74,13 +74,13 @@ public final class Constants {
 
         /* Drive Motor Characterization Values 
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
-        public static final double driveKS = (0.11293 / 12); 
-        public static final double driveKV = (2.2682 / 12);
-        public static final double driveKA = (0.14395 / 12);
+        public static final double driveKS = (0.67209 / 12); 
+        public static final double driveKV = (2.3014 / 12);
+        public static final double driveKA = (2.17139 / 12);
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 1; 
+        public static final double maxSpeed = 5; 
         /** Radians per Second */
         public static final double maxAngularVelocity = maxSpeed/Math.hypot(wheelBase / 2.0, trackWidth / 2.0);
 
@@ -131,14 +131,14 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = 1;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 2;
+        public static final double kMaxSpeedMetersPerSecond = 4;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     
-        public static final double kPXController = 0;
-        public static final double kPYController = 0;
-        public static final double kPThetaController = 1;
+        public static final double kPXController = .125; //85;//10
+        public static final double kPYController = .125;  //.1 .25 1 is too far left, 0 is too far right, .5 is middle fo robot
+        public static final double kPThetaController = 5;
     
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =

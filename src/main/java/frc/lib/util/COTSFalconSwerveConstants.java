@@ -53,7 +53,7 @@ public class COTSFalconSwerveConstants {
         double wheelDiameter = Units.inchesToMeters(4.0);
  
         /** 12.8 : 1 */
-        double angleGearRatio = (12.8 / 1.0);
+        double angleGearRatio = 1 / ((15.0 / 32.0) * (10.0 / 60.0));
  
         double angleKP = 0.2;
         double angleKI = 0.0;
@@ -96,7 +96,7 @@ public class COTSFalconSwerveConstants {
         /** SDS MK4 - 8.14 : 1 */
         public static final double SDSMK4_L1 = (8.14 / 1.0);
         /** SDS MK4 - 6.75 : 1 */
-        public static final double SDSMK4_L2 = (6.75 / 1.0);
+        public static final double SDSMK4_L2 = 1 / ((14.0 / 50.0) * (27.0 / 17.0) * (15.0 / 45.0));;
         /** SDS MK4 - 6.12 : 1 */
         public static final double SDSMK4_L3 = (6.12 / 1.0);
         /** SDS MK4 - 5.14 : 1 */

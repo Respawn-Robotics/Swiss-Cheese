@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.sensors.CANCoder;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class SwerveModule {
     public int moduleNumber;
@@ -22,6 +23,7 @@ public class SwerveModule {
     private TalonFX mAngleMotor;
     private TalonFX mDriveMotor;
     private CANCoder angleEncoder;
+    private boolean brakeMode;
 
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Swerve.driveKS, Constants.Swerve.driveKV, Constants.Swerve.driveKA);
 
@@ -116,4 +118,32 @@ public class SwerveModule {
             getAngle()
         );
     }
+
+    // private void updateBrakeMode() {
+    //     if (DriverStation.isEnabled() && !brakeMode) {
+    //       brakeMode = true;
+    //       setBrakeMode(true);
+    
+    //     } else {
+    //       boolean stillMoving = false;
+    //       for (SwerveModule mod : mSwerveMods) {
+    //         if (Math.abs(mod.getState().speedMetersPerSecond)
+    //             > RobotConfig.getInstance().getRobotMaxCoastVelocity()) {
+    //           stillMoving = true;
+    //         }
+    //       }
+    
+    //       if (brakeMode && !stillMoving) {
+    //         brakeMode = false;
+    //         setBrakeMode(false);
+    //       }
+    //     }
+    //   }
+
+    //   private void setBrakeMode(boolean enable) {
+    //     for (SwerveModule mod : mSwerveMods) {
+    //       mod.mAngleMotor.setNeutralMode(null);
+    //       mod.mDriveMotor.setNeutralMode(null);
+    //     }
+    //   }
 }
