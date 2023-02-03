@@ -96,7 +96,7 @@ public class COTSFalconSwerveConstants {
         /** SDS MK4 - 8.14 : 1 */
         public static final double SDSMK4_L1 = (8.14 / 1.0);
         /** SDS MK4 - 6.75 : 1 */
-        public static final double SDSMK4_L2 = 1 / ((14.0 / 50.0) * (27.0 / 17.0) * (15.0 / 45.0));;
+        public static final double SDSMK4_L2 = 1 / ((14.0 / 50.0) * (27.0 / 17.0) * (15.0 / 45.0));
         /** SDS MK4 - 6.12 : 1 */
         public static final double SDSMK4_L3 = (6.12 / 1.0);
         /** SDS MK4 - 5.14 : 1 */
@@ -111,5 +111,3 @@ public class COTSFalconSwerveConstants {
         public static final double SDSMK4i_L3 = (6.12 / 1.0);
     }
 }
-
-  

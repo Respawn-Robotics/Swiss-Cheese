@@ -1,7 +1,5 @@
 package frc.robot;
 
-import com.ctre.phoenix.sensors.Pigeon2;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -60,8 +58,6 @@ public class RobotContainer {
                 () -> robotCentric.getAsBoolean()
             )
         );   
-        
-        LimelightSubsystem.setDefaultCommand(new PrintV(LimelightSubsystem));
         // Configure the button bindings
         configureButtonBindings();
     }

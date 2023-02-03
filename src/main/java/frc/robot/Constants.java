@@ -1,7 +1,6 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -17,13 +16,14 @@ public final class Constants {
     public static final class Swerve {
         public static final int pigeonID = 1;
         public static final boolean invertGyro = false;
+        public static final int maxVoltage = 12;
 
         public static final COTSFalconSwerveConstants chosenModule =
             COTSFalconSwerveConstants.SDSMK4(COTSFalconSwerveConstants.driveGearRatios.SDSMK4_L2);
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(19);
-        public static final double wheelBase = Units.inchesToMeters(19);
+        public static final double trackWidth = Units.inchesToMeters(19.5);
+        public static final double wheelBase = Units.inchesToMeters(19.5);
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
         /* Swerve Kinematics */
@@ -80,7 +80,7 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 5; 
+        public static final double maxSpeed = 6380.0 / 60.0 * ((14.0/50.0) *(27.0 / 17.0) * ( 15.0/45.0)) * Units.inchesToMeters(4.0) * Math.PI;
         /** Radians per Second */
         public static final double maxAngularVelocity = maxSpeed/Math.hypot(wheelBase / 2.0, trackWidth / 2.0);
 
@@ -131,10 +131,10 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = 4;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
-        public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
-        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+        public static final double kMaxSpeedMetersPerSecond = Swerve.maxSpeed * .75;
+        public static final double kMaxAccelerationMetersPerSecondSquared = Swerve.maxAngularVelocity * .75;
+        public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI * 2; //Math.pi
+        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.pow(kMaxAngularSpeedRadiansPerSecond, 2); //Math.pi
     
         public static final double kPXController = .125; //85;//10
         public static final double kPYController = .125;  //.1 .25 1 is too far left, 0 is too far right, .5 is middle fo robot
@@ -145,12 +145,4 @@ public final class Constants {
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
-
-    // //Limelight
-    // public static final double kImageCaptureLatency = 11.0 / 1000.0; // seconds
-    // public static final double kHorizontalFOV = 59.6; // degrees
-    // public static final double kVerticalFOV = 49.7; // degrees
-    // public static final double kMinStability = 0.5;
-    // public static final double kVPW = 2.0 * Math.tan(Math.toRadians(kHorizontalFOV / 2.0));
-    // public static final double kVPH = 2.0 * Math.tan(Math.toRadians(kVerticalFOV / 2.0));
 }
