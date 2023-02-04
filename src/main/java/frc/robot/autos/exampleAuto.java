@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class exampleAuto extends SequentialCommandGroup {
     public exampleAuto(Swerve s_Swerve, LimelightSubsystem limelightSubsystem){
-        PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("BackAndForth", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
+        PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("GameAuto", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
         PIDController theta = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
         theta.enableContinuousInput(-Math.PI, Math.PI);
 
@@ -30,8 +30,8 @@ public class exampleAuto extends SequentialCommandGroup {
         PPSwerveControllerCommand path = new PPSwerveControllerCommand(exampleTrajectory,
         s_Swerve::getPose,
         Constants.Swerve.swerveKinematics,
-        new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-        new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+        new PIDController(Constants.AutoConstants.kPXController, 0, Constants.AutoConstants.kDXController),
+        new PIDController(Constants.AutoConstants.kPYController, 0, Constants.AutoConstants.kDYController),
         theta,
         s_Swerve::setModuleStates, 
         false,

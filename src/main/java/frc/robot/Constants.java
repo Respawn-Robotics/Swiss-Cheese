@@ -76,7 +76,7 @@ public final class Constants {
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
         public static final double driveKS = (0.67209 / 12); 
         public static final double driveKV = (2.3014 / 12);
-        public static final double driveKA = (2.17139 / 12); //TODO Characterize swere again to find actual values
+        public static final double driveKA = (0.14395 / 12); //TODO Characterize swere again to find actual values
 
         /* Swerve Profiling Values */
         /** Meters per Second */
@@ -131,14 +131,16 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = Swerve.maxSpeed * .75;
-        public static final double kMaxAccelerationMetersPerSecondSquared = Swerve.maxAngularVelocity * .75;
+        public static final double kMaxSpeedMetersPerSecond = /*Swerve.maxSpeed * .75*/3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = /*kMaxSpeedMetersPerSecond * 1.5 */ 2;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI * 2; //Math.pi
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.pow(kMaxAngularSpeedRadiansPerSecond, 2); //Math.pi
     
-        public static final double kPXController = .125; //85;//10
-        public static final double kPYController = .125;  //.1 .25 1 is too far left, 0 is too far right, .5 is middle fo robot
-        public static final double kPThetaController = 5; //TODO gotta tune in advantage scope 
+        public static final double kPXController = 10; //Different max speeds require different PIDs.
+        public static final double kDXController = 0.05;
+        public static final double kPYController = kPXController;
+        public static final double kDYController = kDXController;
+        public static final double kPThetaController = 1;
     
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
