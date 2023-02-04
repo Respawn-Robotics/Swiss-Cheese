@@ -76,7 +76,7 @@ public final class Constants {
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
         public static final double driveKS = (0.67209 / 12); 
         public static final double driveKV = (2.3014 / 12);
-        public static final double driveKA = (2.17139 / 12);
+        public static final double driveKA = (2.17139 / 12); //TODO Characterize swere again to find actual values
 
         /* Swerve Profiling Values */
         /** Meters per Second */
@@ -138,7 +138,7 @@ public final class Constants {
     
         public static final double kPXController = .125; //85;//10
         public static final double kPYController = .125;  //.1 .25 1 is too far left, 0 is too far right, .5 is middle fo robot
-        public static final double kPThetaController = 5;
+        public static final double kPThetaController = 5; //TODO gotta tune in advantage scope 
     
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
