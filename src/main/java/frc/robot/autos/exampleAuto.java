@@ -19,8 +19,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class exampleAuto extends SequentialCommandGroup {
     public exampleAuto(Swerve s_Swerve, LimelightSubsystem limelightSubsystem){
-        PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("GameAuto", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
-        PIDController theta = new PIDController(Constants.AutoConstants.kPThetaController, 0, 0);
+        PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("BackAndForth", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
+        PIDController theta = new PIDController(Constants.AutoConstants.kPThetaController, 0, Constants.AutoConstants.kDThetaController);
         theta.enableContinuousInput(-Math.PI, Math.PI);
 
         HashMap<String, Command> eventMap = new HashMap<>();

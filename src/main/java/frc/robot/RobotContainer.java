@@ -1,11 +1,18 @@
 package frc.robot;
 
+import java.io.IOException;
+
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -45,6 +52,9 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     LimelightSubsystem LimelightSubsystem = new LimelightSubsystem();
+
+    /* Trajectories */
+    Trajectory Swervy, Test, straight, tpoint, GameAuto;
     
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -52,12 +62,33 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
-                () -> -driver.getRawAxis(translationAxis), 
-                () -> -driver.getRawAxis(strafeAxis), 
-                () -> -driver.getRawAxis(rotationAxis), 
+                () -> -driver.getRawAxis(translationAxis) * .75, 
+                () -> -driver.getRawAxis(strafeAxis) * .75, 
+                () -> -driver.getRawAxis(rotationAxis) * .75, 
                 () -> robotCentric.getAsBoolean()
             )
         );   
+
+        try {
+            Test = TrajectoryUtil.fromPathweaverJson(
+                Filesystem.getDeployDirectory().toPath().resolve(
+                    "pathplanner/generatedJSON/TEST.wpilib.json"));
+            Swervy = TrajectoryUtil.fromPathweaverJson(
+                    Filesystem.getDeployDirectory().toPath().resolve(
+                    "pathplanner/generatedJSON/curvy swervy.wpilib.json"));
+            straight = TrajectoryUtil.fromPathweaverJson(
+                    Filesystem.getDeployDirectory().toPath().resolve(
+                    "pathplanner/generatedJSON/straight.wpilib.json"));
+            tpoint = TrajectoryUtil.fromPathweaverJson(
+                    Filesystem.getDeployDirectory().toPath().resolve(
+                    "pathplanner/generatedJSON/testPaths1.wpilib.json"));
+            GameAuto = TrajectoryUtil.fromPathweaverJson(Filesystem.getDeployDirectory().toPath().resolve(
+                    "pathplanner/generatedJSON/GameAuto.wpilib.json"));
+
+         } catch (IOException ex) {
+            DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
+         }
+
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -90,5 +121,6 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         return new exampleAuto(s_Swerve, LimelightSubsystem);
+        //return new PPauto(s_Swerve, GameAuto);
     }
 }

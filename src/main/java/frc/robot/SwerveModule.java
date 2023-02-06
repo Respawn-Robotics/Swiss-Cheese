@@ -22,6 +22,7 @@ public class SwerveModule {
     private TalonFX mAngleMotor;
     private TalonFX mDriveMotor;
     private CANCoder angleEncoder;
+
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Swerve.driveKS, Constants.Swerve.driveKV, Constants.Swerve.driveKA);
 
     public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants){
@@ -29,15 +30,15 @@ public class SwerveModule {
         this.angleOffset = moduleConstants.angleOffset;
         
         /* Angle Encoder Config */
-        angleEncoder = new CANCoder(moduleConstants.cancoderID);
+        angleEncoder = new CANCoder(moduleConstants.cancoderID, "rio");
         configAngleEncoder();
 
         /* Angle Motor Config */
-        mAngleMotor = new TalonFX(moduleConstants.angleMotorID);
+        mAngleMotor = new TalonFX(moduleConstants.angleMotorID, "rio");
         configAngleMotor();
 
         /* Drive Motor Config */
-        mDriveMotor = new TalonFX(moduleConstants.driveMotorID);
+        mDriveMotor = new TalonFX(moduleConstants.driveMotorID, "rio");
         configDriveMotor();
 
         lastAngle = getState().angle;
@@ -76,7 +77,7 @@ public class SwerveModule {
         return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition());
     }
 
-    private void resetToAbsolute(){
+    public void resetToAbsolute(){
         double absolutePosition = Conversions.degreesToFalcon(getCanCoder().getDegrees() - angleOffset.getDegrees(), Constants.Swerve.angleGearRatio);
         mAngleMotor.setSelectedSensorPosition(absolutePosition);
     }
@@ -115,32 +116,4 @@ public class SwerveModule {
             getAngle()
         );
     }
-
-    // private void updateBrakeMode() {
-    //     if (DriverStation.isEnabled() && !brakeMode) {
-    //       brakeMode = true;
-    //       setBrakeMode(true);
-    
-    //     } else {
-    //       boolean stillMoving = false;
-    //       for (SwerveModule mod : mSwerveMods) {
-    //         if (Math.abs(mod.getState().speedMetersPerSecond)
-    //             > RobotConfig.getInstance().getRobotMaxCoastVelocity()) {
-    //           stillMoving = true;
-    //         }
-    //       }
-    
-    //       if (brakeMode && !stillMoving) {
-    //         brakeMode = false;
-    //         setBrakeMode(false);
-    //       }
-    //     }
-    //   }
-
-    //   private void setBrakeMode(boolean enable) {
-    //     for (SwerveModule mod : mSwerveMods) {
-    //       mod.mAngleMotor.setNeutralMode(null);
-    //       mod.mDriveMotor.setNeutralMode(null);
-    //     }
-    //   }
 }

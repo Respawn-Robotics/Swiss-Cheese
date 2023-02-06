@@ -11,7 +11,7 @@ import frc.lib.util.COTSFalconSwerveConstants;
 import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
-    public static final double stickDeadband = 0.1;
+    public static final double stickDeadband = 0.15;
 
     public static final class Swerve {
         public static final int pigeonID = 1;
@@ -19,11 +19,11 @@ public final class Constants {
         public static final int maxVoltage = 12;
 
         public static final COTSFalconSwerveConstants chosenModule =
-            COTSFalconSwerveConstants.SDSMK4(COTSFalconSwerveConstants.driveGearRatios.SDSMK4_L2);
+            COTSFalconSwerveConstants.SDSMK4(COTSFalconSwerveConstants.driveGearRatios.SDSMK4_L3);
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(19.5);
-        public static final double wheelBase = Units.inchesToMeters(19.5);
+        public static final double trackWidth = Units.inchesToMeters(19.3125);
+        public static final double wheelBase = Units.inchesToMeters(19.3125);
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
         /* Swerve Kinematics */
@@ -76,7 +76,7 @@ public final class Constants {
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
         public static final double driveKS = (0.67209 / 12); 
         public static final double driveKV = (2.3014 / 12);
-        public static final double driveKA = (0.14395 / 12); //TODO Characterize swere again to find actual values
+        public static final double driveKA = (0.14395 / 12);
 
         /* Swerve Profiling Values */
         /** Meters per Second */
@@ -131,16 +131,17 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = /*Swerve.maxSpeed * .75*/3;
-        public static final double kMaxAccelerationMetersPerSecondSquared = /*kMaxSpeedMetersPerSecond * 1.5 */ 2;
-        public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI * 2; //Math.pi
-        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.pow(kMaxAngularSpeedRadiansPerSecond, 2); //Math.pi
+        public static final double kMaxSpeedMetersPerSecond = /*Swerve.maxSpeed * .75*/4;
+        public static final double kMaxAccelerationMetersPerSecondSquared = /*kMaxSpeedMetersPerSecond * 1.5 */ 3;
+        public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.pow(kMaxAngularSpeedRadiansPerSecond, 2);
     
-        public static final double kPXController = 10; //Different max speeds require different PIDs.
-        public static final double kDXController = 0.05;
+        public static final double kPXController = 5; //Different max speeds require different PIDs.
+        public static final double kDXController = .15;
         public static final double kPYController = kPXController;
         public static final double kDYController = kDXController;
-        public static final double kPThetaController = 1;
+        public static final double kPThetaController = .5;
+        public static final double kDThetaController = 0.0;
     
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
