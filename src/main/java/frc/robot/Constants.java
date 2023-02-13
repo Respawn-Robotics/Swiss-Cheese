@@ -130,6 +130,20 @@ public final class Constants {
         }
     }
 
+    public static final class CollectionConstants {
+        public static final int collectionBeamBreak = 0;
+        public static final int collectionMotor = 0;
+    }
+
+    public static final class ArmConstants {
+        public static final int armMotorMaster = 2;
+        public static final int armMotorSlave = 0;
+    }
+
+    public static final class WristConstants {
+        public static final int wristMotor = 0;
+    }
+
     public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = /*Swerve.maxSpeed * .75*/4;
         public static final double kMaxAccelerationMetersPerSecondSquared = /*kMaxSpeedMetersPerSecond * 1.5 */ 3;
