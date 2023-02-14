@@ -21,7 +21,7 @@ public class WristSubsystem extends SubsystemBase {
 
     public WristSubsystem(Joystick joystick) {
         this.joystick = joystick;
-
+        
         wristMotor.setSelectedSensorPosition(0);
         wristMotor.configPeakOutputForward(0.2);
         wristMotor.configPeakOutputReverse(0.2);
@@ -33,7 +33,7 @@ public class WristSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Joystick", -joystick.getY() * 10229);
+        SmartDashboard.putNumber("Joystick", -joystick.getY() * 100000);
         SmartDashboard.putNumber("Wrist Falcon Position", wristMotor.getSelectedSensorPosition());
     }
 
@@ -56,7 +56,7 @@ public class WristSubsystem extends SubsystemBase {
     public Command setPosition() {
         return runOnce(
             () -> {
-                double position = -joystick.getY() * 10229;
+                double position = -joystick.getY() * 100000;
                 if (position < 0) {
                     position = 0;
                 }

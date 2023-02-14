@@ -16,7 +16,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command runMotor() {
       return runOnce(
         () -> {  
-          collectionMotor.set(VictorSPXControlMode.PercentOutput, 0.5);
+          collectionMotor.set(VictorSPXControlMode.PercentOutput, .5);
         }
       );
     }
@@ -32,7 +32,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command eject() {
       return runOnce(
         () -> {
-          collectionMotor.set(VictorSPXControlMode.PercentOutput, -0.5);
+          collectionMotor.set(VictorSPXControlMode.PercentOutput, -.5);
         }
       );
     }

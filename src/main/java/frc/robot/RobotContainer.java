@@ -46,6 +46,7 @@ public class RobotContainer {
     private final JoystickButton togglePipeline       = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton centerRobot          = new JoystickButton(driver, XboxController.Button.kY.value);
 
+    /* Operator Buttons */
     private final JoystickButton collectionRunMotor   = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
     private final JoystickButton collectionStopMotor  = new JoystickButton(operator, XboxController.Button.kStart.value);
     private final JoystickButton collectionEjectMotor = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
@@ -112,17 +113,15 @@ public class RobotContainer {
         togglePipeline.onTrue(LimelightSubsystem.togglePipeline());
         followTarget.whileTrue(new FollowTape(s_Swerve));
 
-        collectionRunMotor.onTrue(collectionSubsystem.runMotor());   
-        collectionStopMotor.onTrue(collectionSubsystem.disableMotor());
-        collectionEjectMotor.onTrue(collectionSubsystem.eject());
+        //wristSetPosition.onTrue(collectionSubsystem.runMotor());   
+        //wristGoHome.onTrue(collectionSubsystem.disableMotor());
+        //armSetPosition.onTrue(collectionSubsystem.eject());
 
-        //armResetSensor.onTrue(armSubsystem.resetSensor());
         armGoHome.onTrue(armSubsystem.goToHome());
         armSetPosition.onTrue(armSubsystem.setPosition());
 
-        //wristResetSensor.onTrue(wristSubsystem.resetSensor());
-        wristGoHome.onTrue(wristSubsystem.goToHome());
-        wristSetPosition.onTrue(wristSubsystem.setPosition());
+        //wristGoHome.onTrue(wristSubsystem.goToHome());
+        //wristSetPosition.onTrue(wristSubsystem.setPosition());
 
         
     }
