@@ -1,5 +1,8 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.FollowerType;
+import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -20,20 +23,17 @@ public class ArmSubsystem extends SubsystemBase {
         this.joystick = joystick;
 
         armMotorMaster.setSelectedSensorPosition(0);
+        armMotorSlave.configFactoryDefault();
+
         armMotorMaster.configPeakOutputForward(0.2);
         armMotorMaster.configPeakOutputReverse(0.2);
         armMotorMaster.config_kP(0, 0.125); // kP .19 | kD .001 = 9829
         armMotorMaster.config_kD(0, 0.1);
         armMotorMaster.configAllowableClosedloopError(0, 100);
-        armMotorMaster.setInverted(TalonFXInvertType.CounterClockwise);
+        armMotorMaster.setInverted(TalonFXInvertType.Clockwise);
 
-        armMotorSlave.setSelectedSensorPosition(0);
-        armMotorSlave.configPeakOutputForward(0.2);
-        armMotorSlave.configPeakOutputReverse(0.2);
-        armMotorSlave.config_kP(0, 0.125); // kP .19 | kD .001 = 9829
-        armMotorSlave.config_kD(0, 0.1);
-        armMotorSlave.configAllowableClosedloopError(0, 100);
-        armMotorSlave.setInverted(TalonFXInvertType.CounterClockwise);
+        //armMotorSlave.configRemoteFeedbackFilter(9, RemoteSensorSource.TalonFX_SelectedSensor, 0);
+        //armMotorSlave.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0);
     }
 
     @Override
@@ -62,7 +62,6 @@ public class ArmSubsystem extends SubsystemBase {
         return runOnce(
             () -> {
                 armMotorMaster.set(TalonFXControlMode.PercentOutput, -.1);
-                armMotorSlave.set(TalonFXControlMode.PercentOutput, -.1);
             }
         );
     }
@@ -71,7 +70,6 @@ public class ArmSubsystem extends SubsystemBase {
         return runOnce(
             () -> {
                 armMotorMaster.set(TalonFXControlMode.PercentOutput, .1);
-                armMotorSlave.set(TalonFXControlMode.PercentOutput, .1);
             }
         );
     }
@@ -103,14 +101,14 @@ public class ArmSubsystem extends SubsystemBase {
                 }
                 if (position < armMotorMaster.getSelectedSensorPosition()) {
                     armMotorMaster.setInverted(TalonFXInvertType.CounterClockwise);
-                    armMotorSlave.setInverted(TalonFXInvertType.CounterClockwise);
+                    armMotorSlave.setInverted(TalonFXInvertType.OpposeMaster);
                     armMotorMaster.set(TalonFXControlMode.Position, -position);
-                    armMotorSlave.set(TalonFXControlMode.Position, -position);
+                    armMotorSlave.follow(armMotorMaster);
                   } else {
                     armMotorMaster.setInverted(TalonFXInvertType.Clockwise);
-                    armMotorSlave.setInverted(TalonFXInvertType.Clockwise);
+                    armMotorSlave.setInverted(TalonFXInvertType.OpposeMaster);
                     armMotorMaster.set(TalonFXControlMode.Position, position);
-                    armMotorSlave.set(TalonFXControlMode.Position, position);
+                    armMotorSlave.follow(armMotorMaster);
                   }
             }
         );

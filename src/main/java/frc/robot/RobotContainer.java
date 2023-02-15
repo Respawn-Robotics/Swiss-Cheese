@@ -113,10 +113,10 @@ public class RobotContainer {
         togglePipeline.onTrue(LimelightSubsystem.togglePipeline());
         followTarget.whileTrue(new FollowTape(s_Swerve));
 
-        //wristSetPosition.onTrue(collectionSubsystem.runMotor());   
-        //wristGoHome.onTrue(collectionSubsystem.disableMotor());
-        //armSetPosition.onTrue(collectionSubsystem.eject());
-
+        wristSetPosition.onTrue(armSubsystem.slowlyGoDown());   
+        wristGoHome.onTrue(armSubsystem.slowyGoUp());
+        collectionEjectMotor.onTrue(armSubsystem.stop());
+        
         armGoHome.onTrue(armSubsystem.goToHome());
         armSetPosition.onTrue(armSubsystem.setPosition());
 
