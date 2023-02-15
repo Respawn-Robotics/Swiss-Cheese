@@ -131,7 +131,7 @@ public final class Constants {
     }
 
     public static final class CollectionConstants {
-        public static final int collectionBeamBreak = 0;
+        public static final int collectionBeamBreak = 1;
         public static final int collectionMotor = 12;
     }
 

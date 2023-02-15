@@ -15,9 +15,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
+
     private final TalonFX armMotorMaster = new TalonFX(Constants.ArmConstants.armMotorMaster);
     private final TalonFX armMotorSlave = new TalonFX(Constants.ArmConstants.armMotorSlave);
     private final Joystick joystick;
+
+    private int shoulderLimit = 100000;
 
     public ArmSubsystem(Joystick joystick) {
         this.joystick = joystick;
@@ -38,7 +41,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Joystick", -joystick.getY() * 100000);
+        SmartDashboard.putNumber("Joystick", -joystick.getY() * shoulderLimit);
         SmartDashboard.putNumber("Arm Master Falcon Position", armMotorMaster.getSelectedSensorPosition());
         SmartDashboard.putNumber("Arm Slave Falcon Position", armMotorSlave.getSelectedSensorPosition());
         SmartDashboard.putNumber("Arm Slave Falcon Voltage", armMotorSlave.getMotorOutputVoltage());
@@ -95,7 +98,7 @@ public class ArmSubsystem extends SubsystemBase {
     public Command setPosition() {
         return runOnce(
             () -> {
-                double position = -joystick.getY() * 100000;
+                double position = -joystick.getY() * shoulderLimit;
                 if (position < 0) {
                     position = 0;
                 }

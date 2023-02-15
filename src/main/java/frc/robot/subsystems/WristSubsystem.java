@@ -19,6 +19,8 @@ public class WristSubsystem extends SubsystemBase {
     private final TalonFX wristMotor = new TalonFX(Constants.WristConstants.wristMotor);
     private final Joystick joystick;
 
+    private int wristLimit = 100000;
+
     public WristSubsystem(Joystick joystick) {
         this.joystick = joystick;
         
@@ -33,7 +35,7 @@ public class WristSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Joystick", -joystick.getY() * 100000);
+        SmartDashboard.putNumber("Joystick", -joystick.getY() * wristLimit);
         SmartDashboard.putNumber("Wrist Falcon Position", wristMotor.getSelectedSensorPosition());
     }
 
@@ -56,7 +58,7 @@ public class WristSubsystem extends SubsystemBase {
     public Command setPosition() {
         return runOnce(
             () -> {
-                double position = -joystick.getY() * 100000;
+                double position = -joystick.getY() * wristLimit;
                 if (position < 0) {
                     position = 0;
                 }
