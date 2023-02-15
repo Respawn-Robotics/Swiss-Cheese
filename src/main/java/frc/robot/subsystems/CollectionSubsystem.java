@@ -63,5 +63,13 @@ public class CollectionSubsystem extends SubsystemBase {
         }
       );
     }
+
+    public Command ejectCone() {
+      return runOnce(
+        () -> {
+          collectionMotor.set(VictorSPXControlMode.PercentOutput, -.1);
+        }
+      );
+    }
     
 }
