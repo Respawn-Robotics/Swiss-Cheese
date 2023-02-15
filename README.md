@@ -71,7 +71,7 @@ This code is natively setup to use a xbox controller to control the swerve drive
 **Things to Do**
 ----
 Checklist of things to do </br>
-* X Stance for limited movement
+* X Stance for limited movement // done
 * Gyro based adjustment for robot heading </br>
 * Change motors to coast while disabled
 * Add in functions for AdvantageScope

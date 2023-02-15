@@ -12,17 +12,17 @@ public class FixOrientation extends CommandBase {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
     }
+
     @Override
     public void initialize(){
-        //yaw = s_Swerve.gyro.getYaw();
-        //yawError = (yaw%360)%180;
+
     }
 
     
     @Override
     public void execute() {
-        yaw = s_Swerve.gyro.getAbsoluteCompassHeading();
-        System.out.println(yaw);
+        //s_Swerve.setDesire(null);
+
         //System.out.println(yawError);
 
         // Double heading_error = ;

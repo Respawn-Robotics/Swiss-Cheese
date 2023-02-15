@@ -44,7 +44,7 @@ public class RobotContainer {
     private final JoystickButton robotCentric         = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton followTarget         = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton togglePipeline       = new JoystickButton(driver, XboxController.Button.kX.value);
-    private final JoystickButton centerRobot          = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton lockRobot          = new JoystickButton(driver, XboxController.Button.kB.value);
 
     /* Operator Buttons */
     private final JoystickButton collectionRunMotor   = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
@@ -60,6 +60,10 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     LimelightSubsystem LimelightSubsystem = new LimelightSubsystem();
+
+
+    /* Commands */
+    //BootUpBehavior startMode = new BootUpBehavior(s_Swerve);
 
     /* Trajectories */
     Trajectory Swervy, Test, straight, tpoint, GameAuto;
@@ -112,6 +116,12 @@ public class RobotContainer {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         togglePipeline.onTrue(LimelightSubsystem.togglePipeline());
         followTarget.whileTrue(new FollowTape(s_Swerve));
+        //lockRobot.onTrue(s_Swerve.setLocked(true));
+        // if(lockRobot.getAsBoolean()){
+        //     s_Swerve.setLocked(true);
+        // }else{
+        //     s_Swerve.setLocked(false);
+        // }
 
         // wristSetPosition.onTrue(armSubsystem.slowlyGoDown());   
         // wristGoHome.onTrue(armSubsystem.slowyGoUp());
@@ -135,5 +145,14 @@ public class RobotContainer {
         // An ExampleCommand will run in autonomous
         return new exampleAuto(s_Swerve, LimelightSubsystem);
         //return new PPauto(s_Swerve, GameAuto);
+    }
+
+    /**
+     * Use this to pass the disabled command to the main k Robot} class.
+     * 
+     *  @return the command to run in autonomous
+     */
+    public Command getDisableCommand(){
+        return null;
     }
 }
