@@ -1,8 +1,5 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.FollowerType;
-import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -20,7 +17,7 @@ public class ArmSubsystem extends SubsystemBase {
     private final TalonFX armMotorSlave = new TalonFX(Constants.ArmConstants.armMotorSlave);
     private final Joystick joystick;
 
-    private int shoulderLimit = 100000;
+    private int shoulderLimit = 50000;
 
     public ArmSubsystem(Joystick joystick) {
         this.joystick = joystick;
@@ -28,8 +25,9 @@ public class ArmSubsystem extends SubsystemBase {
         armMotorMaster.setSelectedSensorPosition(0);
         armMotorSlave.configFactoryDefault();
 
-        armMotorMaster.configPeakOutputForward(0.2);
-        armMotorMaster.configPeakOutputReverse(0.2);
+        armMotorMaster.configPeakOutputForward(1);
+        armMotorMaster.configPeakOutputReverse(1);
+        armMotorMaster.configClosedLoopPeakOutput(0, 0.50);
         armMotorMaster.config_kP(0, 0.125); // kP .19 | kD .001 = 9829
         armMotorMaster.config_kD(0, 0.1);
         armMotorMaster.configAllowableClosedloopError(0, 100);
@@ -73,6 +71,7 @@ public class ArmSubsystem extends SubsystemBase {
         return runOnce(
             () -> {
                 armMotorMaster.set(TalonFXControlMode.PercentOutput, .1);
+                armMotorSlave.follow(armMotorMaster);
             }
         );
     }
