@@ -4,14 +4,14 @@ import frc.robot.subsystems.Swerve;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.Vision;
 
 public class FollowTape extends CommandBase {    
     private Swerve s_Swerve;    
     double KpAim = .075; //controls overshoot of aim
     double min_command = 0.275; //controls minimum voltage of aim
     double KpDistance = -0.1;
-    LimelightSubsystem LimelightSubsystem = new LimelightSubsystem();
+    Vision LimelightSubsystem = new Vision();
     double tx;
     double ty;
 

@@ -1,7 +1,7 @@
 package frc.robot.autos;
 
 import frc.robot.Constants;
-import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Swerve;
 
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class exampleAuto extends SequentialCommandGroup {
-    public exampleAuto(Swerve s_Swerve, LimelightSubsystem limelightSubsystem){
+    public exampleAuto(Swerve s_Swerve, Vision limelightSubsystem){
         PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("BackAndForth", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
         PIDController theta = new PIDController(Constants.AutoConstants.kPThetaController, 0, Constants.AutoConstants.kDThetaController);
         theta.enableContinuousInput(-Math.PI, Math.PI);

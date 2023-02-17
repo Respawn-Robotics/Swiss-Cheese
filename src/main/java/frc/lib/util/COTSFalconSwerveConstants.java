@@ -1,6 +1,7 @@
 package frc.lib.util;
 
 import edu.wpi.first.math.util.Units;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 /* Contains values and required settings for common COTS swerve modules. */
 public class COTSFalconSwerveConstants {

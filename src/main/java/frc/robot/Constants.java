@@ -2,6 +2,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -17,7 +18,7 @@ public final class Constants {
         public static final int pigeonID = 0;
         public static final boolean invertGyro = false;
         public static final int maxVoltage = 12;
-
+        
         public static final COTSFalconSwerveConstants chosenModule =
             COTSFalconSwerveConstants.SDSMK4(COTSFalconSwerveConstants.driveGearRatios.SDSMK4_L3);
 
@@ -85,8 +86,8 @@ public final class Constants {
         public static final double maxAngularVelocity = maxSpeed/Math.hypot(wheelBase / 2.0, trackWidth / 2.0);
 
         /* Neutral Modes */
-        public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
-        public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
+        public static NeutralMode angleNeutralMode = NeutralMode.Coast;
+        public static NeutralMode driveNeutralMode = NeutralMode.Brake;
 
         /* Module Specific Constants */
         /* Front Left Module - Module 0 */
@@ -143,6 +144,31 @@ public final class Constants {
     public static final class WristConstants {
         public static final int wristMotor = 11;
     }
+
+//     public static final class LimelightConstants
+//   {
+//     public static final double CAMERA_ELEVATION = 30.75; // TEST BOT
+//     public static final double TARGET_ELEVATION = 258; // TEST BOT
+//     public static final double LIMELIGHT_TO_ROBOT_CENTER = 9; // TEST BOT
+//     // UNIT = degrees
+//     public static final double CAMERA_ANGLE = 0; // TEST BOT
+
+
+//     // LED MODES /limelight/ledMode
+//     public static final int LED_MODE_FROM_PIPELINE = 0;
+//     public static final int LED_MODE_FORCE_OFF = 1;
+//     public static final int LED_MODE_FORCE_BLINK = 2;
+//     public static final int LED_MODE_FORCE_ON = 3;
+
+//     // pipeline numbers
+//     public static final int PIPELINE_TELEOP = 0;
+//     public static final int PIPELINE_GET_POS = 1;
+//   }
+
+//   public static final class PoseConstants
+//   {
+//     public static final Pose2d targetPose1 = new Pose2d(14, 1, null);
+//   }
 
     public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = /*Swerve.maxSpeed * .75*/4;

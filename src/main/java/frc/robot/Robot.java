@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -21,8 +24,12 @@ public class Robot extends TimedRobot {
 
   private Command m_disabledCommand;
 
-  private RobotContainer m_robotContainer;
+  TalonFX FL = new TalonFX(1);
+  TalonFX FR = new TalonFX(3);
+  TalonFX BL = new TalonFX(5);
+  TalonFX BR = new TalonFX(7);
 
+  private RobotContainer m_robotContainer;
   public Robot() {
     
   }
@@ -59,7 +66,10 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    m_disabledCommand = m_robotContainer.getDisableCommand();
+    FL.setNeutralMode(NeutralMode.Coast);
+    FR.setNeutralMode(NeutralMode.Coast);
+    BL.setNeutralMode(NeutralMode.Coast);
+    BR.setNeutralMode(NeutralMode.Coast);
   }
 
   @Override

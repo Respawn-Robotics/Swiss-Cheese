@@ -98,23 +98,6 @@ public class Swerve extends SubsystemBase {
         return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
     }
 
-    public void zero() {
-		SwerveModuleState state = new SwerveModuleState(0.0, Rotation2d.fromDegrees(0.0));
-
-		// mSwerveMods[0].setModuleStates(state, false);(
-		// 		state.speedMetersPerSecond / Constants.Swerve.maxSpeed * Constants.Swerve.maxVoltage,
-		// 		state.angle.getRadians());
-        // mSwerveMods[1].set(
-		// 		state.speedMetersPerSecond / Constants.Swerve.maxSpeed * Constants.Swerve.maxVoltage,
-		// 		state.angle.getRadians());
-        // mSwerveMods[2].set(
-		// 		state.speedMetersPerSecond / Constants.Swerve.maxSpeed * Constants.Swerve.maxVoltage,
-		// 		state.angle.getRadians());
-        // mSwerveMods[3].set(
-		// 		state.speedMetersPerSecond / Constants.Swerve.maxSpeed * Constants.Swerve.maxVoltage,
-		// 		state.angle.getRadians());
-	}
-
     @Override
     public void periodic(){
         swerveOdometry.update(getYaw(), getModulePositions());  

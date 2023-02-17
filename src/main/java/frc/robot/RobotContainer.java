@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.autos.*;
 import frc.robot.commands.*;
+import frc.robot.disabled.Disable;
 import frc.robot.subsystems.*;
 
 /**
@@ -33,6 +34,8 @@ public class RobotContainer {
     private final CollectionSubsystem collectionSubsystem = new CollectionSubsystem();
     private final ArmSubsystem armSubsystem               = new ArmSubsystem(operator);
     private final WristSubsystem wristSubsystem           = new WristSubsystem(operator);
+    private final Swerve s_Swerve = new Swerve();
+    private final Vision vision = new Vision();
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -44,11 +47,11 @@ public class RobotContainer {
     private final JoystickButton robotCentric         = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton followTarget         = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton togglePipeline       = new JoystickButton(driver, XboxController.Button.kX.value);
-    private final JoystickButton lockRobot          = new JoystickButton(driver, XboxController.Button.kB.value);
+    //private final JoystickButton centerRobot          = new JoystickButton(driver, XboxController.Button.kY.value);
 
     /* Operator Buttons */
     private final JoystickButton collectionRunMotor   = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
-    private final JoystickButton collectionStopMotor  = new JoystickButton(operator, XboxController.Button.kY.value);
+    private final JoystickButton collectionStopMotor  = new JoystickButton(operator, XboxController.Button.kLeftStick.value);
     private final JoystickButton collectionEjectMotor = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
     // private final JoystickButton armResetSensor       = new JoystickButton(operator, XboxController.Button.kA.value);
     // private final JoystickButton wristResetSensor     = new JoystickButton(operator, XboxController.Button.kB.value);
@@ -57,18 +60,9 @@ public class RobotContainer {
     private final JoystickButton wristGoHome          = new JoystickButton(operator, XboxController.Button.kX.value);
     private final JoystickButton wristSetPosition     = new JoystickButton(operator, XboxController.Button.kY.value);
 
-    /* Subsystems */
-    private final Swerve s_Swerve = new Swerve();
-    LimelightSubsystem LimelightSubsystem = new LimelightSubsystem();
-
-
-    /* Commands */
-    //BootUpBehavior startMode = new BootUpBehavior(s_Swerve);
-
     /* Trajectories */
     Trajectory Swervy, Test, straight, tpoint, GameAuto;
     
-
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         s_Swerve.setDefaultCommand(
@@ -114,7 +108,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        togglePipeline.onTrue(LimelightSubsystem.togglePipeline());
+        togglePipeline.onTrue(vision.togglePipeline());
         followTarget.whileTrue(new FollowTape(s_Swerve));
         //lockRobot.onTrue(s_Swerve.setLocked(true));
         // if(lockRobot.getAsBoolean()){
@@ -123,17 +117,15 @@ public class RobotContainer {
         //     s_Swerve.setLocked(false);
         // }
 
-        // wristSetPosition.onTrue(armSubsystem.slowlyGoDown());   
-        // wristGoHome.onTrue(armSubsystem.slowyGoUp());
-        // collectionEjectMotor.onTrue(armSubsystem.stop());
+        wristSetPosition.onTrue(wristSubsystem.setPosition());   
+        wristGoHome.onTrue(wristSubsystem.goToHome());
 
-        collectionRunMotor.whileTrue(collectionSubsystem.collectCube());
-        collectionStopMotor.onTrue(collectionSubsystem.stopMotor());
-        collectionEjectMotor.whileTrue(collectionSubsystem.collectCone());
-        //wristGoHome.onTrue(wristSubsystem.goToHome());
-        //wristSetPosition.onTrue(wristSubsystem.setPosition());
-
+        armSetPosition.onTrue(armSubsystem.setPosition());
+        armGoHome.onTrue(armSubsystem.goToHome());
         
+        collectionStopMotor.onTrue(collectionSubsystem.stopMotor());
+        collectionRunMotor.onTrue(collectionSubsystem.collectCube());
+        collectionEjectMotor.onTrue(collectionSubsystem.collectCone());
     }
 
     /**
@@ -143,7 +135,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new exampleAuto(s_Swerve, LimelightSubsystem);
+        return new exampleAuto(s_Swerve, vision);
         //return new PPauto(s_Swerve, GameAuto);
     }
 
@@ -153,6 +145,6 @@ public class RobotContainer {
      *  @return the command to run in autonomous
      */
     public Command getDisableCommand(){
-        return null;
+        return new Disable(s_Swerve);
     }
 }
