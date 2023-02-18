@@ -47,7 +47,7 @@ public class RobotContainer {
     private final JoystickButton robotCentric         = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton followTarget         = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton togglePipeline       = new JoystickButton(driver, XboxController.Button.kX.value);
-    //private final JoystickButton centerRobot          = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton lockRobot            = new JoystickButton(driver, XboxController.Button.kB.value);
 
     /* Operator Buttons */
     private final JoystickButton collectionRunMotor   = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
@@ -110,12 +110,7 @@ public class RobotContainer {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         togglePipeline.onTrue(vision.togglePipeline());
         followTarget.whileTrue(new FollowTape(s_Swerve));
-        //lockRobot.onTrue(s_Swerve.setLocked(true));
-        // if(lockRobot.getAsBoolean()){
-        //     s_Swerve.setLocked(true);
-        // }else{
-        //     s_Swerve.setLocked(false);
-        // }
+        lockRobot.onTrue(new InstantCommand(() -> s_Swerve.setX()));
 
         wristSetPosition.onTrue(wristSubsystem.setPosition());   
         wristGoHome.onTrue(wristSubsystem.goToHome());
