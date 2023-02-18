@@ -106,6 +106,7 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
+
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         togglePipeline.onTrue(vision.togglePipeline());
@@ -113,12 +114,13 @@ public class RobotContainer {
         lockRobot.onTrue(new InstantCommand(() -> s_Swerve.setX()));
 
         wristSetPosition.onTrue(wristSubsystem.setPosition());   
-        wristGoHome.onTrue(wristSubsystem.goToHome());
+        wristGoHome.onTrue(wristSubsystem.slowlyGoDown());
 
         armSetPosition.onTrue(armSubsystem.setPosition());
         armGoHome.onTrue(armSubsystem.goToHome());
         
-        collectionStopMotor.onTrue(collectionSubsystem.stopMotor());
+        
+        collectionStopMotor.onTrue(armSubsystem.stop());
         collectionRunMotor.onTrue(collectionSubsystem.collectCube());
         collectionEjectMotor.onTrue(collectionSubsystem.collectCone());
     }

@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
@@ -21,44 +23,64 @@ public class WristSubsystem extends SubsystemBase {
     private final TalonFX wristMotor = new TalonFX(Constants.WristConstants.wristMotor);
     private final Joystick joystick;
 
-    private int wristLimit = 80000;
-    private int gravityFeedforward = 0;
+    private int wristLimit = 184822;
+
+    private int peakVelocity = 14940;
+    private final double percentOfPeak = .3;
+    private final double kF = (percentOfPeak * 2048) / (peakVelocity * percentOfPeak);
+
+    private final double cruiseVelocityAccel = peakVelocity * percentOfPeak;
+
+    private final double gravityFeedforward = 0.05;
+
+    private int measuredPosHorizontal = 50000; // Position measured shoulder arm is horizontal
+    private int ticksPerDegree = (360 / (128 * 2048));
 
     public WristSubsystem(Joystick joystick) {
         this.joystick = joystick;
         
+        wristMotor.configFactoryDefault();
         wristMotor.setSelectedSensorPosition(0);
-        wristMotor.configPeakOutputForward(1);
-        wristMotor.configPeakOutputReverse(1);
-        wristMotor.configClosedLoopPeakOutput(0, 0.4);
-        wristMotor.config_kP(0, 0.125); // kP .19 | kD .001 = 9829
-        wristMotor.config_kD(0, 0.1);
-        wristMotor.configAllowableClosedloopError(0, 0);
-        wristMotor.setInverted(TalonFXInvertType.Clockwise);
 
+        wristMotor.selectProfileSlot(0, 0);
+		wristMotor.config_kF(0, .1, 0);
+		wristMotor.config_kP(0, 0.0367156687, 0);
+		wristMotor.config_kI(0, 0, 0);
+		wristMotor.config_kD(0, 0, 0);
+
+        wristMotor.configMotionAcceleration(cruiseVelocityAccel, 0); // 30% of max is 5515
+        wristMotor.configMotionCruiseVelocity(cruiseVelocityAccel, 0);
+
+        wristMotor.setNeutralMode(NeutralMode.Brake);
+        wristMotor.setInverted(true);
     }
 
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Joystick", -joystick.getY() * wristLimit);
         SmartDashboard.putNumber("Wrist Falcon Position", wristMotor.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Wrist kF", kF);
+        SmartDashboard.putNumber("Wrist Vel + Accel", cruiseVelocityAccel);
 
-        int kMeasuredPosHorizontal = 0; 
-        double kTicksPerDegree = Conversions.falconToDegrees(wristMotor.getSelectedSensorPosition(), 148);
-        double currentPos = wristMotor.getSelectedSensorPosition();
-        double degrees = (currentPos - kMeasuredPosHorizontal) / kTicksPerDegree;
+        double currPos = wristMotor.getSelectedSensorPosition();
+        double degrees = (currPos - measuredPosHorizontal) / ticksPerDegree;
         double radians = java.lang.Math.toRadians(degrees);
-        double cosineScalar = java.lang.Math.cos(radians);
 
         // wristMotor.set(ControlMode.PercentOutput, gravityFeedforward * cosineScalar);
-        wristMotor.setNeutralMode(NeutralMode.Brake);
-
     }
 
-    public Command goToHome() {
+    public Command slowlyGoDown() {
         return runOnce(
             () -> {
-                wristMotor.set(TalonFXControlMode.Position, 0);
+                wristMotor.set(TalonFXControlMode.PercentOutput, -.1);
+            }
+        );
+    }
+
+    public Command slowyGoUp() {
+        return runOnce(
+            () -> {
+                wristMotor.set(TalonFXControlMode.PercentOutput, .1);
             }
         );
     }
@@ -86,13 +108,15 @@ public class WristSubsystem extends SubsystemBase {
                 if (position < 0) {
                     position = 0;
                 }
-                if (position < wristMotor.getSelectedSensorPosition()) {
-                    wristMotor.setInverted(TalonFXInvertType.CounterClockwise);
-                    wristMotor.set(TalonFXControlMode.Position, -position);
-                  } else {
-                    wristMotor.setInverted(TalonFXInvertType.Clockwise);
-                    wristMotor.set(TalonFXControlMode.Position, position);
-                  }
+                // if (position < wristMotor.getSelectedSensorPosition()) {
+                //     wristMotor.setInverted(TalonFXInvertType.CounterClockwise);
+                //     wristMotor.set(TalonFXControlMode.Position, -position);
+                //   } else {
+                //     wristMotor.setInverted(TalonFXInvertType.Clockwise);
+                //     wristMotor.set(TalonFXControlMode.Position, position);
+                //   }
+
+                wristMotor.set(ControlMode.MotionMagic, position);
             }
         );
     }   
