@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.autos.*;
@@ -53,7 +54,7 @@ public class RobotContainer {
     private final JoystickButton collectionRunMotor   = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
     private final JoystickButton collectionStopMotor  = new JoystickButton(operator, XboxController.Button.kLeftStick.value);
     private final JoystickButton collectionEjectMotor = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
-    // private final JoystickButton armResetSensor       = new JoystickButton(operator, XboxController.Button.kA.value);
+    private final JoystickButton armResetSensor       = new JoystickButton(operator, XboxController.Button.kRightStick.value);
     // private final JoystickButton wristResetSensor     = new JoystickButton(operator, XboxController.Button.kB.value);
     private final JoystickButton armGoHome            = new JoystickButton(operator, XboxController.Button.kA.value);
     private final JoystickButton armSetPosition       = new JoystickButton(operator, XboxController.Button.kB.value);
@@ -113,14 +114,14 @@ public class RobotContainer {
         followTarget.whileTrue(new FollowTape(s_Swerve));
         lockRobot.onTrue(new InstantCommand(() -> s_Swerve.setX()));
 
-        wristSetPosition.onTrue(wristSubsystem.setPosition());   
+        wristSetPosition.onTrue(armSubsystem.setPosition(13000).andThen(wristSubsystem.setPosition(73000).andThen(new WaitCommand(.5).andThen(armSubsystem.setPosition(14000)))));   
         wristGoHome.onTrue(wristSubsystem.slowlyGoDown());
 
-        armSetPosition.onTrue(armSubsystem.setPosition());
+        armSetPosition.onTrue(armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0)));
         armGoHome.onTrue(armSubsystem.goToHome());
         
         
-        collectionStopMotor.onTrue(armSubsystem.stop());
+        collectionStopMotor.onTrue(collectionSubsystem.stopMotor());
         collectionRunMotor.onTrue(collectionSubsystem.collectCube());
         collectionEjectMotor.onTrue(collectionSubsystem.collectCone());
     }

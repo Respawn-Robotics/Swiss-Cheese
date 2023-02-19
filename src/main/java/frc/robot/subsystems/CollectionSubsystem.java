@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 
 public class CollectionSubsystem extends SubsystemBase {
@@ -36,11 +37,12 @@ public class CollectionSubsystem extends SubsystemBase {
       cubeLimitTouched = !cubeLimit.get();
       coneLimitTouched = !coneLimit.get();
 
-      if(collectionMotor.getStatorCurrent() < -40) {
+      if(collectionMotor.getStatorCurrent() < -60) {
         collectionMotor.set(ControlMode.PercentOutput, 0);
       }
 
       if((coneLimitTouched || cubeLimitTouched) && !(operator.getRawButtonPressed(10))) {
+        new WaitCommand(1).andThen(stopMotor());
         collectionMotor.set(ControlMode.PercentOutput, 0);
       }
     }
@@ -48,11 +50,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command collectCube() {
       return runOnce(
         () -> {
-          if(!cubeLimitTouched) {
             collectionMotor.set(TalonSRXControlMode.PercentOutput, .50);
-          } else {
-            this.stopMotor();
-          }
         }
       );
     }

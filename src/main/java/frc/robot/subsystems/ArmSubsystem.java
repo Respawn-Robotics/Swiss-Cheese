@@ -144,13 +144,22 @@ public class ArmSubsystem extends SubsystemBase {
         );
     }
 
-    public Command setPosition() {
+    public Command pickUpOnGround() {
         return runOnce(
             () -> {
-                double position = -joystick.getY() * shoulderLimit;
-                if (position < 0) {
-                    position = 0;
-                }
+                armMotorMaster.setSelectedSensorPosition(0);
+                armMotorSlave.setSelectedSensorPosition(0);
+            }
+        );
+    }
+
+    public Command setPosition(double position) {
+        return runOnce(
+            () -> {
+                // double position = -joystick.getY() * shoulderLimit;
+                // if (position < 0) {
+                //     position = 0.0;
+                // }
                 // if (position < armMotorMaster.getSelectedSensorPosition()) {
                 //     armMotorMaster.setInverted(TalonFXInvertType.CounterClockwise);
                 //     armMotorSlave.setInverted(TalonFXInvertType.OpposeMaster);

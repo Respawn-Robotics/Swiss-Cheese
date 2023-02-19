@@ -101,20 +101,13 @@ public class WristSubsystem extends SubsystemBase {
         );
     }
 
-    public Command setPosition() {
+    public Command setPosition(double position) {
         return runOnce(
             () -> {
-                double position = -joystick.getY() * wristLimit;
-                if (position < 0) {
-                    position = 0;
-                }
-                // if (position < wristMotor.getSelectedSensorPosition()) {
-                //     wristMotor.setInverted(TalonFXInvertType.CounterClockwise);
-                //     wristMotor.set(TalonFXControlMode.Position, -position);
-                //   } else {
-                //     wristMotor.setInverted(TalonFXInvertType.Clockwise);
-                //     wristMotor.set(TalonFXControlMode.Position, position);
-                //   }
+                // double position = -joystick.getY() * wristLimit;
+                // if (position < 0) {
+                //     position = 0;
+                // }
 
                 wristMotor.set(ControlMode.MotionMagic, position);
             }
