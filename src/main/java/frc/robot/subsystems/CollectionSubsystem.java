@@ -41,8 +41,7 @@ public class CollectionSubsystem extends SubsystemBase {
         collectionMotor.set(ControlMode.PercentOutput, 0);
       }
 
-      if((coneLimitTouched || cubeLimitTouched) && !(operator.getRawButtonPressed(10))) {
-        new WaitCommand(1).andThen(stopMotor());
+      if((coneLimitTouched) && !(operator.getRawButtonPressed(10))) {
         collectionMotor.set(ControlMode.PercentOutput, 0);
       }
     }
@@ -82,7 +81,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command ejectCone() {
       return runOnce(
         () -> {
-          collectionMotor.set(TalonSRXControlMode.PercentOutput, .1);
+          collectionMotor.set(TalonSRXControlMode.PercentOutput, .3);
         }
       );
     }

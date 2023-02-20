@@ -113,4 +113,17 @@ public class WristSubsystem extends SubsystemBase {
             }
         );
     }   
+
+    public Command setPositionJoy() {
+        return runOnce(
+            () -> {
+                double position = -joystick.getY() * wristLimit;
+                if (position < 0) {
+                    position = 0;
+                }
+
+                wristMotor.set(ControlMode.MotionMagic, position);
+            }
+        );
+    }  
 }

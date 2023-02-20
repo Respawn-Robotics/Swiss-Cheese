@@ -20,7 +20,7 @@ public class PickUpOffGround extends CommandBase {
 
     @Override
     public void execute() {
-        armSubsystem.setPosition(11000);
-        wristSubsystem.setPosition(73300);
+        // armSubsystem.setPosition(11000);
+        // wristSubsystem.setPosition(73300);
     }
 }

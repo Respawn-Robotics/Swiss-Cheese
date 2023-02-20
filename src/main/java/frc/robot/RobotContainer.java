@@ -60,6 +60,8 @@ public class RobotContainer {
     private final JoystickButton armSetPosition       = new JoystickButton(operator, XboxController.Button.kB.value);
     private final JoystickButton wristGoHome          = new JoystickButton(operator, XboxController.Button.kX.value);
     private final JoystickButton wristSetPosition     = new JoystickButton(operator, XboxController.Button.kY.value);
+    private final JoystickButton wristSetPositionJoy     = new JoystickButton(operator, XboxController.Button.kRightStick.value);
+
 
     /* Trajectories */
     Trajectory Swervy, Test, straight, tpoint, GameAuto;
@@ -114,13 +116,12 @@ public class RobotContainer {
         followTarget.whileTrue(new FollowTape(s_Swerve));
         lockRobot.onTrue(new InstantCommand(() -> s_Swerve.setX()));
 
-        wristSetPosition.onTrue(armSubsystem.setPosition(13000).andThen(wristSubsystem.setPosition(73000).andThen(new WaitCommand(.5).andThen(armSubsystem.setPosition(14000)))));   
-        wristGoHome.onTrue(wristSubsystem.slowlyGoDown());
-
+        wristGoHome.onTrue(armSubsystem.setPosition(12000).andThen(wristSubsystem.setPosition(80000).andThen(new WaitCommand(.5).andThen(armSubsystem.setPosition(14000)))));
+        wristSetPosition.onTrue(wristSubsystem.setPositionJoy());
         armSetPosition.onTrue(armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0)));
-        armGoHome.onTrue(armSubsystem.goToHome());
+        armGoHome.onTrue(armSubsystem.setPosition(55000).andThen(wristSubsystem.setPosition(110000))); // high = 100000
         
-        
+
         collectionStopMotor.onTrue(collectionSubsystem.stopMotor());
         collectionRunMotor.onTrue(collectionSubsystem.collectCube());
         collectionEjectMotor.onTrue(collectionSubsystem.collectCone());

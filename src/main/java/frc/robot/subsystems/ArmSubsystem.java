@@ -179,6 +179,22 @@ public class ArmSubsystem extends SubsystemBase {
             }
         );
     }
+
+    public Command setPositionJoy() {
+        return runOnce(
+            () -> {
+                double position = -joystick.getY() * shoulderLimit;
+                if (position < 0) {
+                    position = 0.0;
+                }
+
+                manageMotion(position);
+                armMotorMaster.set(ControlMode.MotionMagic, position);
+                armMotorSlave.follow(armMotorMaster);
+                armMotorSlave.setInverted(InvertType.OpposeMaster);
+            }
+        );
+    }
     
     public void manageMotion(double targetPosition) {
         double currentPosition = armMotorMaster.getSelectedSensorPosition();
