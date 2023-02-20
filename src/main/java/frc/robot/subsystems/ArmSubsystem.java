@@ -23,12 +23,12 @@ public class ArmSubsystem extends SubsystemBase {
     private final Joystick joystick;
 
     private int peakVelocityUp = 13360;
-    private final double percentOfPeakUp = .3;
+    private final double percentOfPeakUp = .65;
     private final double upkF = (percentOfPeakUp * 2048) / (peakVelocityUp * percentOfPeakUp);
     private final double cruiseVelocityAccelUp = peakVelocityUp * percentOfPeakUp;
 
     private int peakVelocityDown = 8090;
-    private final double percentOfPeakDown = .3;
+    private final double percentOfPeakDown = .65;
     private final double downkF = (percentOfPeakDown * 2048) / (peakVelocityDown * percentOfPeakDown);
     private final double cruiseVelocityAccelDown = peakVelocityDown * percentOfPeakDown;
 
@@ -46,6 +46,8 @@ public class ArmSubsystem extends SubsystemBase {
 		armMotorMaster.config_kP(1, 0.1265760198, 0);
 		armMotorMaster.config_kI(1, 0, 0);
 		armMotorMaster.config_kD(1, 0, 0);
+
+        armMotorMaster.configMotionSCurveStrength(2);
 
         armMotorMaster.setInverted(TalonFXInvertType.Clockwise);
         armMotorMaster.setNeutralMode(NeutralMode.Brake);

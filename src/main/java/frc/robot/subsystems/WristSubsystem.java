@@ -25,11 +25,15 @@ public class WristSubsystem extends SubsystemBase {
 
     private int wristLimit = 184822;
 
-    private int peakVelocity = 14940;
-    private final double percentOfPeak = .3;
-    private final double kF = (percentOfPeak * 2048) / (peakVelocity * percentOfPeak);
+    private int peakVelocityUp = 14940;
+    private final double percentOfPeakUp = .95;
+    private final double upkF = (percentOfPeakUp * 2048) / (peakVelocityUp * percentOfPeakUp);
+    private final double cruiseVelocityAccelUp = peakVelocityUp * percentOfPeakUp;
 
-    private final double cruiseVelocityAccel = peakVelocity * percentOfPeak;
+    private int peakVelocityDown = 14940;
+    private final double percentOfPeakDown = .65;
+    private final double downkF = (percentOfPeakDown * 2048) / (peakVelocityDown * percentOfPeakDown);
+    private final double cruiseVelocityAccelDown = peakVelocityDown * percentOfPeakDown;
 
     private final double gravityFeedforward = 0.05;
 
@@ -42,15 +46,17 @@ public class WristSubsystem extends SubsystemBase {
         wristMotor.configFactoryDefault();
         wristMotor.setSelectedSensorPosition(0);
 
-        wristMotor.selectProfileSlot(0, 0);
 		wristMotor.config_kF(0, .1, 0);
 		wristMotor.config_kP(0, 0.0367156687, 0);
 		wristMotor.config_kI(0, 0, 0);
 		wristMotor.config_kD(0, 0, 0);
 
-        wristMotor.configMotionAcceleration(cruiseVelocityAccel, 0); // 30% of max is 5515
-        wristMotor.configMotionCruiseVelocity(cruiseVelocityAccel, 0);
+        wristMotor.config_kF(1, .1, 0);
+		wristMotor.config_kP(1, 0.0367156687, 0);
+		wristMotor.config_kI(1, 0, 0);
+		wristMotor.config_kD(1, 0, 0);
 
+        wristMotor.configMotionSCurveStrength(2);
         wristMotor.setNeutralMode(NeutralMode.Brake);
         wristMotor.setInverted(true);
     }
@@ -59,8 +65,6 @@ public class WristSubsystem extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Joystick", -joystick.getY() * wristLimit);
         SmartDashboard.putNumber("Wrist Falcon Position", wristMotor.getSelectedSensorPosition());
-        SmartDashboard.putNumber("Wrist kF", kF);
-        SmartDashboard.putNumber("Wrist Vel + Accel", cruiseVelocityAccel);
     }
 
     public Command resetSensor() {
@@ -82,11 +86,7 @@ public class WristSubsystem extends SubsystemBase {
     public Command setPosition(float position) {
         return runOnce(
             () -> {
-                // double position = -joystick.getY() * wristLimit;
-                // if (position < 0) {
-                //     position = 0;
-                // }
-
+                manageMotion(position);
                 wristMotor.set(ControlMode.MotionMagic, position);
             }
         );
@@ -98,5 +98,30 @@ public class WristSubsystem extends SubsystemBase {
                 wristMotor.set(ControlMode.PercentOutput, voltage);
             }
         );
-    }  
+    }
+
+    public void manageMotion(double targetPosition) {
+        double currentPosition = wristMotor.getSelectedSensorPosition();
+    
+        // going up
+        if(currentPosition < targetPosition) {
+    
+          // set accel and velocity for going up
+          wristMotor.configMotionAcceleration(cruiseVelocityAccelUp, 0);
+          wristMotor.configMotionCruiseVelocity(cruiseVelocityAccelUp, 0);
+    
+          // select the up gains
+          wristMotor.selectProfileSlot(0, 0);
+    
+        } else {
+          
+          // set accel and velocity for going down
+          wristMotor.configMotionAcceleration(cruiseVelocityAccelDown, 0);
+          wristMotor.configMotionCruiseVelocity(cruiseVelocityAccelDown, 0);
+    
+          // select the down gains
+          wristMotor.selectProfileSlot(1, 0);
+        }
+    
+      }
 }
