@@ -34,6 +34,8 @@ public class CollectionSubsystem extends SubsystemBase {
       SmartDashboard.putBoolean("CUBE BEAM BREAK", cubeLimit.get());
 
       SmartDashboard.putNumber("Collection Motor Current", collectionMotor.getStatorCurrent());
+      SmartDashboard.putNumber("Collection Motor Voltage", collectionMotor.getMotorOutputVoltage());
+
       cubeLimitTouched = !cubeLimit.get();
       coneLimitTouched = !coneLimit.get();
 
@@ -42,7 +44,11 @@ public class CollectionSubsystem extends SubsystemBase {
       }
 
       if((coneLimitTouched) && !(operator.getRawButtonPressed(10))) {
-        collectionMotor.set(ControlMode.PercentOutput, 0);
+        new WaitCommand(.1).andThen(stopMotor()).schedule();
+      }
+
+      if((cubeLimitTouched) && !(operator.getRawButtonPressed(10))) {
+        new WaitCommand(.5).andThen(stopMotor()).schedule();
       }
     }
 

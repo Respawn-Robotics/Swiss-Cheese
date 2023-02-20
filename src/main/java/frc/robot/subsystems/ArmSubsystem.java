@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.lib.math.Conversions;
 import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
@@ -22,10 +21,6 @@ public class ArmSubsystem extends SubsystemBase {
     private final TalonFX armMotorMaster = new TalonFX(Constants.ArmConstants.armMotorMaster);
     private final TalonFX armMotorSlave = new TalonFX(Constants.ArmConstants.armMotorSlave);
     private final Joystick joystick;
-
-    private int measuredPosHorizontal = 50000; //Position measured shoulder arm is horizontal
-    private int ticksPerDegree = (360 / (128 * 2048));
-    private int shoulderLimit = 50000;
 
     private int peakVelocityUp = 13360;
     private final double percentOfPeakUp = .3;
@@ -40,16 +35,6 @@ public class ArmSubsystem extends SubsystemBase {
     public ArmSubsystem(Joystick joystick) {
         this.joystick = joystick;
         armMotorMaster.configFactoryDefault();
-
-        // armMotorMaster.setSelectedSensorPosition(0);
-        // armMotorSlave.configFactoryDefault();
-        // armMotorMaster.configPeakOutputForward(1);
-        // armMotorMaster.configPeakOutputReverse(1);
-        // armMotorMaster.configClosedLoopPeakOutput(0, 0.50);
-        // armMotorMaster.config_kP(0, 0.125); // kP .19 | kD .001 = 9829
-        // armMotorMaster.config_kD(0, 0.1);
-        // armMotorMaster.configAllowableClosedloopError(0, 100);
-
         armMotorMaster.setSelectedSensorPosition(0);
 
 		armMotorMaster.config_kF(0, 0.1, 0);
@@ -81,16 +66,6 @@ public class ArmSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Arm up cruise velo + accel", cruiseVelocityAccelUp);
         SmartDashboard.putNumber("Arm Down kF", downkF);
         SmartDashboard.putNumber("Arm Down cruise velo + accel", cruiseVelocityAccelDown);
-
-        double currPos = armMotorMaster.getSelectedSensorPosition();
-        double degrees = (currPos - measuredPosHorizontal) / ticksPerDegree;
-        double radians = java.lang.Math.toRadians(degrees);
-        double cosineScalar = java.lang.Math.cos(radians);
-
-        double maxGravityFF = 0.07;
-
-        // armMotorMaster.set(ControlMode.PercentOutput, maxGravityFF);
-        SmartDashboard.putNumber("Shoulder Degrees", degrees);
     }
 
     public void motorPositionControl(int position) {
@@ -156,40 +131,18 @@ public class ArmSubsystem extends SubsystemBase {
     public Command setPosition(double position) {
         return runOnce(
             () -> {
-                // double position = -joystick.getY() * shoulderLimit;
-                // if (position < 0) {
-                //     position = 0.0;
-                // }
-                // if (position < armMotorMaster.getSelectedSensorPosition()) {
-                //     armMotorMaster.setInverted(TalonFXInvertType.CounterClockwise);
-                //     armMotorSlave.setInverted(TalonFXInvertType.OpposeMaster);
-                //     armMotorMaster.set(TalonFXControlMode.Position, -position);
-                //     armMotorSlave.follow(armMotorMaster);
-                //   } else {
-                //     armMotorMaster.setInverted(TalonFXInvertType.Clockwise);
-                //     armMotorSlave.setInverted(TalonFXInvertType.OpposeMaster);
-                //     armMotorMaster.set(TalonFXControlMode.Position, position);
-                //     armMotorSlave.follow(armMotorMaster);
-                //   }
-
-                manageMotion(position);
-                armMotorMaster.set(ControlMode.MotionMagic, position);
-                armMotorSlave.follow(armMotorMaster);
-                armMotorSlave.setInverted(InvertType.OpposeMaster);
+                    manageMotion(position);
+                    armMotorMaster.set(ControlMode.MotionMagic, position);
+                    armMotorSlave.follow(armMotorMaster);
+                    armMotorSlave.setInverted(InvertType.OpposeMaster);
             }
         );
     }
 
-    public Command setPositionJoy() {
+    public Command setVoltage(float voltage) {
         return runOnce(
             () -> {
-                double position = -joystick.getY() * shoulderLimit;
-                if (position < 0) {
-                    position = 0.0;
-                }
-
-                manageMotion(position);
-                armMotorMaster.set(ControlMode.MotionMagic, position);
+                armMotorMaster.set(ControlMode.PercentOutput, voltage);
                 armMotorSlave.follow(armMotorMaster);
                 armMotorSlave.setInverted(InvertType.OpposeMaster);
             }

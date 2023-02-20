@@ -61,28 +61,6 @@ public class WristSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Wrist Falcon Position", wristMotor.getSelectedSensorPosition());
         SmartDashboard.putNumber("Wrist kF", kF);
         SmartDashboard.putNumber("Wrist Vel + Accel", cruiseVelocityAccel);
-
-        double currPos = wristMotor.getSelectedSensorPosition();
-        double degrees = (currPos - measuredPosHorizontal) / ticksPerDegree;
-        double radians = java.lang.Math.toRadians(degrees);
-
-        // wristMotor.set(ControlMode.PercentOutput, gravityFeedforward * cosineScalar);
-    }
-
-    public Command slowlyGoDown() {
-        return runOnce(
-            () -> {
-                wristMotor.set(TalonFXControlMode.PercentOutput, -.1);
-            }
-        );
-    }
-
-    public Command slowyGoUp() {
-        return runOnce(
-            () -> {
-                wristMotor.set(TalonFXControlMode.PercentOutput, .1);
-            }
-        );
     }
 
     public Command resetSensor() {
@@ -101,7 +79,7 @@ public class WristSubsystem extends SubsystemBase {
         );
     }
 
-    public Command setPosition(double position) {
+    public Command setPosition(float position) {
         return runOnce(
             () -> {
                 // double position = -joystick.getY() * wristLimit;
@@ -114,15 +92,10 @@ public class WristSubsystem extends SubsystemBase {
         );
     }   
 
-    public Command setPositionJoy() {
+    public Command setVoltage(float voltage) {
         return runOnce(
             () -> {
-                double position = -joystick.getY() * wristLimit;
-                if (position < 0) {
-                    position = 0;
-                }
-
-                wristMotor.set(ControlMode.MotionMagic, position);
+                wristMotor.set(ControlMode.PercentOutput, voltage);
             }
         );
     }  

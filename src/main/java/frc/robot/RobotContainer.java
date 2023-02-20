@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.disabled.Disable;
@@ -44,24 +44,32 @@ public class RobotContainer {
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     /* Driver Buttons */
-    private final JoystickButton zeroGyro             = new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton robotCentric         = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton followTarget         = new JoystickButton(driver, XboxController.Button.kA.value);
-    private final JoystickButton togglePipeline       = new JoystickButton(driver, XboxController.Button.kX.value);
-    private final JoystickButton lockRobot            = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final JoystickButton zeroGyro                = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton robotCentric            = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton followTarget            = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton togglePipeline          = new JoystickButton(driver, XboxController.Button.kX.value);
+    private final JoystickButton lockRobot               = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final POVButton rightGyro                       = new POVButton(driver, 90);
+    private final POVButton downGyro                      = new POVButton(driver, 180);
+    private final POVButton leftGyro                     = new POVButton(driver, 270);
+
 
     /* Operator Buttons */
-    private final JoystickButton collectionRunMotor   = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
-    private final JoystickButton collectionStopMotor  = new JoystickButton(operator, XboxController.Button.kLeftStick.value);
-    private final JoystickButton collectionEjectMotor = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton armResetSensor       = new JoystickButton(operator, XboxController.Button.kRightStick.value);
-    // private final JoystickButton wristResetSensor     = new JoystickButton(operator, XboxController.Button.kB.value);
-    private final JoystickButton armGoHome            = new JoystickButton(operator, XboxController.Button.kA.value);
-    private final JoystickButton armSetPosition       = new JoystickButton(operator, XboxController.Button.kB.value);
-    private final JoystickButton wristGoHome          = new JoystickButton(operator, XboxController.Button.kX.value);
-    private final JoystickButton wristSetPosition     = new JoystickButton(operator, XboxController.Button.kY.value);
-    private final JoystickButton wristSetPositionJoy     = new JoystickButton(operator, XboxController.Button.kRightStick.value);
-
+    private final JoystickButton collectionRunMotor      = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
+    private final JoystickButton collectionStopMotor     = new JoystickButton(operator, XboxController.Button.kRightStick.value);
+    private final JoystickButton collectionEjectMotor    = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton armUp              = new JoystickButton(operator, XboxController.Button.kLeftStick.value);
+    private final JoystickButton armDown              = new JoystickButton(operator, XboxController.Button.kStart.value);
+    private final JoystickButton wristUp              = new JoystickButton(operator, XboxController.Button.kBack.value);
+    private final JoystickButton wristDown              = new JoystickButton(operator, XboxController.Button.kRightStick.value);
+    private final JoystickButton A                       = new JoystickButton(operator, XboxController.Button.kA.value);
+    private final JoystickButton B                       = new JoystickButton(operator, XboxController.Button.kB.value);
+    private final JoystickButton X                       = new JoystickButton(operator, XboxController.Button.kX.value);
+    private final JoystickButton Y                       = new JoystickButton(operator, XboxController.Button.kY.value);
+    private final POVButton povUp                    = new POVButton(operator, 0);
+    private final POVButton povDown                    = new POVButton(operator, 180);
+    private final POVButton povLeft                     = new POVButton(operator, 90);
+    private final POVButton povRight                    = new POVButton(operator, 270);
 
     /* Trajectories */
     Trajectory Swervy, Test, straight, tpoint, GameAuto;
@@ -71,9 +79,9 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
-                () -> -driver.getRawAxis(translationAxis) * .75, 
-                () -> -driver.getRawAxis(strafeAxis) * .75, 
-                () -> -driver.getRawAxis(rotationAxis) * .75, 
+                () -> -driver.getRawAxis(translationAxis) *.75,
+                () -> -driver.getRawAxis(strafeAxis) * .75,
+                () -> -driver.getRawAxis(rotationAxis) * .75,
                 () -> robotCentric.getAsBoolean()
             )
         );
@@ -102,26 +110,44 @@ public class RobotContainer {
         configureButtonBindings();
     }
 
-    /**
-     * Use this method to define your button->command mappings. Buttons can be created by
-     * instantiating a {@link GenericHID} or one of its subclasses ({@link
-     * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-     * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-     */
     private void configureButtonBindings() {
 
         /* Driver Buttons */
+        // Gyro Offsets
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        rightGyro.onTrue(new InstantCommand(() -> s_Swerve.rightGyro()));
+        downGyro.onTrue(new InstantCommand(() -> s_Swerve.downGyro()));
+        leftGyro.onTrue(new InstantCommand(() -> s_Swerve.leftGyro()));
+
+
         togglePipeline.onTrue(vision.togglePipeline());
         followTarget.whileTrue(new FollowTape(s_Swerve));
         lockRobot.onTrue(new InstantCommand(() -> s_Swerve.setX()));
 
-        wristGoHome.onTrue(armSubsystem.setPosition(12000).andThen(wristSubsystem.setPosition(80000).andThen(new WaitCommand(.5).andThen(armSubsystem.setPosition(14000)))));
-        wristSetPosition.onTrue(wristSubsystem.setPositionJoy());
-        armSetPosition.onTrue(armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0)));
-        armGoHome.onTrue(armSubsystem.setPosition(55000).andThen(wristSubsystem.setPosition(110000))); // high = 100000
-        
+        /* Operator Controls */
 
+        // Pick up off ground
+        A.onTrue(armSubsystem.setPosition(12000).andThen(wristSubsystem.setPosition(90000).andThen(new WaitCommand(.5).andThen(armSubsystem.setPosition(14000)))));
+
+        // Home Position
+        B.onTrue(armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0)));
+
+        // Score in mid
+        X.onTrue(armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(152000)));
+
+        // Score in high cone
+        Y.onTrue(armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(130000)));
+        povRight.onTrue(armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(130000)));
+
+        // Acqure from DS
+        povUp.onTrue(armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(140000)));
+
+        wristUp.whileTrue(new ManualWristUp(wristSubsystem));
+        wristDown.whileTrue(new ManualWristDown(wristSubsystem));
+        armDown.whileTrue(new ManualArmUp(armSubsystem));
+        armUp.whileTrue(new ManualArmDown(armSubsystem));
+
+        povDown.onTrue(armSubsystem.resetSensor().andThen(wristSubsystem.resetSensor()));
         collectionStopMotor.onTrue(collectionSubsystem.stopMotor());
         collectionRunMotor.onTrue(collectionSubsystem.collectCube());
         collectionEjectMotor.onTrue(collectionSubsystem.collectCone());
