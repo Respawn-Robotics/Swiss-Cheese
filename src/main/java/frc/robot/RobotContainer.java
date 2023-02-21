@@ -2,6 +2,7 @@ package frc.robot;
 
 import java.io.IOException;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -36,8 +37,8 @@ public class RobotContainer {
     private final CollectionSubsystem collectionSubsystem = new CollectionSubsystem();
     private final ArmSubsystem armSubsystem               = new ArmSubsystem(operator);
     private final WristSubsystem wristSubsystem           = new WristSubsystem(operator);
-    private final Swerve s_Swerve = new Swerve();
-    private final Vision vision = new Vision();
+    private final Swerve s_Swerve                         = new Swerve();
+    private final Vision vision                           = new Vision();
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -47,12 +48,14 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro                = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric            = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton slowDrive               = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     private final JoystickButton followTarget            = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton togglePipeline          = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton lockRobot               = new JoystickButton(driver, XboxController.Button.kB.value);
-    private final POVButton rightGyro                       = new POVButton(driver, 90);
-    private final POVButton downGyro                      = new POVButton(driver, 180);
+    private final POVButton rightGyro                    = new POVButton(driver, 90);
+    private final POVButton downGyro                     = new POVButton(driver, 180);
     private final POVButton leftGyro                     = new POVButton(driver, 270);
+
 
 
     /* Operator Buttons */
@@ -77,7 +80,7 @@ public class RobotContainer {
     private final POVButton povBottomLeft                = new POVButton(operator, 225);
     private final POVButton povLeft                      = new POVButton(operator, 270);
     private final POVButton povTopLeft                   = new POVButton(operator, 315);
-
+    
     /* Trajectories */
     Trajectory Swervy, Test, straight, tpoint, GameAuto;
     
@@ -120,6 +123,9 @@ public class RobotContainer {
     private void configureButtonBindings() {
 
         /* Driver Buttons */
+        slowDrive.onTrue(new InstantCommand(() -> s_Swerve.setSlow(true)));
+        slowDrive.onFalse(new InstantCommand(() -> s_Swerve.setSlow(false)));
+
         // Gyro Offsets
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         rightGyro.onTrue(new InstantCommand(() -> s_Swerve.rightGyro()));
