@@ -39,16 +39,12 @@ public class CollectionSubsystem extends SubsystemBase {
       cubeLimitTouched = !cubeLimit.get();
       coneLimitTouched = !coneLimit.get();
 
-      if(collectionMotor.getStatorCurrent() < -60) {
-        collectionMotor.set(ControlMode.PercentOutput, 0);
-      }
-
       if((coneLimitTouched) && !(operator.getRawButtonPressed(10))) {
-        new WaitCommand(.1).andThen(stopMotor()).schedule();
+        new WaitCommand(.25).andThen(stopMotor()).schedule();
       }
 
       if((cubeLimitTouched) && !(operator.getRawButtonPressed(10))) {
-        new WaitCommand(.5).andThen(stopMotor()).schedule();
+        new WaitCommand(1).andThen(stopMotor()).schedule();
       }
     }
 
@@ -79,7 +75,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command collectCone() {
       return runOnce(
         () -> {
-          collectionMotor.set(TalonSRXControlMode.PercentOutput, -.5);     
+          collectionMotor.set(TalonSRXControlMode.PercentOutput, -.35);     
         }
       );
     }
