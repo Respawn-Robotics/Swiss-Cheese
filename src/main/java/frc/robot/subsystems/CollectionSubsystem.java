@@ -56,10 +56,18 @@ public class CollectionSubsystem extends SubsystemBase {
       );
     }
 
-    public Command ejectCube() {
+    public Command puffCube() {
       return runOnce(
         () -> {
           collectionMotor.set(TalonSRXControlMode.PercentOutput, -0.1);
+        }
+      );
+    }
+
+    public Command shootCube() {
+      return runOnce(
+        () -> {
+          collectionMotor.set(TalonSRXControlMode.PercentOutput, -0.5);
         }
       );
     }
@@ -75,7 +83,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command collectCone() {
       return runOnce(
         () -> {
-          collectionMotor.set(TalonSRXControlMode.PercentOutput, -.35);     
+          collectionMotor.set(TalonSRXControlMode.PercentOutput, -.65);     
         }
       );
     }
@@ -83,7 +91,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command ejectCone() {
       return runOnce(
         () -> {
-          collectionMotor.set(TalonSRXControlMode.PercentOutput, .3);
+          collectionMotor.set(TalonSRXControlMode.PercentOutput, .65);
         }
       );
     }
