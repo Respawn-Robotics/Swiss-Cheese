@@ -2,6 +2,7 @@ package frc.robot;
 
 import java.io.IOException;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -35,8 +36,8 @@ public class RobotContainer {
     private final CollectionSubsystem collectionSubsystem = new CollectionSubsystem();
     private final ArmSubsystem armSubsystem               = new ArmSubsystem(operator);
     private final WristSubsystem wristSubsystem           = new WristSubsystem(operator);
-    private final Swerve s_Swerve = new Swerve();
-    private final Vision vision = new Vision();
+    private final Swerve s_Swerve                         = new Swerve();
+    private final Vision vision                           = new Vision();
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -46,31 +47,32 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro                = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric            = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton slowDrive            = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton slowDrive               = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     private final JoystickButton followTarget            = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton togglePipeline          = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton lockRobot               = new JoystickButton(driver, XboxController.Button.kB.value);
-    private final POVButton rightGyro                       = new POVButton(driver, 90);
-    private final POVButton downGyro                      = new POVButton(driver, 180);
+    private final POVButton rightGyro                    = new POVButton(driver, 90);
+    private final POVButton downGyro                     = new POVButton(driver, 180);
     private final POVButton leftGyro                     = new POVButton(driver, 270);
+
 
 
     /* Operator Buttons */
     private final JoystickButton collectionRunMotor      = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
     private final JoystickButton collectionStopMotor     = new JoystickButton(operator, XboxController.Button.kRightStick.value);
     private final JoystickButton collectionEjectMotor    = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton armUp              = new JoystickButton(operator, XboxController.Button.kLeftStick.value);
-    private final JoystickButton armDown              = new JoystickButton(operator, XboxController.Button.kStart.value);
-    private final JoystickButton wristUp              = new JoystickButton(operator, XboxController.Button.kBack.value);
-    private final JoystickButton wristDown              = new JoystickButton(operator, XboxController.Button.kRightStick.value);
+    private final JoystickButton armUp                   = new JoystickButton(operator, XboxController.Button.kLeftStick.value);
+    private final JoystickButton armDown                 = new JoystickButton(operator, XboxController.Button.kStart.value);
+    private final JoystickButton wristUp                 = new JoystickButton(operator, XboxController.Button.kBack.value);
+    private final JoystickButton wristDown               = new JoystickButton(operator, XboxController.Button.kRightStick.value);
     private final JoystickButton A                       = new JoystickButton(operator, XboxController.Button.kA.value);
     private final JoystickButton B                       = new JoystickButton(operator, XboxController.Button.kB.value);
     private final JoystickButton X                       = new JoystickButton(operator, XboxController.Button.kX.value);
     private final JoystickButton Y                       = new JoystickButton(operator, XboxController.Button.kY.value);
-    private final POVButton povUp                    = new POVButton(operator, 0);
-    private final POVButton povDown                    = new POVButton(operator, 180);
-    private final POVButton povLeft                     = new POVButton(operator, 90);
-    private final POVButton povRight                    = new POVButton(operator, 270);
+    private final POVButton povUp                        = new POVButton(operator, 0);
+    private final POVButton povDown                      = new POVButton(operator, 180);
+    private final POVButton povLeft                      = new POVButton(operator, 90);
+    private final POVButton povRight                     = new POVButton(operator, 270);
 
     /* Trajectories */
     Trajectory Swervy, Test, straight, tpoint, GameAuto;
@@ -83,8 +85,7 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(translationAxis) *.75,
                 () -> -driver.getRawAxis(strafeAxis) * .75,
                 () -> -driver.getRawAxis(rotationAxis) * .75,
-                () -> robotCentric.getAsBoolean(),
-                false
+                () -> robotCentric.getAsBoolean()
             )
         );
 
@@ -115,16 +116,9 @@ public class RobotContainer {
     private void configureButtonBindings() {
 
         /* Driver Buttons */
-        slowDrive.whileTrue(new InstantCommand(()-> s_Swerve.setDefaultCommand(
-            new TeleopSwerve(
-            s_Swerve, 
-            () -> -driver.getRawAxis(translationAxis) *.75,
-            () -> -driver.getRawAxis(strafeAxis) * .75,
-            () -> -driver.getRawAxis(rotationAxis) * .75,
-            () -> robotCentric.getAsBoolean(),
-            true
-        ))));
-        
+        slowDrive.onTrue(new InstantCommand(() -> s_Swerve.setSlow(true)));
+        slowDrive.onFalse(new InstantCommand(() -> s_Swerve.setSlow(false)));
+
         // Gyro Offsets
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         rightGyro.onTrue(new InstantCommand(() -> s_Swerve.rightGyro()));

@@ -21,6 +21,7 @@ public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
+    public boolean slowSwerve;
 
     public Swerve() {
         gyro = new Pigeon2(Constants.Swerve.pigeonID);
@@ -37,7 +38,9 @@ public class Swerve extends SubsystemBase {
     }
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
-        SwerveModuleState[] swerveModuleStates =
+        SwerveModuleState[] swerveModuleStates;
+        if (!slowSwerve){
+        swerveModuleStates =
             Constants.Swerve.swerveKinematics.toSwerveModuleStates(
                 fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
                                     translation.getX(), 
@@ -50,12 +53,29 @@ public class Swerve extends SubsystemBase {
                                     translation.getY(), 
                                     rotation)
                                 );
+                        }
+        else{
+        swerveModuleStates =
+             Constants.Swerve.swerveKinematics.toSwerveModuleStates(
+                fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
+                                    translation.getX() * .1, 
+                                    translation.getY() * .1, 
+                                    rotation * .1, 
+                                    getYaw()
+                                )
+                                : new ChassisSpeeds(
+                                    translation.getX() * .1, 
+                                    translation.getY() * .1, 
+                                    rotation * .1)
+                            );
+
+                        }
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
 
         for(SwerveModule mod : mSwerveMods){
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
-    }    
+    }
 
     /* Used by SwerveControllerCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
@@ -72,6 +92,19 @@ public class Swerve extends SubsystemBase {
         mSwerveMods[2].setDesiredState(new SwerveModuleState(0.1, Rotation2d.fromDegrees(275)), false);
         mSwerveMods[3].setDesiredState(new SwerveModuleState(0.1, Rotation2d.fromDegrees(355)), false);
       }
+
+    public void setSlow(boolean slow){
+        if (slow){
+        slowSwerve = true;}
+        else{
+        slowSwerve = false;
+        }
+    }
+
+    public boolean getSlow(boolean slow){
+        slowSwerve = slow;
+        return slow;
+    }
 
     public Pose2d getPose() {
         return swerveOdometry.getPoseMeters();
