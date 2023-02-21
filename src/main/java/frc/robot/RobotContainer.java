@@ -46,6 +46,7 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro                = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric            = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton slowDrive            = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     private final JoystickButton followTarget            = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton togglePipeline          = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton lockRobot               = new JoystickButton(driver, XboxController.Button.kB.value);
@@ -82,7 +83,8 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(translationAxis) *.75,
                 () -> -driver.getRawAxis(strafeAxis) * .75,
                 () -> -driver.getRawAxis(rotationAxis) * .75,
-                () -> robotCentric.getAsBoolean()
+                () -> robotCentric.getAsBoolean(),
+                false
             )
         );
 
@@ -113,6 +115,16 @@ public class RobotContainer {
     private void configureButtonBindings() {
 
         /* Driver Buttons */
+        slowDrive.whileTrue(new InstantCommand(()-> s_Swerve.setDefaultCommand(
+            new TeleopSwerve(
+            s_Swerve, 
+            () -> -driver.getRawAxis(translationAxis) *.75,
+            () -> -driver.getRawAxis(strafeAxis) * .75,
+            () -> -driver.getRawAxis(rotationAxis) * .75,
+            () -> robotCentric.getAsBoolean(),
+            true
+        ))));
+        
         // Gyro Offsets
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         rightGyro.onTrue(new InstantCommand(() -> s_Swerve.rightGyro()));

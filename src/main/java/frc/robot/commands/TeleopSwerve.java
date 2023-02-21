@@ -17,7 +17,9 @@ public class TeleopSwerve extends CommandBase {
     private DoubleSupplier rotationSup;
     private BooleanSupplier robotCentricSup;
 
-    public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
+    private Boolean SlowSwerve;
+
+    public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, Boolean slow) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
 
@@ -25,6 +27,7 @@ public class TeleopSwerve extends CommandBase {
         this.strafeSup = strafeSup;
         this.rotationSup = rotationSup;
         this.robotCentricSup = robotCentricSup;
+        this.SlowSwerve = slow;
     }
 
     @Override
@@ -33,13 +36,20 @@ public class TeleopSwerve extends CommandBase {
         double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
-
-        /* Drive */
-        s_Swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
-            rotationVal * Constants.Swerve.maxAngularVelocity, 
-            !robotCentricSup.getAsBoolean(), 
-            true
-        );
+         /* Drive */
+        if(SlowSwerve){
+            s_Swerve.drive(
+                new Translation2d(translationVal *.1, strafeVal *.1).times(Constants.Swerve.maxSpeed), 
+                (rotationVal *.1) * Constants.Swerve.maxAngularVelocity, 
+                !robotCentricSup.getAsBoolean(), 
+                true);
+        }else{
+            s_Swerve.drive(
+                new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
+                rotationVal * Constants.Swerve.maxAngularVelocity, 
+                !robotCentricSup.getAsBoolean(), 
+                true
+            );
+        }
     }
 }
