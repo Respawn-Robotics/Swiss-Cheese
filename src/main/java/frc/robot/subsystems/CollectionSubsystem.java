@@ -46,6 +46,14 @@ public class CollectionSubsystem extends SubsystemBase {
       if((cubeLimitTouched) && !(operator.getRawButtonPressed(10))) {
         new WaitCommand(1).andThen(stopMotor()).schedule();
       }
+
+      if(operator.getRawAxis(3) >= 0.2) {
+        ejectCone().schedule();
+      }
+
+      if(operator.getRawAxis(2) >= 0.2) {
+        puffCube().schedule();
+      }
     }
 
     public Command collectCube() {
