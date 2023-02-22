@@ -100,12 +100,7 @@ public class Swerve extends SubsystemBase {
         slowSwerve = false;
         }
     }
-
-    public boolean getSlow(boolean slow){
-        slowSwerve = slow;
-        return slow;
-    }
-
+    
     public Pose2d getPose() {
         return swerveOdometry.getPoseMeters();
     }
