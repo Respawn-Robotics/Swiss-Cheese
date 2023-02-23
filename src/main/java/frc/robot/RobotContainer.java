@@ -2,10 +2,12 @@ package frc.robot;
 
 import java.io.IOException;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -13,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.disabled.Disable;
@@ -55,24 +58,26 @@ public class RobotContainer {
 
 
 
-
     /* Operator Buttons */
-    private final JoystickButton collectionRunMotor      = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
-    private final JoystickButton collectionStopMotor     = new JoystickButton(operator, XboxController.Button.kRightStick.value);
-    private final JoystickButton collectionEjectMotor    = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton armUp                   = new JoystickButton(operator, XboxController.Button.kLeftStick.value);
-    private final JoystickButton armDown                 = new JoystickButton(operator, XboxController.Button.kStart.value);
-    private final JoystickButton wristUp                 = new JoystickButton(operator, XboxController.Button.kBack.value);
-    private final JoystickButton wristDown               = new JoystickButton(operator, XboxController.Button.kRightStick.value);
+    private final JoystickButton rightBumper      = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
+    private final JoystickButton rightStick     = new JoystickButton(operator, XboxController.Button.kRightStick.value);
+    private final JoystickButton leftBumper    = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton leftStick                   = new JoystickButton(operator, XboxController.Button.kLeftStick.value);
+    private final JoystickButton start                 = new JoystickButton(operator, XboxController.Button.kStart.value);
+    private final JoystickButton back                 = new JoystickButton(operator, XboxController.Button.kBack.value);
     private final JoystickButton A                       = new JoystickButton(operator, XboxController.Button.kA.value);
     private final JoystickButton B                       = new JoystickButton(operator, XboxController.Button.kB.value);
     private final JoystickButton X                       = new JoystickButton(operator, XboxController.Button.kX.value);
     private final JoystickButton Y                       = new JoystickButton(operator, XboxController.Button.kY.value);
     private final POVButton povUp                        = new POVButton(operator, 0);
+    private final POVButton povTopRight                  = new POVButton(operator, 45);
+    private final POVButton povRight                     = new POVButton(operator, 90);
+    private final POVButton povBottomRight               = new POVButton(operator, 135);
     private final POVButton povDown                      = new POVButton(operator, 180);
-    private final POVButton povLeft                      = new POVButton(operator, 90);
-    private final POVButton povRight                     = new POVButton(operator, 270);
-
+    private final POVButton povBottomLeft                = new POVButton(operator, 225);
+    private final POVButton povLeft                      = new POVButton(operator, 270);
+    private final POVButton povTopLeft                   = new POVButton(operator, 315);
+    
     /* Trajectories */
     Trajectory Swervy, Test, straight, tpoint, GameAuto;
     
@@ -81,9 +86,9 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
-                () -> -driver.getRawAxis(translationAxis),
-                () -> -driver.getRawAxis(strafeAxis),
-                () -> -driver.getRawAxis(rotationAxis),
+                () -> -driver.getRawAxis(translationAxis) *.75,
+                () -> -driver.getRawAxis(strafeAxis) * .75,
+                () -> -driver.getRawAxis(rotationAxis) * .75,
                 () -> robotCentric.getAsBoolean()
             )
         );
@@ -127,35 +132,41 @@ public class RobotContainer {
 
         togglePipeline.onTrue(vision.togglePipeline());
         followTarget.whileTrue(new FollowTape(s_Swerve));
-        lockRobot.onTrue(new InstantCommand(() -> s_Swerve.setX()));
+        lockRobot.onTrue(armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0)));
 
         /* Operator Controls */
 
-        // Pick up off ground
-        A.onTrue(armSubsystem.setPosition(12000).andThen(wristSubsystem.setPosition(90000).andThen(new WaitCommand(.5).andThen(armSubsystem.setPosition(14000)))));
+        // Acquire off ground
+        A.onTrue(armSubsystem.setPosition(15000).andThen(wristSubsystem.setPosition(85000).andThen(new WaitCommand(.5).andThen(armSubsystem.setPosition(15000)))));
 
-        // Home Position
-        B.onTrue(armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0)));
+        // SS Position
+        B.onTrue(armSubsystem.setPosition(25000).andThen(wristSubsystem.setPosition(47000)));
 
-        // Score in mid
-        X.onTrue(armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(152000)));
+        // Acqure from DoS
+        Y.onTrue(armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(129000)));
+
+        // Reset Sensors
+        X.onTrue(armSubsystem.resetSensor().andThen(wristSubsystem.resetSensor()));
 
         // Score in high cone
-        Y.onTrue(armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(130000)));
+        povLeft.onTrue(armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(130000)));
+        // Score in high cube
         povRight.onTrue(armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(130000)));
+        // Score in mid cone + cube
+        povDown.onTrue(armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(152000)));
 
-        // Acqure from DS
-        povUp.onTrue(armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(140000)));
+        // Manual Arm and Wrist
+        leftStick.whileTrue(new ManualWristUp(wristSubsystem));
+        rightStick.whileTrue(new ManualWristDown(wristSubsystem));
+        start.whileTrue(new ManualArmUp(armSubsystem));
+        back.whileTrue(new ManualArmDown(armSubsystem));
 
-        wristUp.whileTrue(new ManualWristUp(wristSubsystem));
-        wristDown.whileTrue(new ManualWristDown(wristSubsystem));
-        armDown.whileTrue(new ManualArmUp(armSubsystem));
-        armUp.whileTrue(new ManualArmDown(armSubsystem));
+        // Collection Controls
+        rightStick.onTrue(collectionSubsystem.stopMotor());
+        rightBumper.onTrue(collectionSubsystem.collectCube());
+        leftBumper.onTrue(collectionSubsystem.collectCone());
+        //povDown.onTrue(collectionSubsystem.shootCube());
 
-        povDown.onTrue(armSubsystem.resetSensor().andThen(wristSubsystem.resetSensor()));
-        collectionStopMotor.onTrue(collectionSubsystem.stopMotor());
-        collectionRunMotor.onTrue(collectionSubsystem.collectCube());
-        collectionEjectMotor.onTrue(collectionSubsystem.collectCone());
     }
 
     /**
