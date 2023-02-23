@@ -41,7 +41,7 @@
       "isReversal": true,
       "velOverride": null,
       "isLocked": false,
-      "isStopPoint": true,
+      "isStopPoint": false,
       "stopEvent": {
         "names": [
           "pickup"
@@ -74,8 +74,8 @@
       }
     }
   ],
-  "maxVelocity": 4.0,
-  "maxAcceleration": 3.0,
+  "maxVelocity": 1.0,
+  "maxAcceleration": 1.0,
   "isReversed": null,
   "markers": [
     {
@@ -85,10 +85,15 @@
       ]
     },
     {
-      "position": 1.5,
+      "position": 1.2,
       "names": [
-        "event",
-        "home"
+        "stop"
+      ]
+    },
+    {
+      "position": 0.5,
+      "names": [
+        "collect"
       ]
     }
   ]

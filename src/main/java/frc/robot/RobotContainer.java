@@ -176,7 +176,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new pathGroup(s_Swerve, armSubsystem,wristSubsystem,collectionSubsystem);
+        return new exampleAuto(s_Swerve, armSubsystem,wristSubsystem,collectionSubsystem, vision);
         //return new PPauto(s_Swerve, GameAuto);
     }
 
