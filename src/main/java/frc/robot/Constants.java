@@ -74,9 +74,9 @@ public final class Constants {
 
         /* Drive Motor Characterization Values 
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
-        public static final double driveKS = (0.67209 / 12); 
-        public static final double driveKV = (2.3014 / 12);
-        public static final double driveKA = (0.14395 / 12);
+        public static final double driveKS = (0.605 / 12); 
+        public static final double driveKV = (1.72 / 12);
+        public static final double driveKA = (0.193 / 12);
 
         /* Swerve Profiling Values */
         /** Meters per Second */
@@ -144,36 +144,11 @@ public final class Constants {
         public static final int wristMotor = 11;
     }
 
-//     public static final class LimelightConstants
-//   {
-//     public static final double CAMERA_ELEVATION = 30.75; // TEST BOT
-//     public static final double TARGET_ELEVATION = 258; // TEST BOT
-//     public static final double LIMELIGHT_TO_ROBOT_CENTER = 9; // TEST BOT
-//     // UNIT = degrees
-//     public static final double CAMERA_ANGLE = 0; // TEST BOT
-
-
-//     // LED MODES /limelight/ledMode
-//     public static final int LED_MODE_FROM_PIPELINE = 0;
-//     public static final int LED_MODE_FORCE_OFF = 1;
-//     public static final int LED_MODE_FORCE_BLINK = 2;
-//     public static final int LED_MODE_FORCE_ON = 3;
-
-//     // pipeline numbers
-//     public static final int PIPELINE_TELEOP = 0;
-//     public static final int PIPELINE_GET_POS = 1;
-//   }
-
-//   public static final class PoseConstants
-//   {
-//     public static final Pose2d targetPose1 = new Pose2d(14, 1, null);
-//   }
-
     public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = /*Swerve.maxSpeed * .75*/4;
         public static final double kMaxAccelerationMetersPerSecondSquared = /*kMaxSpeedMetersPerSecond * 1.5 */ 3;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
-        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.pow(kMaxAngularSpeedRadiansPerSecond, 2);
+        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     
         public static final double kPXController = 5; //Different max speeds require different PIDs.
         public static final double kDXController = .15;

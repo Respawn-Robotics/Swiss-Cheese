@@ -59,24 +59,24 @@ public class RobotContainer {
 
 
     /* Operator Buttons */
-    private final JoystickButton rightBumper      = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
-    private final JoystickButton rightStick     = new JoystickButton(operator, XboxController.Button.kRightStick.value);
-    private final JoystickButton leftBumper    = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton leftStick                   = new JoystickButton(operator, XboxController.Button.kLeftStick.value);
-    private final JoystickButton start                 = new JoystickButton(operator, XboxController.Button.kStart.value);
-    private final JoystickButton back                 = new JoystickButton(operator, XboxController.Button.kBack.value);
+    private final JoystickButton rightBumper             = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
+    private final JoystickButton rightStick              = new JoystickButton(operator, XboxController.Button.kRightStick.value);
+    private final JoystickButton leftBumper              = new JoystickButton(operator, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton leftStick               = new JoystickButton(operator, XboxController.Button.kLeftStick.value);
+    private final JoystickButton start                   = new JoystickButton(operator, XboxController.Button.kStart.value);
+    private final JoystickButton back                    = new JoystickButton(operator, XboxController.Button.kBack.value);
     private final JoystickButton A                       = new JoystickButton(operator, XboxController.Button.kA.value);
     private final JoystickButton B                       = new JoystickButton(operator, XboxController.Button.kB.value);
     private final JoystickButton X                       = new JoystickButton(operator, XboxController.Button.kX.value);
     private final JoystickButton Y                       = new JoystickButton(operator, XboxController.Button.kY.value);
-    private final POVButton povUp                        = new POVButton(operator, 0);
-    private final POVButton povTopRight                  = new POVButton(operator, 45);
-    private final POVButton povRight                     = new POVButton(operator, 90);
-    private final POVButton povBottomRight               = new POVButton(operator, 135);
-    private final POVButton povDown                      = new POVButton(operator, 180);
-    private final POVButton povBottomLeft                = new POVButton(operator, 225);
-    private final POVButton povLeft                      = new POVButton(operator, 270);
-    private final POVButton povTopLeft                   = new POVButton(operator, 315);
+    private final POVButton      povUp                   = new POVButton(operator, 0);
+    private final POVButton      povTopRight             = new POVButton(operator, 45);
+    private final POVButton      povRight                = new POVButton(operator, 90);
+    private final POVButton      povBottomRight          = new POVButton(operator, 135);
+    private final POVButton      povDown                 = new POVButton(operator, 180);
+    private final POVButton      povBottomLeft           = new POVButton(operator, 225);
+    private final POVButton      povLeft                 = new POVButton(operator, 270);
+    private final POVButton      povTopLeft              = new POVButton(operator, 315);
     
     /* Trajectories */
     Trajectory Swervy, Test, straight, tpoint, GameAuto;
@@ -176,7 +176,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new exampleAuto(s_Swerve, vision);
+        return new pathGroup(s_Swerve, armSubsystem,wristSubsystem,collectionSubsystem);
         //return new PPauto(s_Swerve, GameAuto);
     }
 
