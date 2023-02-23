@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -90,7 +91,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command collectCone() {
       return runOnce(
         () -> {
-          collectionMotor.set(TalonSRXControlMode.PercentOutput, -.65);     
+          collectionMotor.set(TalonSRXControlMode.PercentOutput, -.70);     
         }
       );
     }
@@ -98,7 +99,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command ejectCone() {
       return runOnce(
         () -> {
-          collectionMotor.set(TalonSRXControlMode.PercentOutput, .65);
+          collectionMotor.set(TalonSRXControlMode.PercentOutput, .70);
         }
       );
     }
