@@ -130,6 +130,11 @@ public final class Constants {
         }
     }
 
+    public static enum jointMovementType {
+        MOVE_TOGETHER,
+        WRIST_FIRST,
+        ARM_FIRST
+    }
     public static final class CollectionConstants {
         public static final int collectionBeamBreak = 1;
         public static final int collectionMotor = 12;
@@ -138,36 +143,32 @@ public final class Constants {
     public static final class ArmConstants {
         public static final int armMotorMaster = 9;
         public static final int armMotorSlave = 10;
+
+        // Setpoints
+        public static final int HOME = 0;
+        public static final int ACQUIRE_FROM_FLOOR = 15000;
+        public static final int ACQUIRE_FROM_DOS = 60000;
+        public static final int ACQUIRE_FROM_SIS = 25000;
+
+        public static final int SCORE_IN_HIGH_CONE = 60000;
+        public static final int SCORE_IN_HIGH_CUBE = 60000;
+        public static final int SCORE_IN_MID = 60000;
+
     }
 
     public static final class WristConstants {
         public static final int wristMotor = 11;
+
+        // Setpoints
+        public static final int HOME = 0;
+        public static final int ACQUIRE_FROM_FLOOR = 85000;
+        public static final int ACQUIRE_FROM_DOS = 47000;
+        public static final int ACUQIRE_FROM_SIS = 129000;
+
+        public static final int SCORE_IN_HIGH_CONE = 130000;
+        public static final int SCORE_IN_HIGH_CUBE = 130000;
+        public static final int SCORE_IN_MID = 152000;
     }
-
-//     public static final class LimelightConstants
-//   {
-//     public static final double CAMERA_ELEVATION = 30.75; // TEST BOT
-//     public static final double TARGET_ELEVATION = 258; // TEST BOT
-//     public static final double LIMELIGHT_TO_ROBOT_CENTER = 9; // TEST BOT
-//     // UNIT = degrees
-//     public static final double CAMERA_ANGLE = 0; // TEST BOT
-
-
-//     // LED MODES /limelight/ledMode
-//     public static final int LED_MODE_FROM_PIPELINE = 0;
-//     public static final int LED_MODE_FORCE_OFF = 1;
-//     public static final int LED_MODE_FORCE_BLINK = 2;
-//     public static final int LED_MODE_FORCE_ON = 3;
-
-//     // pipeline numbers
-//     public static final int PIPELINE_TELEOP = 0;
-//     public static final int PIPELINE_GET_POS = 1;
-//   }
-
-//   public static final class PoseConstants
-//   {
-//     public static final Pose2d targetPose1 = new Pose2d(14, 1, null);
-//   }
 
     public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = /*Swerve.maxSpeed * .75*/4;
