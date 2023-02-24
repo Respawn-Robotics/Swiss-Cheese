@@ -10,30 +10,22 @@ import frc.robot.Constants;
 
 public class WristSubsystem extends SubsystemBase {
     
-    private final TalonFX wristMotor = new TalonFX(Constants.WristConstants.wristMotor);
-
-    private int peakVelocityUp = 14940;
-    private final double percentOfPeakUp = .95;
-    private final double cruiseVelocityAccelUp = peakVelocityUp * percentOfPeakUp;
-
-    private int peakVelocityDown = 14940;
-    private final double percentOfPeakDown = .65;
-    private final double cruiseVelocityAccelDown = peakVelocityDown * percentOfPeakDown;
+    private final TalonFX wristMotor = new TalonFX(Constants.WristConstants.WRIST_MOTOR);
 
     public WristSubsystem() {
         
         wristMotor.configFactoryDefault();
         wristMotor.setSelectedSensorPosition(0);
 
-		wristMotor.config_kF(0, .1, 0);
-		wristMotor.config_kP(0, 0.0367156687, 0);
-		wristMotor.config_kI(0, 0, 0);
-		wristMotor.config_kD(0, 0, 0);
+		wristMotor.config_kF(0, Constants.WristConstants.UP_kF, 0);
+		wristMotor.config_kP(0, Constants.WristConstants.UP_kP, 0);
+		wristMotor.config_kI(0, Constants.WristConstants.UP_kI, 0);
+		wristMotor.config_kD(0, Constants.WristConstants.UP_kD, 0);
 
-        wristMotor.config_kF(1, .1, 0);
-		wristMotor.config_kP(1, 0.0367156687, 0);
-		wristMotor.config_kI(1, 0, 0);
-		wristMotor.config_kD(1, 0, 0);
+        wristMotor.config_kF(1, Constants.WristConstants.DOWN_kF, 0);
+		wristMotor.config_kP(1, Constants.WristConstants.DOWN_kP, 0);
+		wristMotor.config_kI(1, Constants.WristConstants.DOWN_kI, 0);
+		wristMotor.config_kD(1, Constants.WristConstants.DOWN_kD, 0);
 
         wristMotor.configMotionSCurveStrength(2);
         wristMotor.setNeutralMode(NeutralMode.Brake);
@@ -85,8 +77,8 @@ public class WristSubsystem extends SubsystemBase {
         if(currentPosition < targetPosition) {
     
           // set accel and velocity for going up
-          wristMotor.configMotionAcceleration(cruiseVelocityAccelUp, 0);
-          wristMotor.configMotionCruiseVelocity(cruiseVelocityAccelUp, 0);
+          wristMotor.configMotionAcceleration(Constants.WristConstants.CRUISE_VELOCITY_ACCEL_UP, 0);
+          wristMotor.configMotionCruiseVelocity(Constants.WristConstants.CRUISE_VELOCITY_ACCEL_UP, 0);
     
           // select the up gains
           wristMotor.selectProfileSlot(0, 0);
@@ -94,8 +86,8 @@ public class WristSubsystem extends SubsystemBase {
         } else {
           
           // set accel and velocity for going down
-          wristMotor.configMotionAcceleration(cruiseVelocityAccelDown, 0);
-          wristMotor.configMotionCruiseVelocity(cruiseVelocityAccelDown, 0);
+          wristMotor.configMotionAcceleration(Constants.WristConstants.CRUISE_VELOCITY_ACCEL_DOWN, 0);
+          wristMotor.configMotionCruiseVelocity(Constants.WristConstants.CRUISE_VELOCITY_ACCEL_DOWN, 0);
     
           // select the down gains
           wristMotor.selectProfileSlot(1, 0);

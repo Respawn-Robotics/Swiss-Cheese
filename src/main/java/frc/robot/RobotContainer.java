@@ -18,10 +18,15 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.WristConstants;
-import frc.robot.Constants.jointMovementType;
+import frc.robot.Constants.JointMovementType;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
+import frc.robot.commands.manual.ManualArmDown;
+import frc.robot.commands.manual.ManualArmUp;
+import frc.robot.commands.manual.ManualWristDown;
+import frc.robot.commands.manual.ManualWristUp;
 import frc.robot.disabled.Disable;
+import frc.robot.drivers.BeamBreak;
 import frc.robot.subsystems.*;
 
 /**
@@ -77,6 +82,10 @@ public class RobotContainer {
     private final POVButton o_povRight = new POVButton(operator, 90);
     private final POVButton o_povDown = new POVButton(operator, 180);
     private final POVButton o_povLeft = new POVButton(operator, 270);
+
+    /* Sensors */
+    private final BeamBreak coneBeamBreak = new BeamBreak(1);
+    private final BeamBreak cubeBeamBreak = new BeamBreak(2);
 
     /* Trajectories */
     Trajectory Swervy, Test, straight, tpoint, GameAuto;
@@ -140,7 +149,7 @@ public class RobotContainer {
         // Home arm
         d_B.onTrue(new JointsSetPosition(ArmConstants.HOME, 
                                          WristConstants.HOME, 
-                                         jointMovementType.WRIST_FIRST, 
+                                         JointMovementType.WRIST_FIRST, 
                                          0.4, 
                                          armSubsystem, wristSubsystem));
 
@@ -149,20 +158,20 @@ public class RobotContainer {
         // Acquire off ground        
         o_A.onTrue(new JointsSetPosition(ArmConstants.ACQUIRE_FROM_FLOOR, 
                                          WristConstants.ACQUIRE_FROM_FLOOR, 
-                                         jointMovementType.WRIST_FIRST, 
+                                         JointMovementType.WRIST_FIRST, 
                                          0.4, 
                                          armSubsystem, wristSubsystem));
         // SiS Position
         o_B.onTrue(new JointsSetPosition(ArmConstants.ACQUIRE_FROM_SIS, 
                                          WristConstants.ACUQIRE_FROM_SIS, 
-                                         jointMovementType.WRIST_FIRST, 
+                                         JointMovementType.WRIST_FIRST, 
                                          0.4, 
                                          armSubsystem, wristSubsystem));
 
         // Acqure from DoS
         o_Y.onTrue(new JointsSetPosition(ArmConstants.ACQUIRE_FROM_DOS, 
                                          WristConstants.ACQUIRE_FROM_DOS, 
-                                         jointMovementType.WRIST_FIRST, 
+                                         JointMovementType.WRIST_FIRST, 
                                          0.4, 
                                          armSubsystem, wristSubsystem));
         // Reset Sensors
@@ -171,21 +180,21 @@ public class RobotContainer {
         // Score in high cone
         o_povLeft.onTrue(new JointsSetPosition(ArmConstants.SCORE_IN_HIGH_CONE, 
                                          WristConstants.SCORE_IN_HIGH_CONE, 
-                                         jointMovementType.WRIST_FIRST, 
+                                         JointMovementType.WRIST_FIRST, 
                                          0.4, 
                                          armSubsystem, wristSubsystem));
 
         // Score in high cube
         o_povRight.onTrue(new JointsSetPosition(ArmConstants.SCORE_IN_HIGH_CUBE, 
                                          WristConstants.SCORE_IN_HIGH_CUBE, 
-                                         jointMovementType.WRIST_FIRST, 
+                                         JointMovementType.WRIST_FIRST, 
                                          0.4, 
                                          armSubsystem, wristSubsystem));
 
         // Score in mid cone + cube
         o_povDown.onTrue(new JointsSetPosition(ArmConstants.SCORE_IN_MID, 
                                          WristConstants.SCORE_IN_MID,
-                                         jointMovementType.WRIST_FIRST, 
+                                         JointMovementType.WRIST_FIRST, 
                                          0.4, 
                                          armSubsystem, wristSubsystem));
 
@@ -196,10 +205,9 @@ public class RobotContainer {
         o_back.whileTrue(new ManualArmDown(armSubsystem));
 
         // Collection Controls
-        o_rightStick.onTrue(collectionSubsystem.stopMotor());
         o_rightBumper.onTrue(collectionSubsystem.collectCube());
         o_leftBumper.onTrue(collectionSubsystem.collectCone());
-        // povDown.onTrue(collectionSubsystem.shootCube());
+        o_povDown.onTrue(collectionSubsystem.stopMotor());
     }
 
     /**

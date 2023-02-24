@@ -7,7 +7,6 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,30 +14,22 @@ import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
 
-    private final TalonFX armMotorMaster = new TalonFX(Constants.ArmConstants.armMotorMaster);
-    private final TalonFX armMotorSlave = new TalonFX(Constants.ArmConstants.armMotorSlave);
-
-    private int peakVelocityUp = 13360;
-    private final double percentOfPeakUp = .65;
-    private final double cruiseVelocityAccelUp = peakVelocityUp * percentOfPeakUp;
-
-    private int peakVelocityDown = 8090;
-    private final double percentOfPeakDown = .65;
-    private final double cruiseVelocityAccelDown = peakVelocityDown * percentOfPeakDown;
+    private final TalonFX armMotorMaster = new TalonFX(Constants.ArmConstants.ARM_MOTOR_MASTER);
+    private final TalonFX armMotorSlave = new TalonFX(Constants.ArmConstants.ARM_MOTOR_SLAVE);
 
     public ArmSubsystem() {
         armMotorMaster.configFactoryDefault();
         armMotorMaster.setSelectedSensorPosition(0);
 
-		armMotorMaster.config_kF(0, 0.1, 0);
-		armMotorMaster.config_kP(0, 0.06030624264, 0);
-		armMotorMaster.config_kI(0, 0, 0);
-		armMotorMaster.config_kD(0, 0, 0);
+		armMotorMaster.config_kF(0, Constants.ArmConstants.UP_kF, 0);
+		armMotorMaster.config_kP(0, Constants.ArmConstants.UP_kP, 0);
+		armMotorMaster.config_kI(0, Constants.ArmConstants.UP_kI, 0);
+		armMotorMaster.config_kD(0, Constants.ArmConstants.UP_kD, 0);
 
-        armMotorMaster.config_kF(1, 0.1, 0);
-		armMotorMaster.config_kP(1, 0.1265760198, 0);
-		armMotorMaster.config_kI(1, 0, 0);
-		armMotorMaster.config_kD(1, 0, 0);
+        armMotorMaster.config_kF(1, Constants.ArmConstants.DOWN_kF, 0);
+		armMotorMaster.config_kP(1, Constants.ArmConstants.DOWN_kP, 0);
+		armMotorMaster.config_kI(1, Constants.ArmConstants.DOWN_kI, 0);
+		armMotorMaster.config_kD(1, Constants.ArmConstants.DOWN_kD, 0);
 
         armMotorMaster.configMotionSCurveStrength(2);
 
@@ -53,8 +44,6 @@ public class ArmSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Arm Slave Falcon Position", armMotorSlave.getSelectedSensorPosition());
         SmartDashboard.putNumber("Arm Slave Falcon Voltage", armMotorSlave.getMotorOutputVoltage());
         SmartDashboard.putNumber("Arm Master Falcon Voltage", armMotorMaster.getMotorOutputVoltage());
-        SmartDashboard.putNumber("Arm up cruise velo + accel", cruiseVelocityAccelUp);
-        SmartDashboard.putNumber("Arm Down cruise velo + accel", cruiseVelocityAccelDown);
     }
 
     public Command goToHome() {
@@ -132,8 +121,8 @@ public class ArmSubsystem extends SubsystemBase {
         if(currentPosition < targetPosition) {
     
           // set accel and velocity for going up
-          armMotorMaster.configMotionAcceleration(cruiseVelocityAccelUp, 0);
-          armMotorMaster.configMotionCruiseVelocity(cruiseVelocityAccelUp, 0);
+          armMotorMaster.configMotionAcceleration(Constants.ArmConstants.CRUISE_VELOCITY_ACCEL_UP, 0);
+          armMotorMaster.configMotionCruiseVelocity(Constants.ArmConstants.CRUISE_VELOCITY_ACCEL_UP, 0);
     
           // select the up gains
           armMotorMaster.selectProfileSlot(0, 0);
@@ -142,8 +131,8 @@ public class ArmSubsystem extends SubsystemBase {
         } else {
           
           // set accel and velocity for going down
-          armMotorMaster.configMotionAcceleration(cruiseVelocityAccelDown, 0);
-          armMotorMaster.configMotionCruiseVelocity(cruiseVelocityAccelDown, 0);
+          armMotorMaster.configMotionAcceleration(Constants.ArmConstants.CRUISE_VELOCITY_ACCEL_DOWN, 0);
+          armMotorMaster.configMotionCruiseVelocity(Constants.ArmConstants.CRUISE_VELOCITY_ACCEL_DOWN, 0);
     
           // select the down gains
           armMotorMaster.selectProfileSlot(1, 0);
