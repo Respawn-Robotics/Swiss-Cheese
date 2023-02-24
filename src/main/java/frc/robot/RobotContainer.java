@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.autos.*;
+import frc.robot.autos.autoCommands.exampleAuto;
 import frc.robot.commands.*;
 import frc.robot.disabled.Disable;
 import frc.robot.subsystems.*;
@@ -39,7 +40,7 @@ public class RobotContainer {
     private final WristSubsystem wristSubsystem           = new WristSubsystem(operator);
     private final Swerve s_Swerve                         = new Swerve();
     private final Vision vision                           = new Vision();
-
+    
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
@@ -79,7 +80,6 @@ public class RobotContainer {
     private final POVButton      povTopLeft              = new POVButton(operator, 315);
     
     /* Trajectories */
-    Trajectory Swervy, Test, straight, tpoint, GameAuto;
     
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -92,27 +92,6 @@ public class RobotContainer {
                 () -> robotCentric.getAsBoolean()
             )
         );
-
-        try {
-            Test = TrajectoryUtil.fromPathweaverJson(
-                Filesystem.getDeployDirectory().toPath().resolve(
-                    "pathplanner/generatedJSON/TEST.wpilib.json"));
-            Swervy = TrajectoryUtil.fromPathweaverJson(
-                    Filesystem.getDeployDirectory().toPath().resolve(
-                    "pathplanner/generatedJSON/curvy swervy.wpilib.json"));
-            straight = TrajectoryUtil.fromPathweaverJson(
-                    Filesystem.getDeployDirectory().toPath().resolve(
-                    "pathplanner/generatedJSON/straight.wpilib.json"));
-            tpoint = TrajectoryUtil.fromPathweaverJson(
-                    Filesystem.getDeployDirectory().toPath().resolve(
-                    "pathplanner/generatedJSON/testPaths1.wpilib.json"));
-            GameAuto = TrajectoryUtil.fromPathweaverJson(Filesystem.getDeployDirectory().toPath().resolve(
-                    "pathplanner/generatedJSON/GameAuto.wpilib.json"));
-
-         } catch (IOException ex) {
-            DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
-         }
-
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -131,7 +110,7 @@ public class RobotContainer {
 
 
         togglePipeline.onTrue(vision.togglePipeline());
-        followTarget.whileTrue(new FollowTape(s_Swerve));
+        followTarget.whileTrue(new FixOrientation(s_Swerve));
         lockRobot.onTrue(armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0)));
 
         /* Operator Controls */
@@ -175,9 +154,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        // An ExampleCommand will run in autonomous
-        return new exampleAuto(s_Swerve, armSubsystem,wristSubsystem,collectionSubsystem, vision);
-        //return new PPauto(s_Swerve, GameAuto);
+        return AutonChooser.chooser.getSelected();
     }
 
     /**

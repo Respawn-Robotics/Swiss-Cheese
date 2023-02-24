@@ -1,4 +1,4 @@
-package frc.robot.autos;
+package frc.robot.autos.autoCommands;
 
 import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
@@ -23,8 +23,8 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
-public class exampleAuto extends SequentialCommandGroup {
-    public exampleAuto(Swerve s_Swerve, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Vision limelightSubsystem){
+public class otherauto extends SequentialCommandGroup {
+    public otherauto(Swerve s_Swerve, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Vision limelightSubsystem){
         PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("testPaths2", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
         PIDController theta = new PIDController(Constants.AutoConstants.kPThetaController, 0, Constants.AutoConstants.kDThetaController);
         theta.enableContinuousInput(-Math.PI, Math.PI);

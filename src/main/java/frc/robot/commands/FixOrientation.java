@@ -9,7 +9,7 @@ public class FixOrientation extends CommandBase {
     public double yaw;
     double KpAim = .075;
     Double steering_adjust = 0.0;
-    double min_command = 0.275;
+    double desiredAngle = 180;
 
 
     public FixOrientation(Swerve s_Swerve) {
@@ -25,7 +25,7 @@ public class FixOrientation extends CommandBase {
     
     @Override
     public void execute() {
-        steering_adjust = KpAim* -yaw - min_command;
+        steering_adjust = KpAim * (desiredAngle - yaw);
         s_Swerve.drive(new Translation2d(0,0), steering_adjust, false, true);
     }
 }
