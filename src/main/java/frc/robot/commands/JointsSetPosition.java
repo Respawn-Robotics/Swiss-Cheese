@@ -46,4 +46,9 @@ public class JointsSetPosition extends CommandBase {
                 break;
         }
     }
+
+    @Override
+    public void end(boolean interuptted) {
+        
+    }
 }

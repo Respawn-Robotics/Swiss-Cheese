@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.JointMovementType;
 import frc.robot.Constants.WristConstants;
 import frc.robot.Constants.JointMovementType;
 import frc.robot.autos.*;
@@ -200,7 +201,7 @@ public class RobotContainer {
 
         // Manual Arm and Wrist
         o_leftStick.whileTrue(new ManualWristUp(wristSubsystem));
-        o_rightStick.whileTrue(new ManualWristDown(wristSubsystem));
+        //o_rightStick.whileTrue(new ManualWristDown(wristSubsystem));
         o_start.whileTrue(new ManualArmUp(armSubsystem));
         o_back.whileTrue(new ManualArmDown(armSubsystem));
 

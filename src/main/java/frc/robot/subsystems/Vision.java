@@ -32,7 +32,7 @@ public class Vision extends SubsystemBase {
   double limelightMountAngleDegrees = 0;
   
   // distance from the center of the Limelight lens to the floor
-  double limelightLensHeightInches = 31;
+  double limelightLensHeightInches = 46.75;
   
   // distance from the target to the floor
   double goalHeightInches = 23.6875;
