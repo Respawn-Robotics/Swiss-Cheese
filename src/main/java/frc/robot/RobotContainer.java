@@ -19,9 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.JointMovementType;
 import frc.robot.Constants.WristConstants;
-import frc.robot.Constants.JointMovementType;
-import frc.robot.autos.*;
-import frc.robot.autos.autoCommands.exampleAuto;
+import frc.robot.autos.autoCommands.OnePiece;
 import frc.robot.commands.*;
 import frc.robot.disabled.Disable;
 import frc.robot.subsystems.*;
@@ -188,8 +186,9 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new exampleAuto(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
-        // return new PPauto(s_Swerve, GameAuto);
+        return new OnePiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
+        // return new TwoPiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
+        // return new ThreePiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }
 
     /**
