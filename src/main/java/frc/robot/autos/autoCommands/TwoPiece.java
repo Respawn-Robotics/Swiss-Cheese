@@ -30,10 +30,13 @@ public class exampleAuto extends SequentialCommandGroup {
         theta.enableContinuousInput(-Math.PI, Math.PI);
 
         HashMap<String, Command> eventMap = new HashMap<>();
+        eventMap.put("score", armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(100000)));
+        eventMap.put("home", armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0)));
         eventMap.put("collect", armSubsystem.setPosition(15000).andThen(wristSubsystem.setPosition(85000).alongWith(collectionSubsystem.collectCube().andThen(new WaitCommand(.5).andThen(armSubsystem.setPosition(15000))))));
-        eventMap.put("stop", collectionSubsystem.stopMotor().andThen(armSubsystem.setPosition(0)).andThen(wristSubsystem.setPosition(0)));
-        //eventMap.put("home", armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0)));
-        //eventMap.put(getName(), null)
+        eventMap.put("home2", collectionSubsystem.stopMotor().andThen(armSubsystem.setPosition(0)).andThen(wristSubsystem.setPosition(0)));
+        eventMap.put("score", armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0)));
+        eventMap.put("home3", collectionSubsystem.stopMotor().andThen(armSubsystem.setPosition(0)).andThen(wristSubsystem.setPosition(0)));
+
 
         PPSwerveControllerCommand path = new PPSwerveControllerCommand(exampleTrajectory,
         s_Swerve::getPose,
