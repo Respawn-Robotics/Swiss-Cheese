@@ -4,6 +4,7 @@ import java.util.Map;
 
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import frc.robot.autos.AutonChooser;
 
 public class ShuffleboardConfig {
 
@@ -17,5 +18,7 @@ public class ShuffleboardConfig {
             .withWidget(BuiltInWidgets.kComboBoxChooser)
             .withProperties(Map.of("Swerve S", "Gyro"))
             .getEntry();
+            Shuffleboard.getTab("Swiss Cheese")
+            .add(AutonChooser.chooser);
     }
 }
