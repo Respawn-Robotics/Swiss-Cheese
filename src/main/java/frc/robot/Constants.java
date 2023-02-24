@@ -60,6 +60,10 @@ public final class Constants {
         public static final double openLoopRamp = 0.75;
         public static final double closedLoopRamp = 0.0;
 
+        /* These values are used by the drive falcon to ramp in open loop and closed loop driving.*/
+        public static final double openLoopRampA = 0.15;
+        public static final double closedLoopRampA = 0.0;
+
         /* Angle Motor PID Values */
         public static final double angleKP = chosenModule.angleKP;
         public static final double angleKI = chosenModule.angleKI;
@@ -130,6 +134,11 @@ public final class Constants {
         }
     }
 
+    public static enum JointMovementType {
+        MOVE_TOGETHER,
+        WRIST_FIRST,
+        ARM_FIRST
+    }
     public static final class CollectionConstants {
         public static final int collectionBeamBreak = 1;
         public static final int collectionMotor = 12;
@@ -138,10 +147,31 @@ public final class Constants {
     public static final class ArmConstants {
         public static final int armMotorMaster = 9;
         public static final int armMotorSlave = 10;
+
+        // Setpoints
+        public static final int HOME = 0;
+        public static final int ACQUIRE_FROM_FLOOR = 15000;
+        public static final int ACQUIRE_FROM_DOS = 60000;
+        public static final int ACQUIRE_FROM_SIS = 25000;
+
+        public static final int SCORE_IN_HIGH_CONE = 60000;
+        public static final int SCORE_IN_HIGH_CUBE = 60000;
+        public static final int SCORE_IN_MID = 42000;
+
     }
 
     public static final class WristConstants {
         public static final int wristMotor = 11;
+
+        // Setpoints
+        public static final int HOME = 0;
+        public static final int ACQUIRE_FROM_FLOOR = 60000;
+        public static final int ACQUIRE_FROM_DOS = 90500;
+        public static final int ACUQIRE_FROM_SIS = 129000;
+
+        public static final int SCORE_IN_HIGH_CONE = 90000;
+        public static final int SCORE_IN_HIGH_CUBE = 130000;
+        public static final int SCORE_IN_MID = 69000;
     }
 
     public static final class AutoConstants {

@@ -22,8 +22,6 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
 
-  private Command m_disabledCommand;
-
   TalonFX FL = new TalonFX(1);
   TalonFX FR = new TalonFX(3);
   TalonFX BL = new TalonFX(5);

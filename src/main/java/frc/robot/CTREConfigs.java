@@ -28,6 +28,8 @@ public final class CTREConfigs {
         swerveAngleFXConfig.slot0.kI = Constants.Swerve.angleKI;
         swerveAngleFXConfig.slot0.kD = Constants.Swerve.angleKD;
         swerveAngleFXConfig.slot0.kF = Constants.Swerve.angleKF;
+        //swerveAngleFXConfig.openloopRamp = Constants.Swerve.openLoopRampA;
+        //swerveAngleFXConfig.closedloopRamp = Constants.Swerve.closedLoopRampA;
         swerveAngleFXConfig.supplyCurrLimit = angleSupplyLimit;
 
         /* Swerve Drive Motor Configuration */
