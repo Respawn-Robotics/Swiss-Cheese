@@ -17,7 +17,7 @@ public class WristSubsystem extends SubsystemBase {
     private final double cruiseVelocityAccelUp = peakVelocityUp * percentOfPeakUp;
 
     private int peakVelocityDown = 14940;
-    private final double percentOfPeakDown = .65;
+    private final double percentOfPeakDown = .95;
     private final double cruiseVelocityAccelDown = peakVelocityDown * percentOfPeakDown;
 
     public WristSubsystem() {

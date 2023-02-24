@@ -90,7 +90,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command collectCone() {
       return runOnce(
         () -> {
-          collectionMotor.set(TalonSRXControlMode.PercentOutput, -.70);     
+          collectionMotor.set(TalonSRXControlMode.PercentOutput, -.85);     
         }
       );
     }

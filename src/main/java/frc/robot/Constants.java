@@ -130,7 +130,7 @@ public final class Constants {
         }
     }
 
-    public static enum jointMovementType {
+    public static enum JointMovementType {
         MOVE_TOGETHER,
         WRIST_FIRST,
         ARM_FIRST
@@ -152,7 +152,7 @@ public final class Constants {
 
         public static final int SCORE_IN_HIGH_CONE = 60000;
         public static final int SCORE_IN_HIGH_CUBE = 60000;
-        public static final int SCORE_IN_MID = 60000;
+        public static final int SCORE_IN_MID = 42000;
 
     }
 
@@ -161,13 +161,13 @@ public final class Constants {
 
         // Setpoints
         public static final int HOME = 0;
-        public static final int ACQUIRE_FROM_FLOOR = 85000;
-        public static final int ACQUIRE_FROM_DOS = 47000;
+        public static final int ACQUIRE_FROM_FLOOR = 60000;
+        public static final int ACQUIRE_FROM_DOS = 90500;
         public static final int ACUQIRE_FROM_SIS = 129000;
 
-        public static final int SCORE_IN_HIGH_CONE = 130000;
+        public static final int SCORE_IN_HIGH_CONE = 90000;
         public static final int SCORE_IN_HIGH_CUBE = 130000;
-        public static final int SCORE_IN_MID = 152000;
+        public static final int SCORE_IN_MID = 69000;
     }
 
     public static final class AutoConstants {

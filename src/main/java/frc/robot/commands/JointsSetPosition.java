@@ -2,7 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Constants.jointMovementType;
+import frc.robot.Constants.JointMovementType;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
@@ -11,10 +11,10 @@ public class JointsSetPosition extends CommandBase {
     private ArmSubsystem armSubsystem;
     private int armPosition;
     private int wristPosition;
-    private jointMovementType movementType;
+    private int movementType;
     private double waitTimeInSeconds;
 
-    public JointsSetPosition(int armPosition, int wristPosition, jointMovementType movementType, double waitTimeInSeconds, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem) {
+    public JointsSetPosition(int armPosition, int wristPosition, int movementType, double waitTimeInSeconds, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem) {
         this.wristSubsystem = wristSubsystem;
         this.armSubsystem = armSubsystem;
         this.armPosition = armPosition;
@@ -25,25 +25,30 @@ public class JointsSetPosition extends CommandBase {
     @Override
     public void execute() {
         switch(movementType) {
-            case MOVE_TOGETHER:
+            case 0:
                 wristSubsystem.setPosition(wristPosition)
                     .alongWith(armSubsystem.setPosition(armPosition))
                     .schedule();
                 break;
 
-            case WRIST_FIRST:
+            case 1:
                 wristSubsystem.setPosition(wristPosition)
                     .andThen(new WaitCommand(waitTimeInSeconds)
                     .andThen(armSubsystem.setPosition(armPosition)))
                     .schedule();
                 break;
             
-            case ARM_FIRST:
+            case 2:
                 armSubsystem.setPosition(armPosition)
                     .andThen(new WaitCommand(waitTimeInSeconds)
                     .andThen(wristSubsystem.setPosition(wristPosition)))
                     .schedule();
                 break;
         }
+    }
+
+    @Override
+    public void end(boolean interuptted) {
+        
     }
 }
