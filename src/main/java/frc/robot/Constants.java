@@ -60,6 +60,10 @@ public final class Constants {
         public static final double openLoopRamp = 0.75;
         public static final double closedLoopRamp = 0.0;
 
+        /* These values are used by the drive falcon to ramp in open loop and closed loop driving.*/
+        public static final double openLoopRampA = 0.15;
+        public static final double closedLoopRampA = 0.0;
+
         /* Angle Motor PID Values */
         public static final double angleKP = chosenModule.angleKP;
         public static final double angleKI = chosenModule.angleKI;
@@ -74,9 +78,9 @@ public final class Constants {
 
         /* Drive Motor Characterization Values 
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
-        public static final double driveKS = (0.67209 / 12); 
-        public static final double driveKV = (2.3014 / 12);
-        public static final double driveKA = (0.14395 / 12);
+        public static final double driveKS = (0.605 / 12); 
+        public static final double driveKV = (1.72 / 12);
+        public static final double driveKA = (0.193 / 12);
 
         /* Swerve Profiling Values */
         /** Meters per Second */
@@ -212,10 +216,10 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = /*Swerve.maxSpeed * .75*/4;
-        public static final double kMaxAccelerationMetersPerSecondSquared = /*kMaxSpeedMetersPerSecond * 1.5 */ 3;
+        public static final double kMaxSpeedMetersPerSecond = /*Swerve.maxSpeed * .75*/1;
+        public static final double kMaxAccelerationMetersPerSecondSquared = /*kMaxSpeedMetersPerSecond * 1.5 */ 1;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
-        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.pow(kMaxAngularSpeedRadiansPerSecond, 2);
+        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     
         public static final double kPXController = 5; // Different max speeds require different PIDs.
         public static final double kDXController = .15;

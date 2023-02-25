@@ -15,7 +15,6 @@ public class ShuffleboardConfig {
         Shuffleboard.getTab("Swiss Cheese")
             .add("Auton", "Gyro")
             .withWidget(BuiltInWidgets.kComboBoxChooser)
-            .withProperties(Map.of("Swerve S", "Gyro"))
-            .getEntry();
+            .withProperties(Map.of("Swerve S", "Gyro"));
     }
 }

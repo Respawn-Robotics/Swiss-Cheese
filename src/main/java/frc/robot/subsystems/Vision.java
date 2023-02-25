@@ -48,19 +48,20 @@ public class Vision extends SubsystemBase {
   return distanceFromLimelightToGoalInches;
   }
 
-  public CommandBase togglePipeline() {
+  public Command togglePipeline() {
     return runOnce(
         () -> {
           if(pipeline){
             System.out.println("Tape");
             NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(1);
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
             pipeline = false;
           }else{
             System.out.println("Tag");
             NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
             pipeline = true;
           }
-          NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
           NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
         });
   }
