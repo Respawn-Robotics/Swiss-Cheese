@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -45,23 +46,23 @@ public class ArmSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Arm Slave Falcon Voltage", armMotorSlave.getMotorOutputVoltage());
         SmartDashboard.putNumber("Arm Master Falcon Voltage", armMotorMaster.getMotorOutputVoltage());
 
-        if(armMotorMaster.getBusVoltage() >= 10) {
-            if(armMotorMaster.getStatorCurrent() > 25) {
-                armMotorMaster.set(ControlMode.PercentOutput, 0);
-            }
-        }
+        // if(armMotorMaster.getBusVoltage() >= 10) {
+        //     if(armMotorMaster.getStatorCurrent() > 25) {
+        //         armMotorMaster.set(ControlMode.PercentOutput, 0);
+        //     }
+        // }
 
-        if(armMotorMaster.getBusVoltage() >= 8) {
-            if(armMotorMaster.getStatorCurrent() > 22) {
-                armMotorMaster.set(ControlMode.PercentOutput, 0);
-            }
-        }
+        // if(armMotorMaster.getBusVoltage() >= 8) {
+        //     if(armMotorMaster.getStatorCurrent() > 22) {
+        //         armMotorMaster.set(ControlMode.PercentOutput, 0);
+        //     }
+        // }
 
-        if(armMotorMaster.getBusVoltage() >= 6) {
-            if(armMotorMaster.getStatorCurrent() > 17) {
-                armMotorMaster.set(ControlMode.PercentOutput, 0);
-            }
-        }
+        // if(armMotorMaster.getBusVoltage() >= 6) {
+        //     if(armMotorMaster.getStatorCurrent() > 17) {
+        //         armMotorMaster.set(ControlMode.PercentOutput, 0);
+        //     }
+        // }
     }
 
     public Command goToHome() {

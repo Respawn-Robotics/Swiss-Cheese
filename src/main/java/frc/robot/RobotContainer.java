@@ -42,11 +42,16 @@ public class RobotContainer {
     private final Joystick operator = new Joystick(1);
 
     /* Subsystem */
-    public static final CollectionSubsystem collectionSubsystem = new CollectionSubsystem();
-    public static final ArmSubsystem armSubsystem = new ArmSubsystem();
-    public static final WristSubsystem wristSubsystem = new WristSubsystem();
+    public final CollectionSubsystem collectionSubsystem = new CollectionSubsystem();
+    public final ArmSubsystem armSubsystem = new ArmSubsystem();
+    public final WristSubsystem wristSubsystem = new WristSubsystem();
     private final Swerve s_Swerve = new Swerve();
     private final Vision vision = new Vision();
+    private final Superstructure superstructure = new Superstructure(armSubsystem, wristSubsystem, collectionSubsystem);
+    private final OperatorCommands operatorCommands = new OperatorCommands(armSubsystem, wristSubsystem, collectionSubsystem);
+
+    public static BeamBreak cubeBeamBreak = new BeamBreak(2);
+    public static BeamBreak coneBeamBreak = new BeamBreak(1);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -80,10 +85,6 @@ public class RobotContainer {
     private final POVButton o_povDown = new POVButton(operator, 180);
     private final POVButton o_povLeft = new POVButton(operator, 270);
 
-    /* Sensors */
-    private final BeamBreak coneBeamBreak = new BeamBreak(1);
-    private final BeamBreak cubeBeamBreak = new BeamBreak(2);
-
     /* Trajectories */
     Trajectory Swervy, Test, straight, tpoint, GameAuto;
 
@@ -98,7 +99,7 @@ public class RobotContainer {
                         () -> -driver.getRawAxis(strafeAxis) * .75,
                         () -> -driver.getRawAxis(rotationAxis) * .75,
                         () -> d_leftBumper.getAsBoolean()));
-
+        
         try {
             Test = TrajectoryUtil.fromPathweaverJson(
                     Filesystem.getDeployDirectory().toPath().resolve(
@@ -146,58 +147,50 @@ public class RobotContainer {
         // Home arm
         d_B.onTrue(new JointsSetPosition(ArmConstants.HOME, 
                                          WristConstants.HOME, 
-                                         JointMovementType.WRIST_FIRST, 
-                                         0.4));
+                                         1, 
+                                         0.4, armSubsystem, wristSubsystem));
 
         /* Operator Controls */
         
         // Acquire cone ground
         o_A.and(o_leftStick.negate())
-            .onTrue(OperatorCommands.acquireConeFromFloor());
+            .onTrue(operatorCommands.acquireConeFromFloor());
         
         // Acquire cube ground
         o_A.and(o_leftStick)
-            .onTrue(OperatorCommands.acquireConeFromFloor());
+            .onTrue(operatorCommands.acquireConeFromFloor());
         
         // Acquire cone DoS
         o_Y.and(o_leftStick.negate())
-            .onTrue(OperatorCommands.acquireConeFromDoS());
+            .onTrue(operatorCommands.acquireConeFromDoS());
 
         // Acquire cube DoS
         o_Y.and(o_leftStick)
-            .onTrue(OperatorCommands.acquireCubeFromDoS());
+            .onTrue(operatorCommands.acquireCubeFromDoS());
         
         // Score high cone
         o_povUp.and(o_rightStick.negate())
-            .whileTrue(OperatorCommands.scoreInHighCone());
+            .whileTrue(operatorCommands.scoreInHighCone());
 
         // Score high cube
         o_povUp.and(o_rightStick)
-            .whileTrue(OperatorCommands.scoreInHighCube());
+            .whileTrue(operatorCommands.scoreInHighCube());
 
         // Score mid cone
         o_povLeft.and(o_rightStick.negate())
-            .whileTrue(OperatorCommands.scoreInMidCone());
+            .whileTrue(operatorCommands.scoreInMidCone());
 
         // Score mid cube
         o_povLeft.and(o_rightStick)
-            .whileTrue(OperatorCommands.scoreInMidCube());
-        
-        // Score mid cone
-        o_povLeft.and(o_rightStick.negate())
-            .whileTrue(OperatorCommands.scoreInMidCone());
-
-        // Score mid cube
-        o_povLeft.and(o_rightStick)
-            .whileTrue(OperatorCommands.scoreInMidCube());
+            .whileTrue(operatorCommands.scoreInMidCube());
         
         // Score low cone
         o_povDown.and(o_rightStick.negate())
-            .whileTrue(OperatorCommands.scoreInLowCone());
+            .whileTrue(operatorCommands.scoreInLowCone());
         
         // Score low cone
         o_povDown.and(o_rightStick)
-            .whileTrue(OperatorCommands.scoreInLowCone());
+            .whileTrue(operatorCommands.scoreInLowCone());
 
         // Manual Arm and Wrist
         //o_leftStick.whileTrue(new ManualWristUp(wristSubsystem));

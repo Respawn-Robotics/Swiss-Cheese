@@ -6,66 +6,62 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.JointMovementType;
 import frc.robot.Constants.WristConstants;
 import frc.robot.commands.JointsSetPosition;
+import frc.robot.commands.operator.commands.Acquire;
 import frc.robot.commands.operator.commands.Score;
+import frc.robot.drivers.BeamBreak;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.CollectionSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 
 public class OperatorCommands {
+
+    private ArmSubsystem armSubsystem;
+    private WristSubsystem wristSubsystem;
+    private CollectionSubsystem collectionSubsystem;
+
+    public OperatorCommands(ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem) {
+        this.armSubsystem = armSubsystem;
+        this.wristSubsystem = wristSubsystem;
+        this.collectionSubsystem = collectionSubsystem;
+    }
     
-    public static Command acquireConeFromFloor() {
-        return new JointsSetPosition(ArmConstants.ACQUIRE_FROM_FLOOR, 
-        WristConstants.ACQUIRE_FROM_FLOOR, 
-        JointMovementType.WRIST_FIRST, 
-        0.4)
-        .andThen(RobotContainer.collectionSubsystem.collectCone());
+    public Command acquireConeFromFloor() {
+        return new Acquire(ArmConstants.ACQUIRE_FROM_FLOOR, WristConstants.ACQUIRE_FROM_FLOOR, true, armSubsystem, wristSubsystem, collectionSubsystem);
     }
 
-    public static Command acquireCubeFromFloor() {
-        return new JointsSetPosition(ArmConstants.ACQUIRE_FROM_FLOOR, 
-        WristConstants.ACQUIRE_FROM_FLOOR, 
-        JointMovementType.WRIST_FIRST, 
-        0.4)
-        .andThen(RobotContainer.collectionSubsystem.collectCube());
+    public Command acquireCubeFromFloor() {
+        return new Acquire(ArmConstants.ACQUIRE_FROM_FLOOR, WristConstants.ACQUIRE_FROM_FLOOR, false, armSubsystem, wristSubsystem, collectionSubsystem);
     }
 
-    public static Command acquireConeFromDoS() {
-        return new JointsSetPosition(ArmConstants.ACQUIRE_FROM_DOS, 
-        WristConstants.ACQUIRE_FROM_DOS, 
-        JointMovementType.WRIST_FIRST,
-        0.4)
-        .andThen(RobotContainer.collectionSubsystem.collectCone());
+    public Command acquireConeFromDoS() {
+        return new Acquire(ArmConstants.ACQUIRE_FROM_DOS, WristConstants.ACQUIRE_FROM_DOS, true, armSubsystem, wristSubsystem, collectionSubsystem);
     }
 
-    public static Command acquireCubeFromDoS() {
-        return new JointsSetPosition(ArmConstants.ACQUIRE_FROM_DOS, 
-        WristConstants.ACQUIRE_FROM_DOS, 
-        JointMovementType.WRIST_FIRST,
-        0.4)
-        .andThen(RobotContainer.collectionSubsystem.collectCube());
+    public Command acquireCubeFromDoS() {
+        return new Acquire(ArmConstants.ACQUIRE_FROM_DOS, WristConstants.ACQUIRE_FROM_DOS, false, armSubsystem, wristSubsystem, collectionSubsystem);
     }
 
-    public static Command scoreInHighCone() {
-        return new Score(ArmConstants.SCORE_IN_HIGH_CONE, WristConstants.SCORE_IN_HIGH_CONE, true);
+    public Command scoreInHighCone() {
+        return new Score(ArmConstants.SCORE_IN_HIGH_CONE, WristConstants.SCORE_IN_HIGH_CONE, true, armSubsystem, wristSubsystem, collectionSubsystem);
     }
 
-    public static Command scoreInHighCube() {
-        return new Score(ArmConstants.SCORE_IN_HIGH_CUBE, WristConstants.SCORE_IN_HIGH_CUBE, false);
-
+    public Command scoreInHighCube() {
+        return new Score(ArmConstants.SCORE_IN_HIGH_CUBE, WristConstants.SCORE_IN_HIGH_CUBE, false, armSubsystem, wristSubsystem, collectionSubsystem);
     }
 
-    public static Command scoreInMidCone() {
-        return new Score(ArmConstants.SCORE_IN_MID_CONE, WristConstants.SCORE_IN_MID_CONE, true);
-
+    public Command scoreInMidCone() {
+        return new Score(ArmConstants.SCORE_IN_MID_CONE, WristConstants.SCORE_IN_MID_CONE, true, armSubsystem, wristSubsystem, collectionSubsystem);
     }
 
-    public static Command scoreInMidCube() {
-        return new Score(ArmConstants.SCORE_IN_MID_CUBE, WristConstants.SCORE_IN_MID_CUBE, false);
-
+    public Command scoreInMidCube() {
+        return new Score(ArmConstants.SCORE_IN_MID_CUBE, WristConstants.SCORE_IN_MID_CUBE, false, armSubsystem, wristSubsystem, collectionSubsystem);
     }
 
-    public static Command scoreInLowCone() {
-        return RobotContainer.collectionSubsystem.ejectCone();
+    public Command scoreInLowCone() {
+        return collectionSubsystem.ejectCone();
     }
 
-    public static Command scoreInLowCube() {
-        return RobotContainer.collectionSubsystem.shootCube();
+    public Command scoreInLowCube() {
+        return collectionSubsystem.shootCube();
     }
 }

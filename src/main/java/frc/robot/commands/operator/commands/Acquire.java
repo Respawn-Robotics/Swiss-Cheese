@@ -9,7 +9,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CollectionSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 
-public class Score extends CommandBase {
+public class Acquire extends CommandBase {
 
     private int armPosition;
     private int wristPosition;
@@ -18,7 +18,7 @@ public class Score extends CommandBase {
     private WristSubsystem wristSubsystem;
     private CollectionSubsystem collectionSubsystem;
 
-    public Score(int armPosition, int wristPosition, boolean cubeOrCone, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem)  {
+    public Acquire(int armPosition, int wristPosition, boolean cubeOrCone, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem)  {
         this.armPosition = armPosition;
         this.wristPosition = wristPosition;
         this.cubeOrCone = cubeOrCone;
@@ -31,19 +31,19 @@ public class Score extends CommandBase {
 
     @Override
     public void execute() {
-        new JointsSetPosition(armPosition, wristPosition, 1, 0.4, armSubsystem, wristSubsystem).schedule();
+        if(cubeOrCone) {
+            new JointsSetPosition(armPosition, wristPosition, 1, 0.4, armSubsystem, wristSubsystem)
+            .alongWith(collectionSubsystem.collectCone())
+            .schedule();
+        } else {
+            new JointsSetPosition(armPosition, wristPosition, 1, 0.4, armSubsystem, wristSubsystem)
+            .alongWith(collectionSubsystem.collectCube())
+            .schedule();
+        }
     }
 
     @Override
     public void end(boolean interuptted) {
-        if(cubeOrCone) {
-            collectionSubsystem.ejectCone()
-                .andThen(new WaitCommand(0.4)
-                .andThen(new JointsSetPosition(armPosition, wristPosition, 1, armPosition, armSubsystem, wristSubsystem))).schedule();
-        } else {
-            collectionSubsystem.shootCube()
-                .andThen(new WaitCommand(0.4)
-                .andThen(new JointsSetPosition(armPosition, wristPosition, 1, armPosition, armSubsystem, wristSubsystem))).schedule();
-        }
+        collectionSubsystem.stopMotor();
     }
 }
