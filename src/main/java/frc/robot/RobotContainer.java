@@ -2,30 +2,26 @@ package frc.robot;
 
 import java.io.IOException;
 
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.JointMovementType;
 import frc.robot.Constants.WristConstants;
-import frc.robot.Constants.JointMovementType;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.commands.manual.ManualArmDown;
 import frc.robot.commands.manual.ManualArmUp;
-import frc.robot.commands.manual.ManualWristDown;
 import frc.robot.commands.manual.ManualWristUp;
+import frc.robot.commands.operator.OperatorCommands;
 import frc.robot.disabled.Disable;
 import frc.robot.drivers.BeamBreak;
 import frc.robot.subsystems.*;
@@ -46,9 +42,9 @@ public class RobotContainer {
     private final Joystick operator = new Joystick(1);
 
     /* Subsystem */
-    private final CollectionSubsystem collectionSubsystem = new CollectionSubsystem();
-    private final ArmSubsystem armSubsystem = new ArmSubsystem();
-    private final WristSubsystem wristSubsystem = new WristSubsystem();
+    public static final CollectionSubsystem collectionSubsystem = new CollectionSubsystem();
+    public static final ArmSubsystem armSubsystem = new ArmSubsystem();
+    public static final WristSubsystem wristSubsystem = new WristSubsystem();
     private final Swerve s_Swerve = new Swerve();
     private final Vision vision = new Vision();
 
@@ -151,53 +147,57 @@ public class RobotContainer {
         d_B.onTrue(new JointsSetPosition(ArmConstants.HOME, 
                                          WristConstants.HOME, 
                                          JointMovementType.WRIST_FIRST, 
-                                         0.4, 
-                                         armSubsystem, wristSubsystem));
+                                         0.4));
 
         /* Operator Controls */
+        
+        // Acquire cone ground
+        o_A.and(o_leftStick.negate())
+            .onTrue(OperatorCommands.acquireConeFromFloor());
+        
+        // Acquire cube ground
+        o_A.and(o_leftStick)
+            .onTrue(OperatorCommands.acquireConeFromFloor());
+        
+        // Acquire cone DoS
+        o_Y.and(o_leftStick.negate())
+            .onTrue(OperatorCommands.acquireConeFromDoS());
 
-        // Acquire off ground        
-        o_A.onTrue(new JointsSetPosition(ArmConstants.ACQUIRE_FROM_FLOOR, 
-                                         WristConstants.ACQUIRE_FROM_FLOOR, 
-                                         JointMovementType.WRIST_FIRST, 
-                                         0.4, 
-                                         armSubsystem, wristSubsystem));
-        // SiS Position
-        o_B.onTrue(new JointsSetPosition(ArmConstants.ACQUIRE_FROM_SIS, 
-                                         WristConstants.ACUQIRE_FROM_SIS, 
-                                         JointMovementType.WRIST_FIRST, 
-                                         0.4, 
-                                         armSubsystem, wristSubsystem));
+        // Acquire cube DoS
+        o_Y.and(o_leftStick)
+            .onTrue(OperatorCommands.acquireCubeFromDoS());
+        
+        // Score high cone
+        o_povUp.and(o_rightStick.negate())
+            .onTrue(OperatorCommands.scoreInHighCone());
 
-        // Acqure from DoS
-        o_Y.onTrue(new JointsSetPosition(ArmConstants.ACQUIRE_FROM_DOS, 
-                                         WristConstants.ACQUIRE_FROM_DOS, 
-                                         JointMovementType.WRIST_FIRST, 
-                                         0.4, 
-                                         armSubsystem, wristSubsystem));
-        // Reset Sensors
-        o_X.onTrue(armSubsystem.resetSensor().andThen(wristSubsystem.resetSensor()));
+        // Score high cube
+        o_povUp.and(o_rightStick)
+            .onTrue(OperatorCommands.scoreInHighCube());
 
-        // Score in high cone
-        o_povLeft.onTrue(new JointsSetPosition(ArmConstants.SCORE_IN_HIGH_CONE, 
-                                         WristConstants.SCORE_IN_HIGH_CONE, 
-                                         JointMovementType.WRIST_FIRST, 
-                                         0.4, 
-                                         armSubsystem, wristSubsystem));
+        // Score mid cone
+        o_povLeft.and(o_rightStick.negate())
+            .onTrue(OperatorCommands.scoreInMidCone());
 
-        // Score in high cube
-        o_povRight.onTrue(new JointsSetPosition(ArmConstants.SCORE_IN_HIGH_CUBE, 
-                                         WristConstants.SCORE_IN_HIGH_CUBE, 
-                                         JointMovementType.WRIST_FIRST, 
-                                         0.4, 
-                                         armSubsystem, wristSubsystem));
+        // Score mid cube
+        o_povLeft.and(o_rightStick)
+            .onTrue(OperatorCommands.scoreInMidCube());
+        
+        // Score mid cone
+        o_povLeft.and(o_rightStick.negate())
+            .onTrue(OperatorCommands.scoreInMidCone());
 
-        // Score in mid cone + cube
-        o_povDown.onTrue(new JointsSetPosition(ArmConstants.SCORE_IN_MID, 
-                                         WristConstants.SCORE_IN_MID,
-                                         JointMovementType.WRIST_FIRST, 
-                                         0.4, 
-                                         armSubsystem, wristSubsystem));
+        // Score mid cube
+        o_povLeft.and(o_rightStick)
+            .onTrue(OperatorCommands.scoreInMidCube());
+        
+        // Score low cone
+        o_povDown.and(o_rightStick.negate())
+            .onTrue(OperatorCommands.scoreInLowCone());
+        
+        // Score low cone
+        o_povDown.and(o_rightStick)
+            .onTrue(OperatorCommands.scoreInLowCone());
 
         // Manual Arm and Wrist
         o_leftStick.whileTrue(new ManualWristUp(wristSubsystem));

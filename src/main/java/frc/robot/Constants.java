@@ -152,7 +152,8 @@ public final class Constants {
 
         public static final int SCORE_IN_HIGH_CONE = 60000;
         public static final int SCORE_IN_HIGH_CUBE = 60000;
-        public static final int SCORE_IN_MID = 42000;
+        public static final int SCORE_IN_MID_CONE = 42000;
+        public static final int SCORE_IN_MID_CUBE = 42000;
 
         // Movement
         public static final float UP_kP = .06030624264f;
@@ -186,7 +187,8 @@ public final class Constants {
 
         public static final int SCORE_IN_HIGH_CONE = 90000;
         public static final int SCORE_IN_HIGH_CUBE = 130000;
-        public static final int SCORE_IN_MID = 152000;
+        public static final int SCORE_IN_MID_CONE = 152000;
+        public static final int SCORE_IN_MID_CUBE = 152000;
         
         // Movement
         public static final float UP_kP = .0367156687f;
