@@ -23,14 +23,13 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class TwoPiece extends SequentialCommandGroup {
     public TwoPiece(Swerve s_Swerve, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Vision limelightSubsystem){
-        PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("testPaths2", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
+        PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("2Piece", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
         PIDController theta = new PIDController(Constants.AutoConstants.kPThetaController, 0, Constants.AutoConstants.kDThetaController);
         theta.enableContinuousInput(-Math.PI, Math.PI);
 
         HashMap<String, Command> eventMap = new HashMap<>();
-        eventMap.put("score", armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(100000)).andThen(new WaitCommand(.5)).andThen(collectionSubsystem.ejectCone()));
-        eventMap.put("home", collectionSubsystem.stopMotor().andThen(armSubsystem.setPosition(0)).andThen(wristSubsystem.setPosition(0)));
-        eventMap.put("ground", armSubsystem.setPosition(15000).andThen(wristSubsystem.setPosition(60000).alongWith(collectionSubsystem.collectCube().andThen(new WaitCommand(.5).andThen(armSubsystem.setPosition(15000))))));
+        eventMap.put("score", armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(100000).andThen(new WaitCommand(2).andThen(wristSubsystem.setPosition(60000)).andThen(armSubsystem.setPosition(15000)))));
+        eventMap.put("ground", collectionSubsystem.collectCube());
         eventMap.put("home2", armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0)).andThen(collectionSubsystem.stopMotor()));
         eventMap.put("score2", armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(100000)));
         eventMap.put("home3", collectionSubsystem.stopMotor().andThen(armSubsystem.setPosition(0)).andThen(wristSubsystem.setPosition(0)));

@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.JointMovementType;
 import frc.robot.Constants.WristConstants;
-import frc.robot.autos.autoCommands.OnePiece;
+import frc.robot.autos.autoCommands.*;
 import frc.robot.commands.*;
 import frc.robot.disabled.Disable;
 import frc.robot.subsystems.*;
@@ -168,12 +168,12 @@ public class RobotContainer {
 
         // Manual Arm and Wrist
         o_leftStick.whileTrue(new ManualWristUp(wristSubsystem));
-        //o_rightStick.whileTrue(new ManualWristDown(wristSubsystem));
+        o_rightStick.whileTrue(new ManualWristDown(wristSubsystem));
         o_start.whileTrue(new ManualArmUp(armSubsystem));
         o_back.whileTrue(new ManualArmDown(armSubsystem));
 
         // Collection Controls
-        o_rightStick.onTrue(collectionSubsystem.stopMotor());
+        //o_rightStick.onTrue(collectionSubsystem.stopMotor());
         o_rightBumper.onTrue(collectionSubsystem.collectCube());
         o_leftBumper.onTrue(collectionSubsystem.collectCone());
         // povDown.onTrue(collectionSubsystem.shootCube());
@@ -186,7 +186,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new OnePiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
+        return new TwoPiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
         // return new TwoPiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
         // return new ThreePiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }

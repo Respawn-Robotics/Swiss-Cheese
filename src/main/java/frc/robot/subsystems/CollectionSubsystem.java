@@ -66,7 +66,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command puffCube() {
       return runOnce(
         () -> {
-          collectionMotor.set(TalonSRXControlMode.PercentOutput, -0.1);
+          collectionMotor.set(TalonSRXControlMode.PercentOutput, -1);
         }
       );
     }
