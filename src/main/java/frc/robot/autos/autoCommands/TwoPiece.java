@@ -30,7 +30,7 @@ public class TwoPiece extends SequentialCommandGroup {
         HashMap<String, Command> eventMap = new HashMap<>();
         eventMap.put("score", armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(100000)).andThen(new WaitCommand(.5)).andThen(collectionSubsystem.ejectCone()));
         eventMap.put("home", collectionSubsystem.stopMotor().andThen(armSubsystem.setPosition(0)).andThen(wristSubsystem.setPosition(0)));
-        eventMap.put("ground", armSubsystem.setPosition(15000).andThen(wristSubsystem.setPosition(60000).alongWith(collectionSubsystem.collectCube().andThen(new WaitCommand(.5).andThen(armSubsystem.setPosition(15000))))));
+        eventMap.put("groud", armSubsystem.setPosition(15000).andThen(wristSubsystem.setPosition(60000).alongWith(collectionSubsystem.collectCube().andThen(new WaitCommand(.5).andThen(armSubsystem.setPosition(15000))))));
         eventMap.put("home2", armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0)).andThen(collectionSubsystem.stopMotor()));
         eventMap.put("score2", armSubsystem.setPosition(60000).andThen(wristSubsystem.setPosition(100000)));
         eventMap.put("home3", collectionSubsystem.stopMotor().andThen(armSubsystem.setPosition(0)).andThen(wristSubsystem.setPosition(0)));

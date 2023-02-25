@@ -1,26 +1,16 @@
 package frc.robot;
 
-import java.io.IOException;
-
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryUtil;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.JointMovementType;
 import frc.robot.Constants.WristConstants;
 import frc.robot.autos.autoCommands.OnePiece;
+import frc.robot.autos.autoCommands.PathwithStops;
 import frc.robot.commands.*;
-import frc.robot.commands.manual.ManualArmDown;
-import frc.robot.commands.manual.ManualArmUp;
-import frc.robot.commands.manual.ManualWristUp;
 import frc.robot.commands.operator.OperatorCommands;
 import frc.robot.disabled.Disable;
 import frc.robot.drivers.BeamBreak;
@@ -96,26 +86,6 @@ public class RobotContainer {
                         () -> -driver.getRawAxis(strafeAxis) * .75,
                         () -> -driver.getRawAxis(rotationAxis) * .75,
                         () -> d_leftBumper.getAsBoolean()));
-        
-        try {
-            Test = TrajectoryUtil.fromPathweaverJson(
-                    Filesystem.getDeployDirectory().toPath().resolve(
-                            "pathplanner/generatedJSON/TEST.wpilib.json"));
-            Swervy = TrajectoryUtil.fromPathweaverJson(
-                    Filesystem.getDeployDirectory().toPath().resolve(
-                            "pathplanner/generatedJSON/curvy swervy.wpilib.json"));
-            straight = TrajectoryUtil.fromPathweaverJson(
-                    Filesystem.getDeployDirectory().toPath().resolve(
-                            "pathplanner/generatedJSON/straight.wpilib.json"));
-            tpoint = TrajectoryUtil.fromPathweaverJson(
-                    Filesystem.getDeployDirectory().toPath().resolve(
-                            "pathplanner/generatedJSON/testPaths1.wpilib.json"));
-            GameAuto = TrajectoryUtil.fromPathweaverJson(Filesystem.getDeployDirectory().toPath().resolve(
-                    "pathplanner/generatedJSON/GameAuto.wpilib.json"));
-
-        } catch (IOException ex) {
-            DriverStation.reportError("Unable to open trajectory", ex.getStackTrace());
-        }
 
         // Configure the button bindings
         configureButtonBindings();
@@ -208,7 +178,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new OnePiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
+        return new PathwithStops(s_Swerve,operatorCommands, vision);
         // return new TwoPiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
         // return new ThreePiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }
