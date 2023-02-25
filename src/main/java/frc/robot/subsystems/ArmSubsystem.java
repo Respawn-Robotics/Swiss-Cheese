@@ -44,6 +44,24 @@ public class ArmSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Arm Slave Falcon Position", armMotorSlave.getSelectedSensorPosition());
         SmartDashboard.putNumber("Arm Slave Falcon Voltage", armMotorSlave.getMotorOutputVoltage());
         SmartDashboard.putNumber("Arm Master Falcon Voltage", armMotorMaster.getMotorOutputVoltage());
+
+        if(armMotorMaster.getBusVoltage() >= 10) {
+            if(armMotorMaster.getStatorCurrent() > 25) {
+                armMotorMaster.set(ControlMode.PercentOutput, 0);
+            }
+        }
+
+        if(armMotorMaster.getBusVoltage() >= 8) {
+            if(armMotorMaster.getStatorCurrent() > 22) {
+                armMotorMaster.set(ControlMode.PercentOutput, 0);
+            }
+        }
+
+        if(armMotorMaster.getBusVoltage() >= 6) {
+            if(armMotorMaster.getStatorCurrent() > 17) {
+                armMotorMaster.set(ControlMode.PercentOutput, 0);
+            }
+        }
     }
 
     public Command goToHome() {

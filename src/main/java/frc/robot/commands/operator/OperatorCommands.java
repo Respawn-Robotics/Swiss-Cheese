@@ -6,6 +6,7 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.JointMovementType;
 import frc.robot.Constants.WristConstants;
 import frc.robot.commands.JointsSetPosition;
+import frc.robot.commands.operator.commands.Score;
 
 public class OperatorCommands {
     
@@ -42,35 +43,22 @@ public class OperatorCommands {
     }
 
     public static Command scoreInHighCone() {
-        return new JointsSetPosition(ArmConstants.SCORE_IN_HIGH_CONE, 
-        WristConstants.ACQUIRE_FROM_DOS, 
-        JointMovementType.WRIST_FIRST,
-        0.4)
-        .andThen(RobotContainer.collectionSubsystem.ejectCone());
+        return new Score(ArmConstants.SCORE_IN_HIGH_CONE, WristConstants.SCORE_IN_HIGH_CONE, true);
     }
 
     public static Command scoreInHighCube() {
-        return new JointsSetPosition(ArmConstants.SCORE_IN_HIGH_CONE, 
-        WristConstants.ACQUIRE_FROM_DOS, 
-        JointMovementType.WRIST_FIRST,
-        0.4)
-        .andThen(RobotContainer.collectionSubsystem.shootCube());
+        return new Score(ArmConstants.SCORE_IN_HIGH_CUBE, WristConstants.SCORE_IN_HIGH_CUBE, false);
+
     }
 
     public static Command scoreInMidCone() {
-        return new JointsSetPosition(ArmConstants.SCORE_IN_MID_CONE, 
-        WristConstants.SCORE_IN_MID_CONE, 
-        JointMovementType.WRIST_FIRST,
-        0.4)
-        .andThen(RobotContainer.collectionSubsystem.ejectCone());
+        return new Score(ArmConstants.SCORE_IN_MID_CONE, WristConstants.SCORE_IN_MID_CONE, true);
+
     }
 
     public static Command scoreInMidCube() {
-        return new JointsSetPosition(ArmConstants.SCORE_IN_MID_CUBE, 
-        WristConstants.SCORE_IN_MID_CUBE, 
-        JointMovementType.WRIST_FIRST,
-        0.4)
-        .andThen(RobotContainer.collectionSubsystem.shootCube());
+        return new Score(ArmConstants.SCORE_IN_MID_CUBE, WristConstants.SCORE_IN_MID_CUBE, false);
+
     }
 
     public static Command scoreInLowCone() {

@@ -35,6 +35,24 @@ public class WristSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Wrist Falcon Position", wristMotor.getSelectedSensorPosition());
+
+        if(wristMotor.getBusVoltage() >= 12) {
+            if(wristMotor.getStatorCurrent() > 36) {
+                wristMotor.set(ControlMode.PercentOutput, 0);
+            }
+        }
+
+        if(wristMotor.getBusVoltage() >= 10) {
+            if(wristMotor.getStatorCurrent() > 31) {
+                wristMotor.set(ControlMode.PercentOutput, 0);
+            }
+        }
+
+        if(wristMotor.getBusVoltage() >= 8) {
+            if(wristMotor.getStatorCurrent() > 23) {
+                wristMotor.set(ControlMode.PercentOutput, 0);
+            }
+        }
     }
 
     public Command resetSensor() {

@@ -169,41 +169,41 @@ public class RobotContainer {
         
         // Score high cone
         o_povUp.and(o_rightStick.negate())
-            .onTrue(OperatorCommands.scoreInHighCone());
+            .whileTrue(OperatorCommands.scoreInHighCone());
 
         // Score high cube
         o_povUp.and(o_rightStick)
-            .onTrue(OperatorCommands.scoreInHighCube());
+            .whileTrue(OperatorCommands.scoreInHighCube());
 
         // Score mid cone
         o_povLeft.and(o_rightStick.negate())
-            .onTrue(OperatorCommands.scoreInMidCone());
+            .whileTrue(OperatorCommands.scoreInMidCone());
 
         // Score mid cube
         o_povLeft.and(o_rightStick)
-            .onTrue(OperatorCommands.scoreInMidCube());
+            .whileTrue(OperatorCommands.scoreInMidCube());
         
         // Score mid cone
         o_povLeft.and(o_rightStick.negate())
-            .onTrue(OperatorCommands.scoreInMidCone());
+            .whileTrue(OperatorCommands.scoreInMidCone());
 
         // Score mid cube
         o_povLeft.and(o_rightStick)
-            .onTrue(OperatorCommands.scoreInMidCube());
+            .whileTrue(OperatorCommands.scoreInMidCube());
         
         // Score low cone
         o_povDown.and(o_rightStick.negate())
-            .onTrue(OperatorCommands.scoreInLowCone());
+            .whileTrue(OperatorCommands.scoreInLowCone());
         
         // Score low cone
         o_povDown.and(o_rightStick)
-            .onTrue(OperatorCommands.scoreInLowCone());
+            .whileTrue(OperatorCommands.scoreInLowCone());
 
         // Manual Arm and Wrist
-        o_leftStick.whileTrue(new ManualWristUp(wristSubsystem));
+        //o_leftStick.whileTrue(new ManualWristUp(wristSubsystem));
         //o_rightStick.whileTrue(new ManualWristDown(wristSubsystem));
-        o_start.whileTrue(new ManualArmUp(armSubsystem));
-        o_back.whileTrue(new ManualArmDown(armSubsystem));
+        //o_start.whileTrue(new ManualArmUp(armSubsystem));
+        //o_back.whileTrue(new ManualArmDown(armSubsystem));
 
         // Collection Controls
         o_rightBumper.onTrue(collectionSubsystem.collectCube());
