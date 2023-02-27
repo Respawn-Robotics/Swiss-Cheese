@@ -145,8 +145,8 @@ public final class Constants {
     }
 
     public static final class ArmConstants {
-        public static final int armMotorMaster = 9;
-        public static final int armMotorSlave = 10;
+        public static final int ARM_MOTOR_MASTER = 9;
+        public static final int ARM_MOTOR_SLAVE = 10;
 
         // Setpoints
         public static final int HOME = 0;
@@ -156,12 +156,31 @@ public final class Constants {
 
         public static final int SCORE_IN_HIGH_CONE = 60000;
         public static final int SCORE_IN_HIGH_CUBE = 60000;
-        public static final int SCORE_IN_MID = 42000;
+        public static final int SCORE_IN_MID_CONE = 42000;
+        public static final int SCORE_IN_MID_CUBE = 42000;
 
+        // Movement
+        public static final float UP_kP = .06030624264f;
+        public static final float UP_kI = 0f;
+        public static final float UP_kD = 0f;
+        public static final float UP_kF = 0.1f;
+
+        public static final float DOWN_kP = .1265760198f;
+        public static final float DOWN_kI = 0f;
+        public static final float DOWN_kD = 0f;
+        public static final float DOWN_kF = 0.1f;
+        
+        public static int PEAK_VELOCITY_UP = 13360;
+        public static final float PERCENT_OF_PEAK_UP = .65f;
+        public static final float CRUISE_VELOCITY_ACCEL_UP = PEAK_VELOCITY_UP * PERCENT_OF_PEAK_UP;
+
+        public static int PEAK_VELOCITY_DOWN = 8090;
+        public static final float PERCENT_OF_PEAK_DOWN = .65f;
+        public static final float CRUISE_VELOCITY_ACCEL_DOWN = PEAK_VELOCITY_DOWN * PERCENT_OF_PEAK_DOWN;
     }
 
     public static final class WristConstants {
-        public static final int wristMotor = 11;
+        public static final int WRIST_MOTOR = 11;
 
         // Setpoints
         public static final int HOME = 0;
@@ -171,7 +190,28 @@ public final class Constants {
 
         public static final int SCORE_IN_HIGH_CONE = 90000;
         public static final int SCORE_IN_HIGH_CUBE = 130000;
-        public static final int SCORE_IN_MID = 69000;
+        public static final int SCORE_IN_MID_CONE = 152000;
+        public static final int SCORE_IN_MID_CUBE = 152000;
+        
+        // Movement
+        public static final float UP_kP = .0367156687f;
+        public static final float UP_kI = 0f;
+        public static final float UP_kD = 0f;
+        public static final float UP_kF = 0.1f;
+
+        public static final float DOWN_kP = .0367156687f;
+        public static final float DOWN_kI = 0f;
+        public static final float DOWN_kD = 0f;
+        public static final float DOWN_kF = 0.1f;
+
+        public static int PEAK_VELOCITY_UP = 14940;
+        public static final float PERCENT_OF_PEAK_UP = .95f;
+        public static final float CRUISE_VELOCITY_ACCEL_UP = PEAK_VELOCITY_UP * PERCENT_OF_PEAK_UP;
+
+        public static int PEAK_VELOCITY_DOWN = 14940;
+        public static final float PERCENT_OF_PEAK_DOWN = .65f;
+        public static final float CRUISE_VELOCITY_ACCEL_DOWN = PEAK_VELOCITY_DOWN * PERCENT_OF_PEAK_DOWN;
+
     }
 
     public static final class AutoConstants {
@@ -180,7 +220,7 @@ public final class Constants {
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     
-        public static final double kPXController = 5; //Different max speeds require different PIDs.
+        public static final double kPXController = 5; // Different max speeds require different PIDs.
         public static final double kDXController = .15;
         public static final double kPYController = kPXController;
         public static final double kDYController = kDXController;

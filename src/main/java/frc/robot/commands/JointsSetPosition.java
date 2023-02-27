@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.JointMovementType;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.WristSubsystem;
@@ -20,6 +21,8 @@ public class JointsSetPosition extends CommandBase {
         this.armPosition = armPosition;
         this.wristPosition = wristPosition;
         this.waitTimeInSeconds = waitTimeInSeconds;
+        
+        addRequirements(armSubsystem, wristSubsystem);
     }
 
     @Override
