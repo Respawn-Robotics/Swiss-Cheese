@@ -171,11 +171,11 @@ public final class Constants {
         public static final float DOWN_kF = 0.1f;
         
         public static int PEAK_VELOCITY_UP = 13360;
-        public static final float PERCENT_OF_PEAK_UP = .65f;
+        public static final float PERCENT_OF_PEAK_UP = .60f;
         public static final float CRUISE_VELOCITY_ACCEL_UP = PEAK_VELOCITY_UP * PERCENT_OF_PEAK_UP;
 
         public static int PEAK_VELOCITY_DOWN = 8090;
-        public static final float PERCENT_OF_PEAK_DOWN = .65f;
+        public static final float PERCENT_OF_PEAK_DOWN = .60f;
         public static final float CRUISE_VELOCITY_ACCEL_DOWN = PEAK_VELOCITY_DOWN * PERCENT_OF_PEAK_DOWN;
     }
 

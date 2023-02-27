@@ -35,9 +35,7 @@ ArrayList<PathPlannerTrajectory> pathGroup = (ArrayList<PathPlannerTrajectory>) 
 // This is just an example event map. It would be better to have a constant, global event map
 // in your code that will be used by all path following commands.
 HashMap<String, Command> eventMap = new HashMap<>();
-eventMap.put("marker1", new PrintCommand("Passed marker 1"));
-eventMap.put("intakeDown", new InstantCommand(() -> operatorCommands.scoreInHighCone().withTimeout(0)));//.withTimeout(2);
-eventMap.put("home", operatorCommands.acquireConeFromFloor());
+eventMap.put("1", operatorCommands.goToHome().andThen(new WaitCommand(1).andThen(new PrintCommand("TEST"))));
 
 // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
 SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(

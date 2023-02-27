@@ -10,6 +10,10 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.WristConstants;
 import frc.robot.autos.autoCommands.*;
 import frc.robot.commands.*;
+import frc.robot.commands.manual.ManualArmDown;
+import frc.robot.commands.manual.ManualArmUp;
+import frc.robot.commands.manual.ManualWristDown;
+import frc.robot.commands.manual.ManualWristUp;
 import frc.robot.commands.operator.OperatorCommands;
 import frc.robot.commands.operator.commands.Score;
 import frc.robot.disabled.Disable;
@@ -162,10 +166,10 @@ public class RobotContainer {
         o_povRight.onTrue(collectionSubsystem.stopMotor());
 
         // Manual Arm and Wrist
-        //o_leftStick.whileTrue(new ManualWristUp(wristSubsystem));
-        //o_rightStick.whileTrue(new ManualWristDown(wristSubsystem));
-        //o_start.whileTrue(new ManualArmUp(armSubsystem));
-        //o_back.whileTrue(new ManualArmDown(armSubsystem));
+        o_leftStick.whileTrue(new ManualArmUp(armSubsystem));
+        o_rightStick.whileTrue(new ManualArmDown(armSubsystem));
+        o_start.whileTrue(new ManualArmUp(armSubsystem));
+        o_back.whileTrue(new ManualArmDown(armSubsystem));
 
         // Collection Controls
         o_rightBumper.onTrue(collectionSubsystem.collectCube());

@@ -39,7 +39,7 @@ public class Superstructure extends SubsystemBase {
             new WaitCommand(0.5)
                 .andThen(new JointsSetPosition(ArmConstants.HOME, WristConstants.HOME, 1, 0.4, armSubsystem, wristSubsystem))
                 .schedule();
-            new WaitCommand(0.45)
+            new WaitCommand(0.25)
                 .andThen(collectionSubsystem.holdPosition())
                 .schedule();
         }

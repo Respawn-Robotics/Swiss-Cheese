@@ -14,7 +14,14 @@ public class CollectionSubsystem extends SubsystemBase {
     private final TalonFX collectionMotor = new TalonFX(Constants.CollectionConstants.collectionMotor);
 
     public CollectionSubsystem() {
+      collectionMotor.configFactoryDefault();
       collectionMotor.setNeutralMode(NeutralMode.Brake);
+      collectionMotor.setSelectedSensorPosition(0);
+
+      collectionMotor.config_kF(0, 0, 0);
+		  collectionMotor.config_kP(0, .02, 0);
+		  collectionMotor.config_kI(0, 0, 0);
+		  collectionMotor.config_kD(0, 0, 0);
     }
 
     @Override
@@ -26,7 +33,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command collectCube() {
       return runOnce(
         () -> {
-            collectionMotor.set(ControlMode.PercentOutput, .50);
+            collectionMotor.set(ControlMode.PercentOutput, .3);
         }
       );
     }
@@ -42,7 +49,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command shootCube() {
       return runOnce(
         () -> {
-          collectionMotor.set(ControlMode.PercentOutput, -0.5);
+          collectionMotor.set(ControlMode.PercentOutput, -0.95);
         }
       );
     }
@@ -58,6 +65,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command holdPosition() {
       return runOnce(
         () -> {
+          SmartDashboard.putNumber("HOLDING AT", collectionMotor.getSelectedSensorPosition());
           collectionMotor.set(ControlMode.Position, collectionMotor.getSelectedSensorPosition());
         }
       );
@@ -66,7 +74,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command collectCone() {
       return runOnce(
         () -> {
-          collectionMotor.set(ControlMode.PercentOutput, -.85);     
+          collectionMotor.set(ControlMode.PercentOutput, -.5);     
         }
       );
     }
