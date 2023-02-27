@@ -10,14 +10,14 @@
         "x": 3.0,
         "y": 2.5000000000000018
       },
-      "holonomicAngle": 0.0,
+      "holonomicAngle": 90.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "LimelightStart"
+          "marker1"
         ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
@@ -27,21 +27,48 @@
     {
       "anchorPoint": {
         "x": 3.0,
-        "y": 3.0
+        "y": 3.25
       },
       "prevControl": {
         "x": 3.0,
-        "y": 2.0
+        "y": 2.25
+      },
+      "nextControl": {
+        "x": 3.0,
+        "y": 4.2499999999999964
+      },
+      "holonomicAngle": 90.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": true,
+      "stopEvent": {
+        "names": [
+          "intakeDown"
+        ],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 5.0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 2.995902808907757,
+        "y": 4.75
+      },
+      "prevControl": {
+        "x": 2.995902808907757,
+        "y": 5.049941672273779
       },
       "nextControl": null,
-      "holonomicAngle": 0,
+      "holonomicAngle": -90.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "LimelightStop"
+          "home"
         ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
