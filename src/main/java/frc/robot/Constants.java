@@ -177,7 +177,6 @@ public final class Constants {
         public static int PEAK_VELOCITY_DOWN = 8090;
         public static final float PERCENT_OF_PEAK_DOWN = .65f;
         public static final float CRUISE_VELOCITY_ACCEL_DOWN = PEAK_VELOCITY_DOWN * PERCENT_OF_PEAK_DOWN;
-
     }
 
     public static final class WristConstants {

@@ -44,6 +44,5 @@ public class Acquire extends CommandBase {
 
     @Override
     public void end(boolean interuptted) {
-        collectionSubsystem.stopMotor();
     }
 }
