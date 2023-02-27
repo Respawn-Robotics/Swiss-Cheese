@@ -1,7 +1,9 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -9,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class CollectionSubsystem extends SubsystemBase {
-    private final TalonSRX collectionMotor = new TalonSRX(Constants.CollectionConstants.collectionMotor);
+    private final TalonFX collectionMotor = new TalonFX(Constants.CollectionConstants.collectionMotor);
 
     public CollectionSubsystem() {
       collectionMotor.setNeutralMode(NeutralMode.Brake);
@@ -24,7 +26,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command collectCube() {
       return runOnce(
         () -> {
-            collectionMotor.set(TalonSRXControlMode.PercentOutput, .50);
+            collectionMotor.set(ControlMode.PercentOutput, .50);
         }
       );
     }
@@ -32,7 +34,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command puffCube() {
       return runOnce(
         () -> {
-          collectionMotor.set(TalonSRXControlMode.PercentOutput, -0.1);
+          collectionMotor.set(ControlMode.PercentOutput, -0.1);
         }
       );
     }
@@ -40,7 +42,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command shootCube() {
       return runOnce(
         () -> {
-          collectionMotor.set(TalonSRXControlMode.PercentOutput, -0.5);
+          collectionMotor.set(ControlMode.PercentOutput, -0.5);
         }
       );
     }
@@ -48,7 +50,15 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command stopMotor() {
       return runOnce(
         () -> {
-          collectionMotor.set(TalonSRXControlMode.PercentOutput, 0);
+          collectionMotor.set(ControlMode.PercentOutput, 0);
+        }
+      );
+    }
+
+    public Command holdPosition() {
+      return runOnce(
+        () -> {
+          collectionMotor.set(ControlMode.Position, collectionMotor.getSelectedSensorPosition());
         }
       );
     }
@@ -56,7 +66,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command collectCone() {
       return runOnce(
         () -> {
-          collectionMotor.set(TalonSRXControlMode.PercentOutput, -.85);     
+          collectionMotor.set(ControlMode.PercentOutput, -.85);     
         }
       );
     }
@@ -64,7 +74,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command ejectCone() {
       return runOnce(
         () -> {
-          collectionMotor.set(TalonSRXControlMode.PercentOutput, .70);
+          collectionMotor.set(ControlMode.PercentOutput, .70);
         }
       );
     }
