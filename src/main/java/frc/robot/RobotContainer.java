@@ -178,7 +178,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new PathwithStops(s_Swerve,operatorCommands, vision);
+        return new PathwithStops(s_Swerve,operatorCommands,armSubsystem, vision);
         // return new TwoPiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
         // return new ThreePiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }

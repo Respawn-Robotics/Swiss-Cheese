@@ -17,6 +17,7 @@ import java.util.HashMap;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPlannerTrajectory.StopEvent;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,7 +27,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class PathwithStops extends SequentialCommandGroup {
-    public PathwithStops(Swerve s_Swerve, OperatorCommands operatorCommands, Vision limelightSubsystem){
+    public PathwithStops(Swerve s_Swerve, OperatorCommands operatorCommands,ArmSubsystem armSubsystem, Vision limelightSubsystem){
 
 // This will load the file "FullAuto.path" and generate it with a max velocity of 4 m/s and a max acceleration of 3 m/s^2
 // for every path in the group
@@ -35,9 +36,11 @@ ArrayList<PathPlannerTrajectory> pathGroup = (ArrayList<PathPlannerTrajectory>) 
 // This is just an example event map. It would be better to have a constant, global event map
 // in your code that will be used by all path following commands.
 HashMap<String, Command> eventMap = new HashMap<>();
-eventMap.put("marker1", new PrintCommand("Passed marker 1"));
-eventMap.put("intakeDown", new InstantCommand(() -> operatorCommands.scoreInHighCone().withTimeout(0)));//.withTimeout(2);
-eventMap.put("home", operatorCommands.acquireConeFromFloor());
+
+Command autoGoHomeCommand = operatorCommands.goToHome();
+eventMap.put("marker1", armSubsystem.setPosition(60000).andThen(new PrintCommand("getName()")));//new PrintCommand("Passed marker 1"));
+eventMap.put("intakeDown", autoGoHomeCommand.andThen(new PrintCommand("workplz")));
+eventMap.put("home", new PrintCommand("getName()"));
 
 // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
 SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
