@@ -19,7 +19,7 @@
         "names": [
           "score"
         ],
-        "executionBehavior": "sequential",
+        "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0.5
       }
@@ -163,9 +163,12 @@
         "x": 3.0,
         "y": 1.456444644317894
       },
-      "nextControl": null,
+      "nextControl": {
+        "x": 3.0,
+        "y": 1.456444644317894
+      },
       "holonomicAngle": 270.0,
-      "isReversal": false,
+      "isReversal": true,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
@@ -178,6 +181,28 @@
         "waitBehavior": "after",
         "waitTime": 0.5
       }
+    },
+    {
+      "anchorPoint": {
+        "x": 3.0,
+        "y": 1.5
+      },
+      "prevControl": {
+        "x": 3.0,
+        "y": 2.0107349669691956
+      },
+      "nextControl": null,
+      "holonomicAngle": 270.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
     }
   ],
   "maxVelocity": 1.0,
@@ -185,7 +210,7 @@
   "isReversed": null,
   "markers": [
     {
-      "position": 1.0,
+      "position": 0.1,
       "names": [
         "home"
       ]
@@ -200,6 +225,24 @@
       "position": 3.796363636363596,
       "names": [
         "home2"
+      ]
+    },
+    {
+      "position": 0.0,
+      "names": [
+        "score"
+      ]
+    },
+    {
+      "position": 6.0,
+      "names": [
+        "score2"
+      ]
+    },
+    {
+      "position": 7.0,
+      "names": [
+        "home3"
       ]
     }
   ]

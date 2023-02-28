@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class TwoPiece extends SequentialCommandGroup {
     public TwoPiece(Swerve s_Swerve, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Vision limelightSubsystem){
-        PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("testPaths2", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
+        PathPlannerTrajectory exampleTrajectory = PathPlanner.loadPath("2Piece", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
         PIDController theta = new PIDController(Constants.AutoConstants.kPThetaController, 0, Constants.AutoConstants.kDThetaController);
         theta.enableContinuousInput(-Math.PI, Math.PI);
 

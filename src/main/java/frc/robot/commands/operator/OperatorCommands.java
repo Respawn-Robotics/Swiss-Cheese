@@ -25,8 +25,8 @@ public class OperatorCommands {
         this.collectionSubsystem = collectionSubsystem;
     }
 
-    public Command goToHome(){
-        return new JointsSetPosition(0, 0, 1, 0, armSubsystem, wristSubsystem);
+    public Command goToHome() {
+        return new JointsSetPosition(0, 0, 1, 0.4, armSubsystem, wristSubsystem);
     }
     
     public Command acquireConeFromFloor() {

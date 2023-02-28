@@ -1,6 +1,7 @@
 package frc.robot.commands.operator.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.JointMovementType;
@@ -36,14 +37,5 @@ public class Score extends CommandBase {
 
     @Override
     public void end(boolean interuptted) {
-        if(cubeOrCone) {
-            collectionSubsystem.ejectCone()
-                .andThen(new WaitCommand(0.4)
-                .andThen(new JointsSetPosition(armPosition, wristPosition, 1, armPosition, armSubsystem, wristSubsystem))).schedule();
-        } else {
-            collectionSubsystem.shootCube()
-                .andThen(new WaitCommand(0.4)
-                .andThen(new JointsSetPosition(armPosition, wristPosition, 1, armPosition, armSubsystem, wristSubsystem))).schedule();
-        }
     }
 }

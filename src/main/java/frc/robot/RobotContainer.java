@@ -8,10 +8,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.WristConstants;
-import frc.robot.autos.autoCommands.OnePiece;
-import frc.robot.autos.autoCommands.PathwithStops;
+import frc.robot.autos.autoCommands.*;
 import frc.robot.commands.*;
+import frc.robot.commands.manual.ManualArmDown;
+import frc.robot.commands.manual.ManualArmUp;
+import frc.robot.commands.manual.ManualWristDown;
+import frc.robot.commands.manual.ManualWristUp;
 import frc.robot.commands.operator.OperatorCommands;
+import frc.robot.commands.operator.commands.Score;
 import frc.robot.disabled.Disable;
 import frc.robot.drivers.BeamBreak;
 import frc.robot.subsystems.*;
@@ -37,7 +41,7 @@ public class RobotContainer {
     public final WristSubsystem wristSubsystem = new WristSubsystem();
     private final Swerve s_Swerve = new Swerve();
     private final Vision vision = new Vision();
-    private final Superstructure superstructure = new Superstructure(armSubsystem, wristSubsystem, collectionSubsystem);
+    private final Superstructure superstructure = new Superstructure(armSubsystem, wristSubsystem, collectionSubsystem, operator);
     private final OperatorCommands operatorCommands = new OperatorCommands(armSubsystem, wristSubsystem, collectionSubsystem);
 
     public static BeamBreak cubeBeamBreak = new BeamBreak(2);
@@ -86,7 +90,7 @@ public class RobotContainer {
                         () -> -driver.getRawAxis(strafeAxis) * .75,
                         () -> -driver.getRawAxis(rotationAxis) * .75,
                         () -> d_leftBumper.getAsBoolean()));
-
+        
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -137,33 +141,35 @@ public class RobotContainer {
         
         // Score high cone
         o_povUp.and(o_rightStick.negate())
-            .whileTrue(operatorCommands.scoreInHighCone());
+            .onTrue(operatorCommands.scoreInHighCone());
 
         // Score high cube
         o_povUp.and(o_rightStick)
-            .whileTrue(operatorCommands.scoreInHighCube());
+            .onTrue(operatorCommands.scoreInHighCube());
 
         // Score mid cone
         o_povLeft.and(o_rightStick.negate())
-            .whileTrue(operatorCommands.scoreInMidCone());
+            .onTrue(operatorCommands.scoreInMidCone());
 
         // Score mid cube
         o_povLeft.and(o_rightStick)
-            .whileTrue(operatorCommands.scoreInMidCube());
+            .onTrue(operatorCommands.scoreInMidCube());
         
         // Score low cone
         o_povDown.and(o_rightStick.negate())
-            .whileTrue(operatorCommands.scoreInLowCone());
+            .onTrue(operatorCommands.scoreInLowCone());
         
         // Score low cone
         o_povDown.and(o_rightStick)
-            .whileTrue(operatorCommands.scoreInLowCone());
+            .onTrue(operatorCommands.scoreInLowCone());
+        
+        o_povRight.onTrue(collectionSubsystem.stopMotor());
 
         // Manual Arm and Wrist
-        //o_leftStick.whileTrue(new ManualWristUp(wristSubsystem));
-        //o_rightStick.whileTrue(new ManualWristDown(wristSubsystem));
-        //o_start.whileTrue(new ManualArmUp(armSubsystem));
-        //o_back.whileTrue(new ManualArmDown(armSubsystem));
+        o_leftStick.whileTrue(new ManualArmUp(armSubsystem));
+        o_rightStick.whileTrue(new ManualArmDown(armSubsystem));
+        o_start.whileTrue(new ManualArmUp(armSubsystem));
+        o_back.whileTrue(new ManualArmDown(armSubsystem));
 
         // Collection Controls
         o_rightBumper.onTrue(collectionSubsystem.collectCube());
@@ -178,7 +184,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new PathwithStops(s_Swerve,operatorCommands,armSubsystem, vision);
+        return new PathwithStops(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
         // return new TwoPiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
         // return new ThreePiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }
