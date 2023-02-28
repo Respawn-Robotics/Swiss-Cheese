@@ -55,13 +55,13 @@ public class WristSubsystem extends SubsystemBase {
         }
     }
 
-    public Command resetSensor() {
+    public Command resetPos() {
         return runOnce(
-            () -> {
-                wristMotor.setSelectedSensorPosition(0);
-            }
+          () -> {
+            wristMotor.setSelectedSensorPosition(0);
+          }
         );
-    }
+      }
 
     public Command stop() {
         return runOnce(

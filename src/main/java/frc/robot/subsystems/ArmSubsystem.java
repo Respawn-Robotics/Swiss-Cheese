@@ -34,7 +34,7 @@ public class ArmSubsystem extends SubsystemBase {
 
         armMotorMaster.configMotionSCurveStrength(2);
 
-        armMotorMaster.setInverted(TalonFXInvertType.Clockwise);
+        armMotorMaster.setInverted(TalonFXInvertType.CounterClockwise);
         armMotorMaster.setNeutralMode(NeutralMode.Brake);
         armMotorSlave.setNeutralMode(NeutralMode.Brake);
     }
@@ -65,21 +65,12 @@ public class ArmSubsystem extends SubsystemBase {
         // }
     }
 
-    public Command goToHome() {
-        return runOnce(
-            () -> {
-                armMotorMaster.set(TalonFXControlMode.Position, 0);
-                armMotorSlave.set(TalonFXControlMode.Position, 0);
-            }
-        );
-    }
-
     public Command slowlyGoDown() {
         return runOnce(
             () -> {
                 armMotorMaster.set(TalonFXControlMode.PercentOutput, -.1);
                 armMotorSlave.follow(armMotorMaster);
-                armMotorSlave.setInverted(InvertType.OpposeMaster);
+                armMotorSlave.setInverted(InvertType.FollowMaster);
             }
         );
     }
@@ -89,7 +80,7 @@ public class ArmSubsystem extends SubsystemBase {
             () -> {
                 armMotorMaster.set(TalonFXControlMode.PercentOutput, .1);
                 armMotorSlave.follow(armMotorMaster);
-                armMotorSlave.setInverted(InvertType.OpposeMaster);
+                armMotorSlave.setInverted(InvertType.FollowMaster);
             }
         );
     }
@@ -118,7 +109,7 @@ public class ArmSubsystem extends SubsystemBase {
                     manageMotion(position);
                     armMotorMaster.set(ControlMode.MotionMagic, position);
                     armMotorSlave.follow(armMotorMaster);
-                    armMotorSlave.setInverted(InvertType.OpposeMaster);
+                    armMotorSlave.setInverted(InvertType.FollowMaster);
             }
         );
     }
@@ -128,7 +119,7 @@ public class ArmSubsystem extends SubsystemBase {
             () -> {
                 armMotorMaster.set(ControlMode.PercentOutput, voltage);
                 armMotorSlave.follow(armMotorMaster);
-                armMotorSlave.setInverted(InvertType.OpposeMaster);
+                armMotorSlave.setInverted(InvertType.FollowMaster);
             }
         );
     }
