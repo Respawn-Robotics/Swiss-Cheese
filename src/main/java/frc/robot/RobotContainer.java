@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Constants.ArmConstants;
@@ -18,6 +19,7 @@ import frc.robot.commands.operator.OperatorCommands;
 import frc.robot.commands.operator.commands.Score;
 import frc.robot.disabled.Disable;
 import frc.robot.drivers.BeamBreak;
+import frc.robot.shuffleboard.ShuffleboardConfig;
 import frc.robot.subsystems.*;
 
 /**
@@ -31,6 +33,9 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
 
+    /* Config */
+    ShuffleboardConfig shuffleboardConfig = new ShuffleboardConfig();
+
     /* Controllers */
     private final Joystick driver = new Joystick(0);
     private final Joystick operator = new Joystick(1);
@@ -41,8 +46,8 @@ public class RobotContainer {
     public final WristSubsystem wristSubsystem = new WristSubsystem();
     private final Swerve s_Swerve = new Swerve();
     private final Vision vision = new Vision();
-    private final Superstructure superstructure = new Superstructure(armSubsystem, wristSubsystem, collectionSubsystem, operator);
     private final OperatorCommands operatorCommands = new OperatorCommands(armSubsystem, wristSubsystem, collectionSubsystem);
+    private final Superstructure superstructure = new Superstructure(armSubsystem, wristSubsystem, collectionSubsystem, operator, operatorCommands);
 
     public static BeamBreak cubeBeamBreak = new BeamBreak(2);
     public static BeamBreak coneBeamBreak = new BeamBreak(1);
@@ -116,10 +121,7 @@ public class RobotContainer {
         d_A.whileTrue(new FollowTape(s_Swerve));
 
         // Home arm
-        d_B.onTrue(new JointsSetPosition(ArmConstants.HOME, 
-                                         WristConstants.HOME, 
-                                         1, 
-                                         0.4, armSubsystem, wristSubsystem));
+        d_B.onTrue(operatorCommands.goToHome());
 
         /* Operator Controls */
         
@@ -129,8 +131,10 @@ public class RobotContainer {
         
         // Acquire cube ground
         o_A.and(o_leftStick)
-            .onTrue(operatorCommands.acquireConeFromFloor());
+            .onTrue(operatorCommands.acquireCubeFromFloor());
         
+        o_X.onTrue(armSubsystem.resetSensor().andThen(wristSubsystem.resetPos()));
+
         // Acquire cone DoS
         o_Y.and(o_leftStick.negate())
             .onTrue(operatorCommands.acquireConeFromDoS());
@@ -159,21 +163,21 @@ public class RobotContainer {
         o_povDown.and(o_rightStick.negate())
             .onTrue(operatorCommands.scoreInLowCone());
         
-        // Score low cone
+        // Score low cube
         o_povDown.and(o_rightStick)
-            .onTrue(operatorCommands.scoreInLowCone());
+            .onTrue(operatorCommands.scoreInLowCube());
         
         o_povRight.onTrue(collectionSubsystem.stopMotor());
 
         // Manual Arm and Wrist
-        o_leftStick.whileTrue(new ManualArmUp(armSubsystem));
-        o_rightStick.whileTrue(new ManualArmDown(armSubsystem));
-        o_start.whileTrue(new ManualArmUp(armSubsystem));
-        o_back.whileTrue(new ManualArmDown(armSubsystem));
+        //o_leftStick.whileTrue(new ManualArmUp(armSubsystem));
+        //o_rightStick.whileTrue(new ManualArmDown(armSubsystem));
+        o_start.whileTrue(new ManualWristUp(wristSubsystem));
+        o_back.whileTrue(new ManualWristDown(wristSubsystem));
 
         // Collection Controls
         o_rightBumper.onTrue(collectionSubsystem.collectCube());
-        o_leftBumper.onTrue(collectionSubsystem.collectCone());
+        o_leftBumper.onTrue(collectionSubsystem.alterCube());
         o_povDown.onTrue(collectionSubsystem.stopMotor());
     }
 

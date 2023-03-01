@@ -150,7 +150,8 @@ public final class Constants {
 
         // Setpoints
         public static final int HOME = 0;
-        public static final int ACQUIRE_FROM_FLOOR = 15000;
+        public static final int ACQUIRE_FROM_CUBE_FLOOR = 6000;
+        public static final int ACQUIRE_FROM_CONE_FLOOR = 6000;
         public static final int ACQUIRE_FROM_DOS = 60000;
         public static final int ACQUIRE_FROM_SIS = 25000;
 
@@ -171,11 +172,11 @@ public final class Constants {
         public static final float DOWN_kF = 0.1f;
         
         public static int PEAK_VELOCITY_UP = 13360;
-        public static final float PERCENT_OF_PEAK_UP = .60f;
+        public static final float PERCENT_OF_PEAK_UP = .70f;
         public static final float CRUISE_VELOCITY_ACCEL_UP = PEAK_VELOCITY_UP * PERCENT_OF_PEAK_UP;
 
         public static int PEAK_VELOCITY_DOWN = 8090;
-        public static final float PERCENT_OF_PEAK_DOWN = .60f;
+        public static final float PERCENT_OF_PEAK_DOWN = .70f;
         public static final float CRUISE_VELOCITY_ACCEL_DOWN = PEAK_VELOCITY_DOWN * PERCENT_OF_PEAK_DOWN;
     }
 
@@ -184,12 +185,13 @@ public final class Constants {
 
         // Setpoints
         public static final int HOME = 0;
-        public static final int ACQUIRE_FROM_FLOOR = 60000;
+        public static final int ACQUIRE_FROM_CUBE_FLOOR = 60500;
+        public static final int ACQUIRE_FROM_CONE_FLOOR = 52000;
         public static final int ACQUIRE_FROM_DOS = 90500;
         public static final int ACUQIRE_FROM_SIS = 129000;
 
         public static final int SCORE_IN_HIGH_CONE = 90000;
-        public static final int SCORE_IN_HIGH_CUBE = 130000;
+        public static final int SCORE_IN_HIGH_CUBE = 110000;
         public static final int SCORE_IN_MID_CONE = 152000;
         public static final int SCORE_IN_MID_CUBE = 152000;
         
@@ -209,7 +211,7 @@ public final class Constants {
         public static final float CRUISE_VELOCITY_ACCEL_UP = PEAK_VELOCITY_UP * PERCENT_OF_PEAK_UP;
 
         public static int PEAK_VELOCITY_DOWN = 14940;
-        public static final float PERCENT_OF_PEAK_DOWN = .65f;
+        public static final float PERCENT_OF_PEAK_DOWN = .95f;
         public static final float CRUISE_VELOCITY_ACCEL_DOWN = PEAK_VELOCITY_DOWN * PERCENT_OF_PEAK_DOWN;
 
     }
