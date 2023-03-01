@@ -1,6 +1,7 @@
 package frc.robot.commands.operator;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.JointMovementType;
@@ -26,15 +27,16 @@ public class OperatorCommands {
     }
 
     public Command goToHome() {
-        return new JointsSetPosition(0, 0, 1, 0.4, armSubsystem, wristSubsystem);
+        return new JointsSetPosition(0, 0, 1, 0.5, armSubsystem, wristSubsystem);
+        //return armSubsystem.setPosition(8000).andThen(new WaitCommand(0.6).andThen(new JointsSetPosition(0, 0, 1, 0.4, armSubsystem, wristSubsystem)));
     }
     
     public Command acquireConeFromFloor() {
-        return new Acquire(ArmConstants.ACQUIRE_FROM_FLOOR, WristConstants.ACQUIRE_FROM_FLOOR, false, armSubsystem, wristSubsystem, collectionSubsystem);
+        return new Acquire(ArmConstants.ACQUIRE_FROM_CONE_FLOOR, WristConstants.ACQUIRE_FROM_CONE_FLOOR, true, armSubsystem, wristSubsystem, collectionSubsystem);
     }
 
     public Command acquireCubeFromFloor() {
-        return new Acquire(ArmConstants.ACQUIRE_FROM_FLOOR, WristConstants.ACQUIRE_FROM_FLOOR, true, armSubsystem, wristSubsystem, collectionSubsystem);
+        return new Acquire(ArmConstants.ACQUIRE_FROM_CUBE_FLOOR, WristConstants.ACQUIRE_FROM_CUBE_FLOOR, false, armSubsystem, wristSubsystem, collectionSubsystem);
     }
 
     public Command acquireConeFromDoS() {

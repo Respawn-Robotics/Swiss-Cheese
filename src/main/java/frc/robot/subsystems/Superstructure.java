@@ -11,6 +11,7 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.JointMovementType;
 import frc.robot.Constants.WristConstants;
 import frc.robot.commands.JointsSetPosition;
+import frc.robot.commands.operator.OperatorCommands;
 import frc.robot.drivers.BeamBreak;
 
 public class Superstructure extends SubsystemBase {
@@ -19,12 +20,14 @@ public class Superstructure extends SubsystemBase {
     private WristSubsystem wristSubsystem;
     private CollectionSubsystem collectionSubsystem;
     private Joystick operator;
+    private OperatorCommands operatorCommands;
 
-    public Superstructure(ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Joystick operator) {
+    public Superstructure(ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Joystick operator, OperatorCommands operatorCommands) {
         this.armSubsystem = armSubsystem;
         this.wristSubsystem = wristSubsystem;
         this.collectionSubsystem = collectionSubsystem;
         this.operator = operator;
+        this.operatorCommands = operatorCommands;
     }
     @Override
     public void periodic() {
@@ -34,22 +37,35 @@ public class Superstructure extends SubsystemBase {
         // SmartDashboard.putBoolean("Cube Get", cubeBeamBreak.get());
         // SmartDashboard.putBoolean("Cube Tripped", cubeBeamBreak.wasTripped());
 
-        if(RobotContainer.cubeBeamBreak.wasTripped() || RobotContainer.coneBeamBreak.wasTripped()) {
-            new PrintCommand("TRIPPED").schedule();
-            new WaitCommand(0.5)
-                .andThen(new JointsSetPosition(ArmConstants.HOME, WristConstants.HOME, 1, 0.4, armSubsystem, wristSubsystem))
-                .schedule();
-            new WaitCommand(0.25)
+        if(RobotContainer.coneBeamBreak.wasTripped()) {
+            new PrintCommand("CONE TRIPPED").schedule();
+            new WaitCommand(0.8)
+                .andThen(collectionSubsystem.setConeHoldingPressure())
                 .andThen(collectionSubsystem.holdPosition())
                 .schedule();
+            armSubsystem.setPosition(8000)
+                .andThen(new WaitCommand(0.8)
+                .andThen(operatorCommands.goToHome()))
+                .schedule();
         }
+
+        if(RobotContainer.cubeBeamBreak.wasTripped()) {
+            new PrintCommand("CUBE TRIPPED").schedule();
+            new WaitCommand(0.2)
+                .andThen(collectionSubsystem.setCubeHoldingPressure())
+                .andThen(collectionSubsystem.holdPosition())
+                .schedule();
+            armSubsystem.setPosition(8000)
+                .andThen(new WaitCommand(0.5)
+                .andThen(operatorCommands.goToHome()))
+                .schedule();
+        }
+
         if(RobotContainer.cubeBeamBreak.wasCleared() || RobotContainer.coneBeamBreak.wasCleared()) {
-            new WaitCommand(0.5)
-                .andThen(new JointsSetPosition(ArmConstants.HOME, WristConstants.HOME, 1, 0.4, armSubsystem, wristSubsystem))
-                .schedule();
-            new WaitCommand(0.45)
-                .andThen(collectionSubsystem.stopMotor())
-                .schedule();
+            // new WaitCommand(0.5)
+            //     .andThen(operatorCommands.goToHome())
+            //     .schedule();
+            new PrintCommand("CLEARED").schedule();
         }
 
         if(operator.getRawAxis(2) >= 0.2) {
