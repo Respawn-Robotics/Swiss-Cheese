@@ -167,13 +167,14 @@ public class RobotContainer {
         o_povDown.and(o_rightStick)
             .onTrue(operatorCommands.scoreInLowCube());
         
-        o_povRight.onTrue(collectionSubsystem.stopMotor());
+        o_povRight.onTrue(collectionSubsystem.holdPosition());
 
         // Manual Arm and Wrist
-        //o_leftStick.whileTrue(new ManualArmUp(armSubsystem));
-        //o_rightStick.whileTrue(new ManualArmDown(armSubsystem));
+        o_leftStick.whileTrue(new ManualArmUp(armSubsystem));
+        o_rightStick.whileTrue(new ManualArmDown(armSubsystem));
         o_start.whileTrue(new ManualWristUp(wristSubsystem));
         o_back.whileTrue(new ManualWristDown(wristSubsystem));
+
 
         // Collection Controls
         o_rightBumper.onTrue(collectionSubsystem.collectCube());
@@ -188,7 +189,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new PathwithStops(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
+        return new WalkUp(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
         // return new TwoPiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
         // return new ThreePiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }

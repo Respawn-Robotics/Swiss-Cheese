@@ -17,11 +17,12 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "marker1"
+          "marker1",
+          "marker2"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "after",
-        "waitTime": 2.25
+        "waitTime": 2.5
       }
     },
     {
@@ -41,7 +42,7 @@
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
-      "isStopPoint": false,
+      "isStopPoint": true,
       "stopEvent": {
         "names": [],
         "executionBehavior": "sequential",
@@ -79,7 +80,7 @@
   "isReversed": null,
   "markers": [
     {
-      "position": 1.1,
+      "position": 1.2,
       "names": [
         "intakeDown"
       ]

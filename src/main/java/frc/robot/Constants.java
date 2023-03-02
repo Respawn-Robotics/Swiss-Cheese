@@ -190,7 +190,7 @@ public final class Constants {
         public static final int ACQUIRE_FROM_DOS = 90500;
         public static final int ACUQIRE_FROM_SIS = 129000;
 
-        public static final int SCORE_IN_HIGH_CONE = 90000;
+        public static final int SCORE_IN_HIGH_CONE = 105000;
         public static final int SCORE_IN_HIGH_CUBE = 110000;
         public static final int SCORE_IN_MID_CONE = 152000;
         public static final int SCORE_IN_MID_CUBE = 152000;
