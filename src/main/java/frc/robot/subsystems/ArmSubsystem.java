@@ -32,7 +32,7 @@ public class ArmSubsystem extends SubsystemBase {
 		armMotorMaster.config_kI(1, Constants.ArmConstants.DOWN_kI, 0);
 		armMotorMaster.config_kD(1, Constants.ArmConstants.DOWN_kD, 0);
 
-        armMotorMaster.configMotionSCurveStrength(2);
+        armMotorMaster.configMotionSCurveStrength(3);
 
         armMotorMaster.setInverted(TalonFXInvertType.CounterClockwise);
         armMotorMaster.setNeutralMode(NeutralMode.Brake);

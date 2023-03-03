@@ -26,7 +26,7 @@ public class CollectionSubsystem extends SubsystemBase {
 		  collectionMotor.config_kD(0, 0, 0);
 
       collectionMotor.config_kF(1, 0, 0);
-		  collectionMotor.config_kP(1, .02, 0);
+		  collectionMotor.config_kP(1, .05, 0);
 		  collectionMotor.config_kI(1, 0, 0);
 		  collectionMotor.config_kD(1, 0, 0);
     }
@@ -93,7 +93,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command collectCone() {
       return runOnce(
         () -> {
-          collectionMotor.set(ControlMode.PercentOutput, -.1);     
+          collectionMotor.set(ControlMode.PercentOutput, -.75);     
         }
       );
     }

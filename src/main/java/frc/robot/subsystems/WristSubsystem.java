@@ -27,7 +27,7 @@ public class WristSubsystem extends SubsystemBase {
 		wristMotor.config_kI(1, Constants.WristConstants.DOWN_kI, 0);
 		wristMotor.config_kD(1, Constants.WristConstants.DOWN_kD, 0);
 
-        wristMotor.configMotionSCurveStrength(2);
+        wristMotor.configMotionSCurveStrength(3);
         wristMotor.setNeutralMode(NeutralMode.Brake);
         wristMotor.setInverted(true);
     }
@@ -36,23 +36,23 @@ public class WristSubsystem extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Wrist Falcon Position", wristMotor.getSelectedSensorPosition());
 
-        if(wristMotor.getBusVoltage() >= 12) {
-            if(wristMotor.getStatorCurrent() > 36) {
-                wristMotor.set(ControlMode.PercentOutput, 0);
-            }
-        }
+        // if(wristMotor.getBusVoltage() >= 12) {
+        //     if(wristMotor.getStatorCurrent() > 36) {
+        //         wristMotor.set(ControlMode.PercentOutput, 0);
+        //     }
+        // }
 
-        if(wristMotor.getBusVoltage() >= 10) {
-            if(wristMotor.getStatorCurrent() > 31) {
-                wristMotor.set(ControlMode.PercentOutput, 0);
-            }
-        }
+        // if(wristMotor.getBusVoltage() >= 10) {
+        //     if(wristMotor.getStatorCurrent() > 31) {
+        //         wristMotor.set(ControlMode.PercentOutput, 0);
+        //     }
+        // }
 
-        if(wristMotor.getBusVoltage() >= 8) {
-            if(wristMotor.getStatorCurrent() > 23) {
-                wristMotor.set(ControlMode.PercentOutput, 0);
-            }
-        }
+        // if(wristMotor.getBusVoltage() >= 8) {
+        //     if(wristMotor.getStatorCurrent() > 23) {
+        //         wristMotor.set(ControlMode.PercentOutput, 0);
+        //     }
+        // }
     }
 
     public Command resetPos() {

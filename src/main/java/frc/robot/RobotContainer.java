@@ -170,8 +170,8 @@ public class RobotContainer {
         o_povRight.onTrue(collectionSubsystem.holdPosition());
 
         // Manual Arm and Wrist
-        o_leftStick.whileTrue(new ManualArmUp(armSubsystem));
-        o_rightStick.whileTrue(new ManualArmDown(armSubsystem));
+        // o_leftStick.whileTrue(new ManualArmUp(armSubsystem));
+        // o_rightStick.whileTrue(new ManualArmDown(armSubsystem));
         o_start.whileTrue(new ManualWristUp(wristSubsystem));
         o_back.whileTrue(new ManualWristDown(wristSubsystem));
 

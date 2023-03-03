@@ -151,14 +151,14 @@ public final class Constants {
         // Setpoints
         public static final int HOME = 0;
         public static final int ACQUIRE_FROM_CUBE_FLOOR = 6000;
-        public static final int ACQUIRE_FROM_CONE_FLOOR = 6000;
-        public static final int ACQUIRE_FROM_DOS = 60000;
+        public static final int ACQUIRE_FROM_CONE_FLOOR = 30000;
+        public static final int ACQUIRE_FROM_DOS = 58000;
         public static final int ACQUIRE_FROM_SIS = 25000;
 
         public static final int SCORE_IN_HIGH_CONE = 60000;
         public static final int SCORE_IN_HIGH_CUBE = 60000;
-        public static final int SCORE_IN_MID_CONE = 42000;
-        public static final int SCORE_IN_MID_CUBE = 42000;
+        public static final int SCORE_IN_MID_CONE = 50000;
+        public static final int SCORE_IN_MID_CUBE = 20000;
 
         // Movement
         public static final float UP_kP = .06030624264f;
@@ -172,11 +172,11 @@ public final class Constants {
         public static final float DOWN_kF = 0.1f;
         
         public static int PEAK_VELOCITY_UP = 13360;
-        public static final float PERCENT_OF_PEAK_UP = .70f;
+        public static final float PERCENT_OF_PEAK_UP = .85f;
         public static final float CRUISE_VELOCITY_ACCEL_UP = PEAK_VELOCITY_UP * PERCENT_OF_PEAK_UP;
 
         public static int PEAK_VELOCITY_DOWN = 8090;
-        public static final float PERCENT_OF_PEAK_DOWN = .70f;
+        public static final float PERCENT_OF_PEAK_DOWN = .85f;
         public static final float CRUISE_VELOCITY_ACCEL_DOWN = PEAK_VELOCITY_DOWN * PERCENT_OF_PEAK_DOWN;
     }
 
@@ -185,15 +185,15 @@ public final class Constants {
 
         // Setpoints
         public static final int HOME = 0;
-        public static final int ACQUIRE_FROM_CUBE_FLOOR = 60500;
-        public static final int ACQUIRE_FROM_CONE_FLOOR = 52000;
-        public static final int ACQUIRE_FROM_DOS = 90500;
+        public static final int ACQUIRE_FROM_CUBE_FLOOR = 45000;
+        public static final int ACQUIRE_FROM_CONE_FLOOR = 100000;
+        public static final int ACQUIRE_FROM_DOS = 109000;
         public static final int ACUQIRE_FROM_SIS = 129000;
 
-        public static final int SCORE_IN_HIGH_CONE = 105000;
-        public static final int SCORE_IN_HIGH_CUBE = 110000;
-        public static final int SCORE_IN_MID_CONE = 152000;
-        public static final int SCORE_IN_MID_CUBE = 152000;
+        public static final int SCORE_IN_HIGH_CONE = 98000;
+        public static final int SCORE_IN_HIGH_CUBE = 99000;
+        public static final int SCORE_IN_MID_CONE = 98000;
+        public static final int SCORE_IN_MID_CUBE = 0;
         
         // Movement
         public static final float UP_kP = .0367156687f;
@@ -207,13 +207,22 @@ public final class Constants {
         public static final float DOWN_kF = 0.1f;
 
         public static int PEAK_VELOCITY_UP = 14940;
-        public static final float PERCENT_OF_PEAK_UP = .95f;
+        public static final float PERCENT_OF_PEAK_UP = 1f;
         public static final float CRUISE_VELOCITY_ACCEL_UP = PEAK_VELOCITY_UP * PERCENT_OF_PEAK_UP;
 
         public static int PEAK_VELOCITY_DOWN = 14940;
-        public static final float PERCENT_OF_PEAK_DOWN = .95f;
+        public static final float PERCENT_OF_PEAK_DOWN = 1f;
         public static final float CRUISE_VELOCITY_ACCEL_DOWN = PEAK_VELOCITY_DOWN * PERCENT_OF_PEAK_DOWN;
 
+    }
+
+    public static final class SuperstructureConstants {
+        public static enum ROBOT_STATE {
+            ACQUIRE_CONE_DOS,
+            ACQUIRE_CUBE_DOS,
+            ACQUIRE_CONE_FLOOR,
+            ACQUIRE_CUBE_FLOOR
+        }
     }
 
     public static final class AutoConstants {

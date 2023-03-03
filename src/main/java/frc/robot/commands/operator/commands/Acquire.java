@@ -17,14 +17,16 @@ public class Acquire extends CommandBase {
     private ArmSubsystem armSubsystem;
     private WristSubsystem wristSubsystem;
     private CollectionSubsystem collectionSubsystem;
+    private float secondsToWait;
 
-    public Acquire(int armPosition, int wristPosition, boolean cubeOrCone, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem)  {
+    public Acquire(int armPosition, int wristPosition, boolean cubeOrCone, ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, float secondsToWait)  {
         this.armPosition = armPosition;
         this.wristPosition = wristPosition;
         this.cubeOrCone = cubeOrCone;
         this.armSubsystem = armSubsystem;
         this.wristSubsystem = wristSubsystem;
         this.collectionSubsystem = collectionSubsystem;
+        this.secondsToWait = secondsToWait;
 
         addRequirements(armSubsystem, wristSubsystem);
     }
@@ -32,11 +34,11 @@ public class Acquire extends CommandBase {
     @Override
     public void execute() {
         if(cubeOrCone) {
-            new JointsSetPosition(armPosition, wristPosition, 1, 0.4, armSubsystem, wristSubsystem)
+            new JointsSetPosition(armPosition, wristPosition, 1, secondsToWait, armSubsystem, wristSubsystem)
             .alongWith(collectionSubsystem.collectCone())
             .schedule();
         } else {
-            new JointsSetPosition(armPosition, wristPosition, 1, 0.4, armSubsystem, wristSubsystem)
+            new JointsSetPosition(armPosition, wristPosition, 1, secondsToWait, armSubsystem, wristSubsystem)
             .alongWith(collectionSubsystem.collectCube())
             .schedule();
         }

@@ -10,6 +10,7 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.JointMovementType;
 import frc.robot.Constants.WristConstants;
+import frc.robot.Constants.SuperstructureConstants.ROBOT_STATE;
 import frc.robot.commands.JointsSetPosition;
 import frc.robot.commands.operator.OperatorCommands;
 import frc.robot.drivers.BeamBreak;
@@ -21,6 +22,7 @@ public class Superstructure extends SubsystemBase {
     private CollectionSubsystem collectionSubsystem;
     private Joystick operator;
     private OperatorCommands operatorCommands;
+    public static ROBOT_STATE currentRobotState;
 
     public Superstructure(ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Joystick operator, OperatorCommands operatorCommands) {
         this.armSubsystem = armSubsystem;
@@ -33,19 +35,21 @@ public class Superstructure extends SubsystemBase {
     public void periodic() {
         RobotContainer.coneBeamBreak.update();
         RobotContainer.cubeBeamBreak.update();
-        
-        // SmartDashboard.putBoolean("Cube Get", cubeBeamBreak.get());
-        // SmartDashboard.putBoolean("Cube Tripped", cubeBeamBreak.wasTripped());
+
+        SmartDashboard.putString("State", currentRobotState.name());
 
         if(RobotContainer.coneBeamBreak.wasTripped()) {
             new PrintCommand("CONE TRIPPED").schedule();
-            new WaitCommand(0.8)
+            new WaitCommand(0.5)
                 .andThen(collectionSubsystem.setConeHoldingPressure())
                 .andThen(collectionSubsystem.holdPosition())
                 .schedule();
-            armSubsystem.setPosition(8000)
-                .andThen(new WaitCommand(0.8)
-                .andThen(operatorCommands.goToHome()))
+
+            armSubsystem.setPosition(60000)
+                .andThen(new WaitCommand(0.4)
+                .andThen(wristSubsystem.setPosition(0)
+                .andThen(new WaitCommand(.8)
+                .andThen(armSubsystem.setPosition(0)))))
                 .schedule();
         }
 
@@ -55,9 +59,9 @@ public class Superstructure extends SubsystemBase {
                 .andThen(collectionSubsystem.setCubeHoldingPressure())
                 .andThen(collectionSubsystem.holdPosition())
                 .schedule();
-            armSubsystem.setPosition(8000)
-                .andThen(new WaitCommand(0.5)
-                .andThen(operatorCommands.goToHome()))
+            wristSubsystem.setPosition(0)
+                .andThen(new WaitCommand(1)
+                .andThen(armSubsystem.setPosition(0)))
                 .schedule();
         }
 

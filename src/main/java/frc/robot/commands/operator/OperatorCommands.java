@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.JointMovementType;
+import frc.robot.Constants.SuperstructureConstants;
 import frc.robot.Constants.WristConstants;
 import frc.robot.commands.JointsSetPosition;
 import frc.robot.commands.operator.commands.Acquire;
@@ -12,6 +13,7 @@ import frc.robot.commands.operator.commands.Score;
 import frc.robot.drivers.BeamBreak;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CollectionSubsystem;
+import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.WristSubsystem;
 
 public class OperatorCommands {
@@ -27,24 +29,28 @@ public class OperatorCommands {
     }
 
     public Command goToHome() {
-        return new JointsSetPosition(0, 0, 1, 0.5, armSubsystem, wristSubsystem);
+        return new JointsSetPosition(0, 0, 1, 2, armSubsystem, wristSubsystem);
         //return armSubsystem.setPosition(8000).andThen(new WaitCommand(0.6).andThen(new JointsSetPosition(0, 0, 1, 0.4, armSubsystem, wristSubsystem)));
     }
     
     public Command acquireConeFromFloor() {
-        return new Acquire(ArmConstants.ACQUIRE_FROM_CONE_FLOOR, WristConstants.ACQUIRE_FROM_CONE_FLOOR, true, armSubsystem, wristSubsystem, collectionSubsystem);
+        Superstructure.currentRobotState = SuperstructureConstants.ROBOT_STATE.ACQUIRE_CONE_FLOOR;
+        return new Acquire(ArmConstants.ACQUIRE_FROM_CONE_FLOOR, WristConstants.ACQUIRE_FROM_CONE_FLOOR, true, armSubsystem, wristSubsystem, collectionSubsystem, 0.4f);
     }
 
     public Command acquireCubeFromFloor() {
-        return new Acquire(ArmConstants.ACQUIRE_FROM_CUBE_FLOOR, WristConstants.ACQUIRE_FROM_CUBE_FLOOR, false, armSubsystem, wristSubsystem, collectionSubsystem);
+        Superstructure.currentRobotState = SuperstructureConstants.ROBOT_STATE.ACQUIRE_CUBE_FLOOR;
+        return new Acquire(ArmConstants.ACQUIRE_FROM_CUBE_FLOOR, WristConstants.ACQUIRE_FROM_CUBE_FLOOR, false, armSubsystem, wristSubsystem, collectionSubsystem, 0.4f);
     }
 
     public Command acquireConeFromDoS() {
-        return new Acquire(ArmConstants.ACQUIRE_FROM_DOS, WristConstants.ACQUIRE_FROM_DOS, false, armSubsystem, wristSubsystem, collectionSubsystem);
+        Superstructure.currentRobotState = SuperstructureConstants.ROBOT_STATE.ACQUIRE_CONE_DOS;
+        return new Acquire(ArmConstants.ACQUIRE_FROM_DOS, WristConstants.ACQUIRE_FROM_DOS, false, armSubsystem, wristSubsystem, collectionSubsystem, 2f);
     }
 
     public Command acquireCubeFromDoS() {
-        return new Acquire(ArmConstants.ACQUIRE_FROM_DOS, WristConstants.ACQUIRE_FROM_DOS, true, armSubsystem, wristSubsystem, collectionSubsystem);
+        Superstructure.currentRobotState = SuperstructureConstants.ROBOT_STATE.ACQUIRE_CUBE_DOS;
+        return new Acquire(ArmConstants.ACQUIRE_FROM_DOS, WristConstants.ACQUIRE_FROM_DOS, true, armSubsystem, wristSubsystem, collectionSubsystem, 2f);
     }
 
     public Command scoreInHighCone() {
