@@ -110,9 +110,9 @@ public class RobotContainer {
 
         // Gyro Offsets
         d_Y.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        d_povRight.onTrue(new InstantCommand(() -> s_Swerve.rightGyro()));
+        d_povRight.onTrue(new InstantCommand(() -> s_Swerve.leftGyro()));
         d_povDown.onTrue(new InstantCommand(() -> s_Swerve.downGyro()));
-        d_povLeft.onTrue(new InstantCommand(() -> s_Swerve.leftGyro()));
+        d_povLeft.onTrue(new InstantCommand(() -> s_Swerve.rightGyro()));
 
         // Toggle Limelight pipeline
         d_X.onTrue(vision.togglePipeline());
@@ -121,7 +121,7 @@ public class RobotContainer {
         d_A.whileTrue(new FollowTape(s_Swerve));
 
         // Home arm
-        d_B.onTrue(operatorCommands.goToHome());
+        d_B.onTrue(operatorCommands.goToHome().andThen(collectionSubsystem.stopMotor()));
 
         /* Operator Controls */
         
@@ -189,7 +189,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new WalkUp(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
+        return new D2OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
         // return new TwoPiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
         // return new ThreePiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }
