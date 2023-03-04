@@ -60,8 +60,8 @@ public final class Constants {
         public static final double openLoopRamp = 0.75;
         public static final double closedLoopRamp = 0.0;
 
-        /* These values are used by the drive falcon to ramp in open loop and closed loop driving.*/
-        public static final double openLoopRampA = 0.15;
+        /* These values are used by the angle falcon to ramp in open loop and closed loop driving. Default is closed loop*/
+        public static final double openLoopRampA = 0.0;
         public static final double closedLoopRampA = 0.0;
 
         /* Angle Motor PID Values */
