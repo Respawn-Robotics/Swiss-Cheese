@@ -13,7 +13,7 @@ import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
     public static final double stickDeadband = 0.15;
-    //public static final SlewRateLimiter rateLimit = new SlewRateLimiter(3);
+    //public static final SlewRateLimiter rateLimit = new SlewRateLimiter(1);
 
     public static final class Swerve {
         public static final int pigeonID = 0;

@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -56,6 +57,8 @@ public class RobotContainer {
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
+    //private SlewRateLimiter limit = Constants.rateLimit;
+
 
     /* Driver Buttons */
     private final JoystickButton d_Y = new JoystickButton(driver, XboxController.Button.kY.value);
@@ -91,12 +94,12 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
                 new TeleopSwerve(
                         s_Swerve,
-                        () -> -driver.getRawAxis(translationAxis),
-                        () -> -driver.getRawAxis(strafeAxis),
+                        () -> -driver.getRawAxis(translationAxis),/*limit.calculate(*/
+                        () -> -driver.getRawAxis(strafeAxis),/*limit.calculate(*/
                         () -> -driver.getRawAxis(rotationAxis),
                         () -> d_leftBumper.getAsBoolean()));
         
-        // Configure the button bindings
+        // Configure the button 
         configureButtonBindings();
     }
 
@@ -192,7 +195,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new D2OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
+        return new D1OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
         // return new TwoPiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
         // return new ThreePiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }
