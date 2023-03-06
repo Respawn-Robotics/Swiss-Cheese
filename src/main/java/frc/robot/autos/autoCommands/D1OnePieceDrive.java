@@ -32,7 +32,7 @@ public class D1OnePieceDrive extends SequentialCommandGroup {
 
 // This will load the file "FullAuto.path" and generate it with a max velocity of 4 m/s and a max acceleration of 3 m/s^2
 // for every path in the group
-ArrayList<PathPlannerTrajectory> pathGroup = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup("D3OnePieceDrive",
+ArrayList<PathPlannerTrajectory> pathGroup = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup("D1OnePieceDrive",
 new PathConstraints(1,1),
 new PathConstraints(2, 2),
 new PathConstraints(4, 3)
