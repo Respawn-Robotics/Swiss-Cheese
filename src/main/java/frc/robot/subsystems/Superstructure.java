@@ -36,15 +36,19 @@ public class Superstructure extends SubsystemBase {
         RobotContainer.coneBeamBreak.update();
         RobotContainer.cubeBeamBreak.update();
 
+        SmartDashboard.putBoolean("Cone", RobotContainer.coneBeamBreak.get());
+        SmartDashboard.putBoolean("Cube", RobotContainer.cubeBeamBreak.get());
+
+
         SmartDashboard.putString("State", currentRobotState.name());
 
-        if(RobotContainer.coneBeamBreak.wasTripped()) {
+        if(RobotContainer.coneBeamBreak.wasTripped() && operator.getRawButtonPressed(4)) {
             new PrintCommand("CONE TRIPPED").schedule();
             new WaitCommand(0.5)
                 .andThen(collectionSubsystem.setConeHoldingPressure())
                 .andThen(collectionSubsystem.holdPosition())
                 .schedule();
-
+            
             armSubsystem.setPosition(50000)
                 .andThen(new WaitCommand(0.4)
                 .andThen(wristSubsystem.setPosition(0)
@@ -53,7 +57,7 @@ public class Superstructure extends SubsystemBase {
                 .schedule();
         }
 
-        if(RobotContainer.cubeBeamBreak.wasTripped()) {
+        if(RobotContainer.cubeBeamBreak.wasTripped() && !operator.getRawButtonPressed(4)) {
             new PrintCommand("CUBE TRIPPED").schedule();
             new WaitCommand(0.2)
                 .andThen(collectionSubsystem.setCubeHoldingPressure())

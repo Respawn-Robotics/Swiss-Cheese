@@ -68,7 +68,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command shootCube() {
       return runOnce(
         () -> {
-          collectionMotor.set(ControlMode.PercentOutput, -0.95);
+          collectionMotor.set(ControlMode.PercentOutput, -0.4);
         }
       );
     }
