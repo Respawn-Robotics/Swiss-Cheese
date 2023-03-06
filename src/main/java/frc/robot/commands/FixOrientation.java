@@ -22,6 +22,11 @@ public class FixOrientation extends CommandBase {
 
     }
 
+    public void levelRobot(){
+        s_Swerve.gyro.getPitch();
+        
+    }
+
     
     @Override
     public void execute() {
