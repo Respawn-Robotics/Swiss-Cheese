@@ -91,9 +91,9 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
                 new TeleopSwerve(
                         s_Swerve,
-                        () -> -driver.getRawAxis(translationAxis) * .75,
-                        () -> -driver.getRawAxis(strafeAxis) * .75,
-                        () -> -driver.getRawAxis(rotationAxis) * .75,
+                        () -> -driver.getRawAxis(translationAxis),
+                        () -> -driver.getRawAxis(strafeAxis),
+                        () -> -driver.getRawAxis(rotationAxis),
                         () -> d_leftBumper.getAsBoolean()));
         
         // Configure the button bindings
@@ -172,13 +172,16 @@ public class RobotContainer {
         // Manual Arm and Wrist
         // o_leftStick.whileTrue(new ManualArmUp(armSubsystem));
         // o_rightStick.whileTrue(new ManualArmDown(armSubsystem));
-        o_start.whileTrue(new ManualWristUp(wristSubsystem));
-        o_back.whileTrue(new ManualWristDown(wristSubsystem));
+        o_start.whileTrue(new ManualArmUp(armSubsystem));
+        o_back.whileTrue(new ManualArmDown(armSubsystem));
+        o_rightBumper.whileTrue(new ManualWristUp(wristSubsystem));
+        o_leftBumper.whileTrue(new ManualWristDown(wristSubsystem));
+        
 
 
         // Collection Controls
-        o_rightBumper.onTrue(collectionSubsystem.collectCube());
-        o_leftBumper.onTrue(collectionSubsystem.alterCube());
+        //o_rightBumper.onTrue(collectionSubsystem.collectCube());
+        //o_leftBumper.onTrue(collectionSubsystem.alterCube());
         o_povDown.onTrue(collectionSubsystem.stopMotor());
     }
 

@@ -45,7 +45,7 @@ public class Superstructure extends SubsystemBase {
                 .andThen(collectionSubsystem.holdPosition())
                 .schedule();
 
-            armSubsystem.setPosition(60000)
+            armSubsystem.setPosition(50000)
                 .andThen(new WaitCommand(0.4)
                 .andThen(wristSubsystem.setPosition(0)
                 .andThen(new WaitCommand(.8)

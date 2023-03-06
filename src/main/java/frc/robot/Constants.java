@@ -2,6 +2,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -12,6 +13,7 @@ import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
     public static final double stickDeadband = 0.15;
+    //public static final SlewRateLimiter rateLimit = new SlewRateLimiter(3);
 
     public static final class Swerve {
         public static final int pigeonID = 0;
@@ -57,7 +59,7 @@ public final class Constants {
 
         /* These values are used by the drive falcon to ramp in open loop and closed loop driving.
          * We found a small open loop ramp (0.25) helps with tread wear, tipping, etc */
-        public static final double openLoopRamp = 0.75;
+        public static final double openLoopRamp = 0.5;
         public static final double closedLoopRamp = 0.0;
 
         /* These values are used by the angle falcon to ramp in open loop and closed loop driving. Default is closed loop*/
@@ -152,13 +154,13 @@ public final class Constants {
         public static final int HOME = 0;
         public static final int ACQUIRE_FROM_CUBE_FLOOR = 6000;
         public static final int ACQUIRE_FROM_CONE_FLOOR = 30000;
-        public static final int ACQUIRE_FROM_DOS = 58000;
+        public static final int ACQUIRE_FROM_DOS = 36000;
         public static final int ACQUIRE_FROM_SIS = 25000;
 
         public static final int SCORE_IN_HIGH_CONE = 60000;
-        public static final int SCORE_IN_HIGH_CUBE = 60000;
+        public static final int SCORE_IN_HIGH_CUBE = 50000; // 14200
         public static final int SCORE_IN_MID_CONE = 50000;
-        public static final int SCORE_IN_MID_CUBE = 20000;
+        public static final int SCORE_IN_MID_CUBE = 14200;
 
         // Movement
         public static final float UP_kP = .06030624264f;
@@ -185,15 +187,15 @@ public final class Constants {
 
         // Setpoints
         public static final int HOME = 0;
-        public static final int ACQUIRE_FROM_CUBE_FLOOR = 45000;
+        public static final int ACQUIRE_FROM_CUBE_FLOOR = 50000;
         public static final int ACQUIRE_FROM_CONE_FLOOR = 100000;
-        public static final int ACQUIRE_FROM_DOS = 109000;
+        public static final int ACQUIRE_FROM_DOS = 56000;
         public static final int ACUQIRE_FROM_SIS = 129000;
 
-        public static final int SCORE_IN_HIGH_CONE = 98000;
-        public static final int SCORE_IN_HIGH_CUBE = 99000;
+        public static final int SCORE_IN_HIGH_CONE = 98000; 
+        public static final int SCORE_IN_HIGH_CUBE = 80000; // 16500 shoot
         public static final int SCORE_IN_MID_CONE = 98000;
-        public static final int SCORE_IN_MID_CUBE = 0;
+        public static final int SCORE_IN_MID_CUBE = 14200;
         
         // Movement
         public static final float UP_kP = .0367156687f;

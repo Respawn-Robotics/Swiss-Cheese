@@ -10,7 +10,7 @@ public class FollowTape extends CommandBase {
     private Swerve s_Swerve;    
     double KpAim = .075; //controls overshoot of aim
     double min_command = 0.275; //controls minimum voltage of aim
-    double KpDistance = -0.1;
+    double KpDistance = 0.1;
     Vision LimelightSubsystem = new Vision();
     double tx;
     double ty;

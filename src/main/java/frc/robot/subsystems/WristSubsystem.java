@@ -27,7 +27,7 @@ public class WristSubsystem extends SubsystemBase {
 		wristMotor.config_kI(1, Constants.WristConstants.DOWN_kI, 0);
 		wristMotor.config_kD(1, Constants.WristConstants.DOWN_kD, 0);
 
-        wristMotor.configMotionSCurveStrength(3);
+        wristMotor.configMotionSCurveStrength(8);
         wristMotor.setNeutralMode(NeutralMode.Brake);
         wristMotor.setInverted(true);
     }

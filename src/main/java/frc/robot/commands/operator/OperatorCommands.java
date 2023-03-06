@@ -29,7 +29,7 @@ public class OperatorCommands {
     }
 
     public Command goToHome() {
-        return new JointsSetPosition(0, 0, 1, 2, armSubsystem, wristSubsystem);
+        return new JointsSetPosition(0, 8000, 1, 2, armSubsystem, wristSubsystem);
         //return armSubsystem.setPosition(8000).andThen(new WaitCommand(0.6).andThen(new JointsSetPosition(0, 0, 1, 0.4, armSubsystem, wristSubsystem)));
     }
     
@@ -45,12 +45,12 @@ public class OperatorCommands {
 
     public Command acquireConeFromDoS() {
         Superstructure.currentRobotState = SuperstructureConstants.ROBOT_STATE.ACQUIRE_CONE_DOS;
-        return new Acquire(ArmConstants.ACQUIRE_FROM_DOS, WristConstants.ACQUIRE_FROM_DOS, false, armSubsystem, wristSubsystem, collectionSubsystem, 2f);
+        return new Acquire(ArmConstants.ACQUIRE_FROM_DOS, WristConstants.ACQUIRE_FROM_DOS, true, armSubsystem, wristSubsystem, collectionSubsystem, 2f);
     }
 
     public Command acquireCubeFromDoS() {
         Superstructure.currentRobotState = SuperstructureConstants.ROBOT_STATE.ACQUIRE_CUBE_DOS;
-        return new Acquire(ArmConstants.ACQUIRE_FROM_DOS, WristConstants.ACQUIRE_FROM_DOS, true, armSubsystem, wristSubsystem, collectionSubsystem, 2f);
+        return new Acquire(ArmConstants.ACQUIRE_FROM_DOS, WristConstants.ACQUIRE_FROM_DOS, false, armSubsystem, wristSubsystem, collectionSubsystem, 2f);
     }
 
     public Command scoreInHighCone() {
