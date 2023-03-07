@@ -87,10 +87,12 @@ public class Swerve extends SubsystemBase {
     } 
 
     public void setX() {
-        mSwerveMods[0].setDesiredState(new SwerveModuleState(0.1, Rotation2d.fromDegrees(345)), false);
-        mSwerveMods[1].setDesiredState(new SwerveModuleState(0.1, Rotation2d.fromDegrees(145)), false);
-        mSwerveMods[2].setDesiredState(new SwerveModuleState(0.1, Rotation2d.fromDegrees(275)), false);
-        mSwerveMods[3].setDesiredState(new SwerveModuleState(0.1, Rotation2d.fromDegrees(355)), false);
+        
+        mSwerveMods[0].setDesiredState(new SwerveModuleState(.1, Rotation2d.fromDegrees(45)), true);
+        mSwerveMods[1].setDesiredState(new SwerveModuleState(.1, Rotation2d.fromDegrees(315)), true);
+        mSwerveMods[2].setDesiredState(new SwerveModuleState(.1, Rotation2d.fromDegrees(315)), true);
+        mSwerveMods[3].setDesiredState(new SwerveModuleState(.1, Rotation2d.fromDegrees(45)), true);
+
       }
 
     public void setSlow(boolean slow){

@@ -1,15 +1,11 @@
 package frc.robot;
 
-import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.WristConstants;
 import frc.robot.autos.autoCommands.*;
 import frc.robot.commands.*;
 import frc.robot.commands.manual.ManualArmDown;
@@ -17,7 +13,6 @@ import frc.robot.commands.manual.ManualArmUp;
 import frc.robot.commands.manual.ManualWristDown;
 import frc.robot.commands.manual.ManualWristUp;
 import frc.robot.commands.operator.OperatorCommands;
-import frc.robot.commands.operator.commands.Score;
 import frc.robot.disabled.Disable;
 import frc.robot.drivers.BeamBreak;
 import frc.robot.shuffleboard.ShuffleboardConfig;
@@ -49,6 +44,7 @@ public class RobotContainer {
     private final Vision vision = new Vision();
     private final OperatorCommands operatorCommands = new OperatorCommands(armSubsystem, wristSubsystem, collectionSubsystem);
     private final Superstructure superstructure = new Superstructure(armSubsystem, wristSubsystem, collectionSubsystem, operator, operatorCommands);
+    private final FixOrientation level = new FixOrientation(s_Swerve);
 
     public static BeamBreak cubeBeamBreak = new BeamBreak(2);
     public static BeamBreak coneBeamBreak = new BeamBreak(1);
@@ -120,8 +116,8 @@ public class RobotContainer {
         // Toggle Limelight pipeline
         d_X.onTrue(vision.togglePipeline());
 
-        // Follow retroreflective tape
-        d_A.whileTrue(new FollowTape(s_Swerve));
+        // Follow retroreflective tape/level
+        d_A.onTrue(level);//new InstantCommand(()-> s_Swerve.setX()));
 
         // Home arm
         d_B.onTrue(operatorCommands.goToHome().andThen(collectionSubsystem.stopMotor()));
@@ -195,9 +191,9 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new D2OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
-        // return new TwoPiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
-        // return new ThreePiece(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
+        //return new D1OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
+        return new D2CubeEngage(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision, level);
+        //return new D3OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }
 
     /**

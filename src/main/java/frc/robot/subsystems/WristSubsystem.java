@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,6 +16,14 @@ public class WristSubsystem extends SubsystemBase {
     public WristSubsystem() {
         
         wristMotor.configFactoryDefault();
+
+        wristMotor.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 255);
+        wristMotor.setStatusFramePeriod(StatusFrame.Status_6_Misc, 255);
+        wristMotor.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 255);
+        wristMotor.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 255);
+        wristMotor.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 255);
+  
+
         wristMotor.setSelectedSensorPosition(0);
 
 		wristMotor.config_kF(0, Constants.WristConstants.UP_kF, 0);

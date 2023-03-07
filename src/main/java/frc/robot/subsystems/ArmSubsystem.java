@@ -3,9 +3,11 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import frc.robot.SwerveModule;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -20,6 +22,20 @@ public class ArmSubsystem extends SubsystemBase {
 
     public ArmSubsystem() {
         armMotorMaster.configFactoryDefault();
+
+        armMotorMaster.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 255);
+        armMotorMaster.setStatusFramePeriod(StatusFrame.Status_6_Misc, 255);
+        armMotorMaster.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 255);
+        armMotorMaster.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 255);
+        armMotorMaster.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 255);
+
+        armMotorSlave.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 255);
+        armMotorSlave.setStatusFramePeriod(StatusFrame.Status_6_Misc, 255);
+        armMotorSlave.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 255);
+        armMotorSlave.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 255);
+        armMotorSlave.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 255);
+        
+        
         armMotorMaster.setSelectedSensorPosition(0);
 
 		armMotorMaster.config_kF(0, Constants.ArmConstants.UP_kF, 0);

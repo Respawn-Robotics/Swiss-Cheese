@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -17,6 +18,13 @@ public class CollectionSubsystem extends SubsystemBase {
 
     public CollectionSubsystem() {
       collectionMotor.configFactoryDefault();
+
+      collectionMotor.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 255);
+      collectionMotor.setStatusFramePeriod(StatusFrame.Status_6_Misc, 255);
+      collectionMotor.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 255);
+      collectionMotor.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 255);
+      collectionMotor.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 255);
+
       collectionMotor.setNeutralMode(NeutralMode.Brake);
       collectionMotor.setSelectedSensorPosition(0);
 
@@ -68,7 +76,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command shootCube() {
       return runOnce(
         () -> {
-          collectionMotor.set(ControlMode.PercentOutput, -0.4);
+          collectionMotor.set(ControlMode.PercentOutput, -0.6);
         }
       );
     }
