@@ -86,7 +86,7 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 6380.0 / 60.0 * ((14.0/50.0) *(27.0 / 17.0) * ( 15.0/45.0)) * Units.inchesToMeters(4.0) * Math.PI;
+        public static final double maxSpeed = 6380.0 / 60.0 * ((14.0/50.0) *(27.0 / 17.0) * ( 15.0/45.0)) * Units.inchesToMeters(3.81) * Math.PI;
         /** Radians per Second */
         public static final double maxAngularVelocity = maxSpeed/Math.hypot(wheelBase / 2.0, trackWidth / 2.0);
 
@@ -229,16 +229,16 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = /*Swerve.maxSpeed * .75*/1;
-        public static final double kMaxAccelerationMetersPerSecondSquared = /*kMaxSpeedMetersPerSecond * 1.5 */ 1;
+        public static final double kMaxSpeedMetersPerSecond = /*Swerve.maxSpeed * .75*/4;
+        public static final double kMaxAccelerationMetersPerSecondSquared = /*kMaxSpeedMetersPerSecond * 1.5 */ 3;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     
         public static final double kPXController = 5; // Different max speeds require different PIDs.
-        public static final double kDXController = .15;
+        public static final double kDXController = 0;
         public static final double kPYController = kPXController;
         public static final double kDYController = kDXController;
-        public static final double kPThetaController = 1;
+        public static final double kPThetaController = 2;
         public static final double kDThetaController = 0;
     
         /* Constraint for the motion profilied robot angle controller */

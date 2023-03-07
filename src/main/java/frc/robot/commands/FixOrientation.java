@@ -24,10 +24,10 @@ public class FixOrientation extends CommandBase {
     }
 
     public void levelRobot(){
-        if(s_Swerve.gyro.getRoll() > 3 ){
+        if(s_Swerve.gyro.getRoll() > 10 ){
             System.out.println("TooMuch");
             s_Swerve.drive(new Translation2d(-.65,0), 0, false, true);
-        }else if(s_Swerve.gyro.getRoll() < -3){
+        }else if(s_Swerve.gyro.getRoll() < -10){
             System.out.println("TooLittle");
             s_Swerve.drive(new Translation2d(.65,0), 0, false, true);
         }else{

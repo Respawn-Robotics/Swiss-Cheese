@@ -36,7 +36,7 @@ public class D1TwoCube extends SequentialCommandGroup {
 ArrayList<PathPlannerTrajectory> pathGroup = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup("D1TwoCube",
 new PathConstraints(4,3),
 new PathConstraints(2,1),
-new PathConstraints(4,3)
+new PathConstraints(3,2)
 );
 
 // This is just an example event map. It would be better to have a constant, global event map
@@ -44,7 +44,7 @@ new PathConstraints(4,3)
 HashMap<String, Command> eventMap = new HashMap<>();
 eventMap.put("ResetSensors", wristSubsystem.setVoltage(-.1f).andThen(new WaitCommand(.5).andThen(wristSubsystem.setVoltage(0).andThen(wristSubsystem.resetPos()))));
 eventMap.put("RejectRun", collectionSubsystem.shootCube());
-eventMap.put("ArmGoOut", armSubsystem.setPosition(Constants.ArmConstants.ACQUIRE_FROM_CUBE_FLOOR).alongWith(wristSubsystem.setPosition(Constants.WristConstants.ACQUIRE_FROM_CUBE_FLOOR).andThen(collectionSubsystem.collectCube())));
+eventMap.put("ArmGoOut", armSubsystem.setPosition(Constants.ArmConstants.ACQUIRE_FROM_CUBE_FLOOR).alongWith(wristSubsystem.setPosition(Constants.WristConstants.ACQUIRE_FROM_CUBE_FLOOR).alongWith(collectionSubsystem.collectCube())));
 eventMap.put("ArmGoHome", armSubsystem.setPosition(0).alongWith(wristSubsystem.setPosition(0).andThen(collectionSubsystem.stopMotor())));
 eventMap.put("Level", level);
 
