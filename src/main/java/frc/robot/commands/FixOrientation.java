@@ -11,6 +11,7 @@ public class FixOrientation extends CommandBase {
     double KpAim = .075;
     Double steering_adjust = 0.0;
     double desiredAngle = 180;
+    public Boolean engaged = false;
 
 
     public FixOrientation(Swerve s_Swerve) {
@@ -24,15 +25,16 @@ public class FixOrientation extends CommandBase {
     }
 
     public void levelRobot(){
-        if(s_Swerve.gyro.getRoll() > 10 ){
-            System.out.println("TooMuch");
-            s_Swerve.drive(new Translation2d(-.65,0), 0, false, true);
-        }else if(s_Swerve.gyro.getRoll() < -10){
-            System.out.println("TooLittle");
-            s_Swerve.drive(new Translation2d(.65,0), 0, false, true);
+        if((s_Swerve.gyro.getRoll() > 3.5) && (!engaged) ){
+            s_Swerve.drive(new Translation2d(-.55,0), 0, false, true);
+            System.out.println("Toomuch" + engaged);
+        }else if((s_Swerve.gyro.getRoll() < -3.5) && (!engaged)){
+            s_Swerve.drive(new Translation2d(.55,0), 0, false, true);
+            System.out.println("TooLittle" +engaged);
         }else{
-            System.out.println("right");
             s_Swerve.setX();
+            engaged = true;
+            System.out.println("right" + engaged);
         }
     }
 

@@ -24,8 +24,8 @@ public final class Constants {
             COTSFalconSwerveConstants.SDSMK4(COTSFalconSwerveConstants.driveGearRatios.SDSMK4_L3);
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(19.3125);
-        public static final double wheelBase = Units.inchesToMeters(19.3125);
+        public static final double trackWidth = Units.inchesToMeters(19.5);
+        public static final double wheelBase = Units.inchesToMeters(19.5);
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
         /* Swerve Kinematics */
@@ -80,13 +80,13 @@ public final class Constants {
 
         /* Drive Motor Characterization Values 
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
-        public static final double driveKS = (0.605 / 12); 
-        public static final double driveKV = (1.72 / 12);
-        public static final double driveKA = (0.193 / 12);
+        public static final double driveKS = (0.20585 / 12); 
+        public static final double driveKV = (2.0307 / 12);
+        public static final double driveKA = (0.32092 / 12);
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 6380.0 / 60.0 * ((14.0/50.0) *(27.0 / 17.0) * ( 15.0/45.0)) * Units.inchesToMeters(3.81) * Math.PI;
+        public static final double maxSpeed = 6380.0 / 60.0 * ((14.0/50.0) *(27.0 / 17.0) * ( 15.0/45.0)) * Units.inchesToMeters(4) * Math.PI;
         /** Radians per Second */
         public static final double maxAngularVelocity = maxSpeed/Math.hypot(wheelBase / 2.0, trackWidth / 2.0);
 
@@ -232,7 +232,7 @@ public final class Constants {
         public static final double kMaxSpeedMetersPerSecond = /*Swerve.maxSpeed * .75*/4;
         public static final double kMaxAccelerationMetersPerSecondSquared = /*kMaxSpeedMetersPerSecond * 1.5 */ 3;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
-        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.pow(kMaxAngularSpeedRadiansPerSecond, 2);
     
         public static final double kPXController = 5; // Different max speeds require different PIDs.
         public static final double kDXController = 0;
