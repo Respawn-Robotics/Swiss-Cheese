@@ -35,7 +35,8 @@ public class D2OnePieceDrive extends SequentialCommandGroup {
 ArrayList<PathPlannerTrajectory> pathGroup = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup("D2OnePieceDrive",
 new PathConstraints(1,1),
 new PathConstraints(1, 1),
-new PathConstraints(1, 1)
+new PathConstraints(1, 1),
+new PathConstraints(2, 2)
 );
 
 // This is just an example event map. It would be better to have a constant, global event map
