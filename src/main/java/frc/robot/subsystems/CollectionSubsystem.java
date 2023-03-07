@@ -11,19 +11,18 @@ import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.util.DefaultFalconConfigs;
 import frc.robot.Constants;
 
 public class CollectionSubsystem extends SubsystemBase {
+    DefaultFalconConfigs config = new DefaultFalconConfigs();
+
     private final TalonFX collectionMotor = new TalonFX(Constants.CollectionConstants.collectionMotor);
 
     public CollectionSubsystem() {
       collectionMotor.configFactoryDefault();
 
-      collectionMotor.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 255);
-      collectionMotor.setStatusFramePeriod(StatusFrame.Status_6_Misc, 255);
-      collectionMotor.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 255);
-      collectionMotor.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 255);
-      collectionMotor.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 255);
+      config.SetDefaultStatusFrames(collectionMotor);
 
       collectionMotor.setNeutralMode(NeutralMode.Brake);
       collectionMotor.setSelectedSensorPosition(0);

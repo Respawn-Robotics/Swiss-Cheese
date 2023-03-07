@@ -93,14 +93,6 @@ public class SwerveModule {
         mAngleMotor.configAllSettings(Robot.ctreConfigs.swerveAngleFXConfig);
         mAngleMotor.setInverted(Constants.Swerve.angleMotorInvert);
         mAngleMotor.setNeutralMode(Constants.Swerve.angleNeutralMode);
-        mAngleMotor.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 255);
-        mAngleMotor.setStatusFramePeriod(StatusFrame.Status_6_Misc, 255);
-        mAngleMotor.setStatusFramePeriod(StatusFrame.Status_9_MotProfBuffer, 255);
-        mAngleMotor.setStatusFramePeriod(StatusFrame.Status_10_Targets, 255);
-        mAngleMotor.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 255);
-        mAngleMotor.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 255);
-        mAngleMotor.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 255);
-        mAngleMotor.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 255);
         resetToAbsolute();
     }
 
@@ -110,14 +102,6 @@ public class SwerveModule {
         mDriveMotor.setInverted(Constants.Swerve.driveMotorInvert);
         mDriveMotor.setNeutralMode(Constants.Swerve.driveNeutralMode);
         mDriveMotor.setSelectedSensorPosition(0);
-        mDriveMotor.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 255);
-        mDriveMotor.setStatusFramePeriod(StatusFrame.Status_6_Misc, 255);
-        mDriveMotor.setStatusFramePeriod(StatusFrame.Status_9_MotProfBuffer, 255);
-        mDriveMotor.setStatusFramePeriod(StatusFrame.Status_10_Targets, 255);
-        mDriveMotor.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 255);
-        mDriveMotor.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 255);
-        mDriveMotor.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 255);
-        mDriveMotor.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 255);
     }
 
     public SwerveModuleState getState(){

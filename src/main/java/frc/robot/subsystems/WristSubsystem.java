@@ -7,22 +7,19 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.util.DefaultFalconConfigs;
 import frc.robot.Constants;
 
 public class WristSubsystem extends SubsystemBase {
-    
+    DefaultFalconConfigs config = new DefaultFalconConfigs();
+
     private final TalonFX wristMotor = new TalonFX(Constants.WristConstants.WRIST_MOTOR);
 
     public WristSubsystem() {
         
         wristMotor.configFactoryDefault();
 
-        wristMotor.setStatusFramePeriod(StatusFrame.Status_4_AinTempVbat, 255);
-        wristMotor.setStatusFramePeriod(StatusFrame.Status_6_Misc, 255);
-        wristMotor.setStatusFramePeriod(StatusFrame.Status_14_Turn_PIDF1, 255);
-        wristMotor.setStatusFramePeriod(StatusFrame.Status_15_FirmwareApiStatus, 255);
-        wristMotor.setStatusFramePeriod(StatusFrame.Status_17_Targets1, 255);
-  
+        config.SetDefaultStatusFrames(wristMotor);
 
         wristMotor.setSelectedSensorPosition(0);
 
