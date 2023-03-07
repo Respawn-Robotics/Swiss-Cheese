@@ -42,7 +42,6 @@ public class CollectionSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
       SmartDashboard.putNumber("Collection Motor Current", collectionMotor.getStatorCurrent());
-      SmartDashboard.putNumber("Collection Motor Voltage", collectionMotor.getMotorOutputVoltage());
     }
 
     public TalonFX getMotor() {
