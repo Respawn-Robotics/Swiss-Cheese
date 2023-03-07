@@ -2,7 +2,6 @@ package frc.robot.autos.autoCommands;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.commands.FixOrientation;
 import frc.robot.commands.JointsSetPosition;
 import frc.robot.commands.operator.OperatorCommands;
 import frc.robot.drivers.BeamBreak;
@@ -28,16 +27,15 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
-public class D2OnePieceDrive extends SequentialCommandGroup {
-    public D2OnePieceDrive(Swerve s_Swerve,ArmSubsystem armSubsystem,WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Vision limelightSubsystem,FixOrientation level){
+public class D3OneCone extends SequentialCommandGroup {
+    public D3OneCone(Swerve s_Swerve,ArmSubsystem armSubsystem,WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Vision limelightSubsystem){
 
 // This will load the file "FullAuto.path" and generate it with a max velocity of 4 m/s and a max acceleration of 3 m/s^2
 // for every path in the group
-ArrayList<PathPlannerTrajectory> pathGroup = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup("D2OnePieceDrive",
+ArrayList<PathPlannerTrajectory> pathGroup = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup("D3OneCone",
 new PathConstraints(1,1),
-new PathConstraints(1, 1),
 new PathConstraints(2, 2),
-new PathConstraints(2, 2)
+new PathConstraints(4, 3)
 );
 
 // This is just an example event map. It would be better to have a constant, global event map
@@ -47,7 +45,6 @@ eventMap.put("ResetSensors", wristSubsystem.setVoltage(-.1f).andThen(new WaitCom
 eventMap.put("ArmGoUp", armSubsystem.setPosition(Constants.ArmConstants.SCORE_IN_HIGH_CONE).andThen(wristSubsystem.setPosition(Constants.WristConstants.SCORE_IN_HIGH_CONE)));
 eventMap.put("RejectRun", collectionSubsystem.ejectCone());
 eventMap.put("ArmGoHome", armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0).andThen(collectionSubsystem.stopMotor())));
-eventMap.put("Level", level);
 // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
 SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
     s_Swerve::getPose, // Pose2d supplier
