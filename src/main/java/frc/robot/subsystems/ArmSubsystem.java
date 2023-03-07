@@ -43,8 +43,6 @@ public class ArmSubsystem extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putNumber("Arm Master Falcon Position", armMotorMaster.getSelectedSensorPosition());
         SmartDashboard.putNumber("Arm Slave Falcon Position", armMotorSlave.getSelectedSensorPosition());
-        SmartDashboard.putNumber("Arm Slave Falcon Voltage", armMotorSlave.getMotorOutputVoltage());
-        SmartDashboard.putNumber("Arm Master Falcon Voltage", armMotorMaster.getMotorOutputVoltage());
 
         // if(armMotorMaster.getBusVoltage() >= 10) {
         //     if(armMotorMaster.getStatorCurrent() > 25) {
@@ -63,6 +61,10 @@ public class ArmSubsystem extends SubsystemBase {
         //         armMotorMaster.set(ControlMode.PercentOutput, 0);
         //     }
         // }
+    }
+
+    public TalonFX getMasterMotor() {
+        return this.armMotorMaster;
     }
 
     public Command slowlyGoDown() {
