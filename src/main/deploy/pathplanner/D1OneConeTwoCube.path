@@ -1,0 +1,131 @@
+{
+  "waypoints": [
+    {
+      "anchorPoint": {
+        "x": 1.75,
+        "y": 4.9
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.7830329543107895,
+        "y": 4.9
+      },
+      "holonomicAngle": -180.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [
+          "ResetSensors",
+          "ArmGoUp",
+          "RejectRun"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "after",
+        "waitTime": 0.25
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 3.0,
+        "y": 4.9
+      },
+      "prevControl": {
+        "x": 2.4197978190988088,
+        "y": 4.9
+      },
+      "nextControl": {
+        "x": 3.580202180901191,
+        "y": 4.9
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": 3.0,
+      "isLocked": false,
+      "isStopPoint": true,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0.25
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 6.8200221870529205,
+        "y": 4.681858936367445
+      },
+      "prevControl": {
+        "x": 3.9652301526825275,
+        "y": 4.750373945192335
+      },
+      "nextControl": {
+        "x": 3.9652301526825275,
+        "y": 4.750373945192335
+      },
+      "holonomicAngle": -35.0,
+      "isReversal": true,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 1.7499115340111024,
+        "y": 4.25
+      },
+      "prevControl": {
+        "x": 1.8983607197983627,
+        "y": 4.2936072196930715
+      },
+      "nextControl": null,
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [
+          "ShootCube"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "after",
+        "waitTime": 0.15
+      }
+    }
+  ],
+  "markers": [
+    {
+      "position": 1.25,
+      "names": [
+        "ArmGoOut"
+      ]
+    },
+    {
+      "position": 1.75,
+      "names": [
+        "PickupCube"
+      ]
+    },
+    {
+      "position": 0.1,
+      "names": [
+        "ArmGoHome"
+      ]
+    },
+    {
+      "position": 2.05,
+      "names": [
+        "StopIntake",
+        "ArmGoHome"
+      ]
+    }
+  ]
+}
