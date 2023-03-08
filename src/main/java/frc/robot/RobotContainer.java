@@ -192,7 +192,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         //return new D1OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
-        return new D1OneConeTwoCube(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
+        return new D1TwoCube(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision,level);
         //return new D3OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }
 

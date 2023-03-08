@@ -23,20 +23,20 @@
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "after",
-        "waitTime": 0.25
+        "waitTime": 0.125
       }
     },
     {
       "anchorPoint": {
-        "x": 3.0,
+        "x": 3.25,
         "y": 4.9
       },
       "prevControl": {
-        "x": 2.4197978190988088,
+        "x": 2.6697978190988088,
         "y": 4.9
       },
       "nextControl": {
-        "x": 3.580202180901191,
+        "x": 3.830202180901191,
         "y": 4.9
       },
       "holonomicAngle": 180.0,
@@ -54,15 +54,15 @@
     {
       "anchorPoint": {
         "x": 6.8200221870529205,
-        "y": 4.681858936367445
+        "y": 4.6
       },
       "prevControl": {
         "x": 3.9652301526825275,
-        "y": 4.750373945192335
+        "y": 4.6685150088248895
       },
       "nextControl": {
         "x": 3.9652301526825275,
-        "y": 4.750373945192335
+        "y": 4.6685150088248895
       },
       "holonomicAngle": -35.0,
       "isReversal": true,
@@ -78,15 +78,15 @@
     },
     {
       "anchorPoint": {
-        "x": 1.7499115340111024,
+        "x": 1.8,
         "y": 4.25
       },
       "prevControl": {
-        "x": 1.8983607197983627,
+        "x": 1.9484491857872603,
         "y": 4.2936072196930715
       },
       "nextControl": null,
-      "holonomicAngle": 180.0,
+      "holonomicAngle": 190.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
@@ -103,7 +103,7 @@
   ],
   "markers": [
     {
-      "position": 1.25,
+      "position": 1.0,
       "names": [
         "ArmGoOut"
       ]
@@ -121,7 +121,7 @@
       ]
     },
     {
-      "position": 2.05,
+      "position": 2.1,
       "names": [
         "StopIntake",
         "ArmGoHome"
