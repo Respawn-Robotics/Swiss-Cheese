@@ -18,8 +18,7 @@
       "stopEvent": {
         "names": [
           "ResetSensors",
-          "ArmGoUp",
-          "RejectRun"
+          "ArmGoUp"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "after",

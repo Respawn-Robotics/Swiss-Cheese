@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -40,7 +41,7 @@ public class WristSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Wrist Falcon Position", wristMotor.getSelectedSensorPosition());
+        //SmartDashboard.putNumber("Wrist Falcon Position", wristMotor.getSelectedSensorPosition());
 
         // if(wristMotor.getBusVoltage() >= 12) {
         //     if(wristMotor.getStatorCurrent() > 36) {
@@ -59,6 +60,26 @@ public class WristSubsystem extends SubsystemBase {
         //         wristMotor.set(ControlMode.PercentOutput, 0);
         //     }
         // }
+    }
+
+    public TalonFX getMotor() {
+        return wristMotor;
+    }
+
+    public Command slowlyGoDown() {
+        return runOnce(
+            () -> {
+                wristMotor.set(TalonFXControlMode.MotionMagic, wristMotor.getSelectedSensorPosition() - 500);
+            }
+        );
+    }
+
+    public Command slowyGoUp() {
+        return runOnce(
+            () -> {
+                wristMotor.set(TalonFXControlMode.MotionMagic, wristMotor.getSelectedSensorPosition() + 500);
+            }
+        );
     }
 
     public Command resetPos() {

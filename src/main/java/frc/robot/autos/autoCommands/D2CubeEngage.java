@@ -34,16 +34,19 @@ public class D2CubeEngage extends SequentialCommandGroup {
 // This will load the file "FullAuto.path" and generate it with a max velocity of 4 m/s and a max acceleration of 3 m/s^2
 // for every path in the group
 ArrayList<PathPlannerTrajectory> pathGroup = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup("D2CubeEngage",
-new PathConstraints(2,1)
+new PathConstraints(4,3),
+new PathConstraints(1,1),
+new PathConstraints(1,1)
 );
 
 // This is just an example event map. It would be better to have a constant, global event map
 // in your code that will be used by all path following commands.
 HashMap<String, Command> eventMap = new HashMap<>();
 eventMap.put("ResetSensors", wristSubsystem.setVoltage(-.1f).andThen(new WaitCommand(.8).andThen(wristSubsystem.setVoltage(0).andThen(wristSubsystem.resetPos()))));
-eventMap.put("ArmGoUp", /*armSubsystem.setPosition(Constants.ArmConstants.SCORE_IN_MID_CUBE).andThen(*/wristSubsystem.setPosition(Constants.WristConstants.SCORE_IN_MID_CUBE));
-eventMap.put("Eject", collectionSubsystem.shootCube());
-eventMap.put("ArmGoHome", wristSubsystem.setPosition(0).andThen(collectionSubsystem.stopMotor()));
+eventMap.put("RejectRun", collectionSubsystem.shootCube());
+eventMap.put("ArmGoOut", wristSubsystem.setPosition(Constants.WristConstants.ACQUIRE_FROM_CUBE_FLOOR));
+eventMap.put("IntakeRun", collectionSubsystem.collectCube());
+eventMap.put("IntakeStop", collectionSubsystem.stopMotor().andThen(wristSubsystem.setPosition(0)));
 eventMap.put("Level", level);
 // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
 SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(

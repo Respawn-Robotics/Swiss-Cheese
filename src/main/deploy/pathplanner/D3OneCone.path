@@ -2,12 +2,12 @@
   "waypoints": [
     {
       "anchorPoint": {
-        "x": 2.0,
+        "x": 1.75,
         "y": 0.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0330329543107895,
+        "x": 1.7830329543107895,
         "y": 0.5
       },
       "holonomicAngle": -180.0,
@@ -22,34 +22,7 @@
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "after",
-        "waitTime": 1.5
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 1.75,
-        "y": 0.5
-      },
-      "prevControl": {
-        "x": 1.7297624536139404,
-        "y": 0.5
-      },
-      "nextControl": {
-        "x": 1.7702375463860596,
-        "y": 0.5
-      },
-      "holonomicAngle": -180.0,
-      "isReversal": false,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": true,
-      "stopEvent": {
-        "names": [
-          "RejectRun"
-        ],
-        "executionBehavior": "sequential",
-        "waitBehavior": "after",
-        "waitTime": 0.5
+        "waitTime": 0.13
       }
     },
     {
@@ -102,7 +75,7 @@
   ],
   "markers": [
     {
-      "position": 1.3090909090908844,
+      "position": 0.3,
       "names": [
         "ArmGoHome"
       ]

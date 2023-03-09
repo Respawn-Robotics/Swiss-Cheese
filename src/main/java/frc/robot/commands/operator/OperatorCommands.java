@@ -1,6 +1,9 @@
 package frc.robot.commands.operator;
 
+import edu.wpi.first.networktables.IntegerTopic;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.ArmConstants;
@@ -21,6 +24,8 @@ public class OperatorCommands {
     private ArmSubsystem armSubsystem;
     private WristSubsystem wristSubsystem;
     private CollectionSubsystem collectionSubsystem;
+    public static String debugArm;
+    public static String debugWrist;
 
     public OperatorCommands(ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem) {
         this.armSubsystem = armSubsystem;
@@ -28,8 +33,13 @@ public class OperatorCommands {
         this.collectionSubsystem = collectionSubsystem;
     }
 
+    public Command debugPosition() {
+        new PrintCommand("debugArm" + debugArm).schedule();
+        return new JointsSetPosition(Integer.parseInt(debugArm), Integer.parseInt(debugWrist), 1, 1, armSubsystem, wristSubsystem);
+    }
+
     public Command goToHome() {
-        return new JointsSetPosition(0, 8000, 1, 2, armSubsystem, wristSubsystem);
+        return new JointsSetPosition(0, 10000, 1, 2, armSubsystem, wristSubsystem);
         //return armSubsystem.setPosition(8000).andThen(new WaitCommand(0.6).andThen(new JointsSetPosition(0, 0, 1, 0.4, armSubsystem, wristSubsystem)));
     }
     

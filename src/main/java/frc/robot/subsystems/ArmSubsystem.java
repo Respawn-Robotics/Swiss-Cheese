@@ -73,10 +73,20 @@ public class ArmSubsystem extends SubsystemBase {
         return this.armMotorMaster;
     }
 
+    public Command holdPosition() {
+        return runOnce(
+            () -> {
+                armMotorMaster.set(TalonFXControlMode.MotionMagic, armMotorMaster.getSelectedSensorPosition());
+                armMotorSlave.follow(armMotorMaster);
+                armMotorSlave.setInverted(InvertType.FollowMaster);
+            }
+        );
+    }
+
     public Command slowlyGoDown() {
         return runOnce(
             () -> {
-                armMotorMaster.set(TalonFXControlMode.PercentOutput, -.1);
+                armMotorMaster.set(TalonFXControlMode.MotionMagic, armMotorMaster.getSelectedSensorPosition() - 500);
                 armMotorSlave.follow(armMotorMaster);
                 armMotorSlave.setInverted(InvertType.FollowMaster);
             }
@@ -86,7 +96,7 @@ public class ArmSubsystem extends SubsystemBase {
     public Command slowyGoUp() {
         return runOnce(
             () -> {
-                armMotorMaster.set(TalonFXControlMode.PercentOutput, .1);
+                armMotorMaster.set(TalonFXControlMode.MotionMagic, armMotorMaster.getSelectedSensorPosition() + 500);
                 armMotorSlave.follow(armMotorMaster);
                 armMotorSlave.setInverted(InvertType.FollowMaster);
             }

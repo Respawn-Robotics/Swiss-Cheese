@@ -47,7 +47,7 @@ eventMap.put("RejectRun", collectionSubsystem.shootCube());
 eventMap.put("ArmGoOut", armSubsystem.setPosition(Constants.ArmConstants.ACQUIRE_FROM_CUBE_FLOOR).alongWith(wristSubsystem.setPosition(Constants.WristConstants.ACQUIRE_FROM_CUBE_FLOOR).alongWith(collectionSubsystem.collectCube())));
 eventMap.put("StopIntake", collectionSubsystem.stopMotor());
 eventMap.put("ArmGoHome", armSubsystem.setPosition(0).alongWith(wristSubsystem.setPosition(0)));
-eventMap.put("RejectRun2", collectionSubsystem.puffCube().andThen());
+eventMap.put("RejectRun2", collectionSubsystem.puffCube());
 eventMap.put("Level", level);
 
 // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
