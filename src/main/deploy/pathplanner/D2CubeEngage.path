@@ -60,12 +60,12 @@
         "y": 2.75
       },
       "nextControl": {
-        "x": 5.333850857548955,
+        "x": 5.366149142451044,
         "y": 2.75
       },
       "holonomicAngle": 180.0,
-      "isReversal": true,
-      "velOverride": null,
+      "isReversal": false,
+      "velOverride": 1.0,
       "isLocked": false,
       "isStopPoint": true,
       "stopEvent": {
@@ -132,11 +132,11 @@
     {
       "anchorPoint": {
         "x": 3.75,
-        "y": 3.35
+        "y": 3.0
       },
       "prevControl": {
         "x": 5.0118180791917135,
-        "y": 3.386349372271394
+        "y": 3.036349372271394
       },
       "nextControl": null,
       "holonomicAngle": 0,
@@ -145,7 +145,9 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "Level"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -160,15 +162,21 @@
       ]
     },
     {
-      "position": 3.3,
+      "position": 4.0,
       "names": [
         "IntakeStop"
       ]
     },
     {
-      "position": 1.65,
+      "position": 2.15,
       "names": [
         "ArmGoOut"
+      ]
+    },
+    {
+      "position": 1.0,
+      "names": [
+        "IntakeStop"
       ]
     }
   ]

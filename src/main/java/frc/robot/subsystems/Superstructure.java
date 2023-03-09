@@ -39,8 +39,6 @@ public class Superstructure extends SubsystemBase {
         SmartDashboard.putBoolean("Cone", RobotContainer.coneBeamBreak.get());
         SmartDashboard.putBoolean("Cube", RobotContainer.cubeBeamBreak.get());
 
-        SmartDashboard.putString("State", currentRobotState.name());
-
         if(RobotContainer.coneBeamBreak.wasTripped() && (operator.getRawButtonPressed(4) || operator.getRawButtonPressed(1))) {
             new PrintCommand("CONE TRIPPED").schedule();
             new WaitCommand(0.8)

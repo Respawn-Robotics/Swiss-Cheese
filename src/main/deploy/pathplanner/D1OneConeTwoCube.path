@@ -100,31 +100,5 @@
       }
     }
   ],
-  "markers": [
-    {
-      "position": 1.0,
-      "names": [
-        "ArmGoOut"
-      ]
-    },
-    {
-      "position": 1.75,
-      "names": [
-        "PickupCube"
-      ]
-    },
-    {
-      "position": 0.1,
-      "names": [
-        "ArmGoHome"
-      ]
-    },
-    {
-      "position": 2.1,
-      "names": [
-        "StopIntake",
-        "ArmGoHome"
-      ]
-    }
-  ]
+  "markers": []
 }
