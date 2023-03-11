@@ -84,21 +84,91 @@
         "x": 1.9484491857872603,
         "y": 4.2936072196930715
       },
-      "nextControl": null,
+      "nextControl": {
+        "x": 1.6515508142127397,
+        "y": 4.2063927803069285
+      },
       "holonomicAngle": 190.0,
       "isReversal": false,
-      "velOverride": null,
+      "velOverride": 1.0,
       "isLocked": false,
-      "isStopPoint": false,
+      "isStopPoint": true,
       "stopEvent": {
         "names": [
           "ShootCube"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "after",
-        "waitTime": 0.15
+        "waitTime": 0.1
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 6.8200221870529205,
+        "y": 3.836840494193809
+      },
+      "prevControl": {
+        "x": 5.899999291180131,
+        "y": 5.43036689397213
+      },
+      "nextControl": null,
+      "holonomicAngle": -60.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
       }
     }
   ],
-  "markers": []
+  "markers": [
+    {
+      "position": 0.1,
+      "names": [
+        "ArmGoHome"
+      ]
+    },
+    {
+      "position": 1.75,
+      "names": [
+        "PickUpCube"
+      ]
+    },
+    {
+      "position": 2.1,
+      "names": [
+        "StopIntake",
+        "ArmGoHome"
+      ]
+    },
+    {
+      "position": 1.0,
+      "names": [
+        "ArmGoOut"
+      ]
+    },
+    {
+      "position": 3.4,
+      "names": [
+        "ArmGoOut"
+      ]
+    },
+    {
+      "position": 3.7527272727272107,
+      "names": [
+        "PickUpCube"
+      ]
+    },
+    {
+      "position": 4.0,
+      "names": [
+        "StopIntake",
+        "ArmGoHome"
+      ]
+    }
+  ]
 }

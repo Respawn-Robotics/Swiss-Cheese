@@ -39,7 +39,7 @@ public class OperatorCommands {
     }
 
     public Command goToHome() {
-        return new JointsSetPosition(0, 10000, 1, 2, armSubsystem, wristSubsystem);
+        return new JointsSetPosition(0, 5000, 1, 2, armSubsystem, wristSubsystem);
         //return armSubsystem.setPosition(8000).andThen(new WaitCommand(0.6).andThen(new JointsSetPosition(0, 0, 1, 0.4, armSubsystem, wristSubsystem)));
     }
     

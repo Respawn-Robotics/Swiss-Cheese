@@ -22,7 +22,7 @@
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "after",
-        "waitTime": 0.13
+        "waitTime": 0.15
       }
     },
     {
@@ -75,7 +75,7 @@
   ],
   "markers": [
     {
-      "position": 0.3,
+      "position": 0.1,
       "names": [
         "ArmGoHome"
       ]

@@ -135,6 +135,8 @@ public class RobotContainer {
         
         o_X.onTrue(armSubsystem.resetSensor().andThen(wristSubsystem.resetPos()));
 
+        o_B.onTrue(collectionSubsystem.shootCube());
+
         // Acquire cone DoS
         o_Y.and(o_leftStick.negate())
             .onTrue(operatorCommands.acquireConeFromDoS());
@@ -193,7 +195,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         //return new D1OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
-        return new D2CubeEngage(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision,level);
+        return new D1TwoCube(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision, level);
         //return new D3OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }
 

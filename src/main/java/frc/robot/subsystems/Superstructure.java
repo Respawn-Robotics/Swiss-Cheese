@@ -46,24 +46,24 @@ public class Superstructure extends SubsystemBase {
                 .andThen(collectionSubsystem.holdPosition())
                 .schedule();
             
-            armSubsystem.setPosition(armSubsystem.getMasterMotor().getSelectedSensorPosition() + 3000)
-                .andThen(new WaitCommand(0.2)
-                .andThen(wristSubsystem.setPosition(0)
-                .andThen(new WaitCommand(.4)
-                .andThen(armSubsystem.setPosition(0)))))
-                .schedule();
+            // armSubsystem.setPosition(armSubsystem.getMasterMotor().getSelectedSensorPosition() + 3000)
+            //     .andThen(new WaitCommand(0.2)
+            //     .andThen(wristSubsystem.setPosition(0)
+            //     .andThen(new WaitCommand(.4)
+            //     .andThen(armSubsystem.setPosition(0)))))
+            //     .schedule();
         }
 
-        if(RobotContainer.cubeBeamBreak.wasTripped() && !operator.getRawButtonPressed(4) && operator.getRawButtonPressed(1)) {
+        if(RobotContainer.cubeBeamBreak.wasTripped() && operator.getRawButtonPressed(1)) {
             new PrintCommand("CUBE TRIPPED").schedule();
-            new WaitCommand(0.2)
+            new WaitCommand(0.1)
                 .andThen(collectionSubsystem.setCubeHoldingPressure())
                 .andThen(collectionSubsystem.holdPosition())
                 .schedule();
-            wristSubsystem.setPosition(0)
-                .andThen(new WaitCommand(1)
-                .andThen(armSubsystem.setPosition(0)))
-                .schedule();
+            // wristSubsystem.setPosition(0)
+            //     .andThen(new WaitCommand(1)
+            //     .andThen(armSubsystem.setPosition(0)))
+            //     .schedule();
         }
 
         if(RobotContainer.cubeBeamBreak.wasCleared() || RobotContainer.coneBeamBreak.wasCleared()) {
@@ -76,7 +76,7 @@ public class Superstructure extends SubsystemBase {
         if(operator.getRawAxis(2) >= 0.2) {
             collectionSubsystem.ejectCone().schedule();
         } else if (operator.getRawAxis(3) >= 0.2){
-            collectionSubsystem.shootCube().schedule();
+            collectionSubsystem.puffCube().schedule();
         }
     }
 }

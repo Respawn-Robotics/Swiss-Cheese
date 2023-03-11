@@ -158,9 +158,9 @@ public final class Constants {
         public static final int ACQUIRE_FROM_SIS = 25000;
 
         public static final int SCORE_IN_HIGH_CONE = 60000;
-        public static final int SCORE_IN_HIGH_CUBE = 50000; // 14200
-        public static final int SCORE_IN_MID_CONE = 52000;
-        public static final int SCORE_IN_MID_CUBE = 14200;
+        public static final int SCORE_IN_HIGH_CUBE = 36000; // 14200
+        public static final int SCORE_IN_MID_CONE = 49000;
+        public static final int SCORE_IN_MID_CUBE = 19000;
 
         // Movement
         public static final float UP_kP = .06030624264f;
@@ -187,15 +187,15 @@ public final class Constants {
 
         // Setpoints
         public static final int HOME = 0;
-        public static final int ACQUIRE_FROM_CUBE_FLOOR = 48000;
-        public static final int ACQUIRE_FROM_CONE_FLOOR = 100000;
+        public static final int ACQUIRE_FROM_CUBE_FLOOR = 43000;
+        public static final int ACQUIRE_FROM_CONE_FLOOR = 107000;
         public static final int ACQUIRE_FROM_DOS = 55000;
         public static final int ACUQIRE_FROM_SIS = 129000;
 
         public static final int SCORE_IN_HIGH_CONE = 98000; 
-        public static final int SCORE_IN_HIGH_CUBE = 80000; // 16500 shoot
-        public static final int SCORE_IN_MID_CONE = 98000;
-        public static final int SCORE_IN_MID_CUBE = 14200;
+        public static final int SCORE_IN_HIGH_CUBE = 37000; // 16500 shoot
+        public static final int SCORE_IN_MID_CONE = 95000;
+        public static final int SCORE_IN_MID_CUBE = 15000;
         
 
         // Movement

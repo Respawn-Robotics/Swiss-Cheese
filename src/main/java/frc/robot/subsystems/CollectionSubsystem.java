@@ -47,6 +47,14 @@ public class CollectionSubsystem extends SubsystemBase {
       return collectionMotor;
     }
 
+    public Command setVoltage(float voltage) {
+      return runOnce(
+        () -> {
+            collectionMotor.set(ControlMode.PercentOutput, voltage);
+        }
+      );
+    }
+
     public Command alterCube() {
       return runOnce(
         () -> {

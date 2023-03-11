@@ -147,6 +147,12 @@
       "names": [
         "StopIntake"
       ]
+    },
+    {
+      "position": 0.1,
+      "names": [
+        "StopIntake"
+      ]
     }
   ]
 }
