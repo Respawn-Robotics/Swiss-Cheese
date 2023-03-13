@@ -33,10 +33,14 @@ public class D1TwoCube extends SequentialCommandGroup {
 
 // This will load the file "FullAuto.path" and generate it with a max velocity of 4 m/s and a max acceleration of 3 m/s^2
 // for every path in the group
-ArrayList<PathPlannerTrajectory> pathGroup = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup("D1TwoCube",
+ArrayList<PathPlannerTrajectory> pathGroup = (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup("D1ThreeCubeE",
 new PathConstraints(4,3),
-new PathConstraints(2,2),
-new PathConstraints(4,3)
+new PathConstraints(3,2),
+new PathConstraints(4,3),
+new PathConstraints(4,3),
+new PathConstraints(3,2)
+
+
 );
 
 // This is just an example event map. It would be better to have a constant, global event map
@@ -44,11 +48,13 @@ new PathConstraints(4,3)
 HashMap<String, Command> eventMap = new HashMap<>();
 eventMap.put("ResetSensors", wristSubsystem.setVoltage(-.08f).alongWith(armSubsystem.setVoltage(-0.08f)).andThen(new WaitCommand(.2).andThen(wristSubsystem.setVoltage(0).andThen(wristSubsystem.resetPos().andThen(armSubsystem.resetSensor())))));
 eventMap.put("RejectRun", collectionSubsystem.shootCube());
-eventMap.put("ArmGoOut", armSubsystem.setPosition(Constants.ArmConstants.ACQUIRE_FROM_CUBE_FLOOR).alongWith(wristSubsystem.setPosition(Constants.WristConstants.ACQUIRE_FROM_CUBE_FLOOR - 3000).alongWith(collectionSubsystem.collectCube())));
+eventMap.put("ArmGoOut", armSubsystem.setPosition(Constants.ArmConstants.ACQUIRE_FROM_CUBE_FLOOR - 3000).alongWith(wristSubsystem.setPosition(Constants.WristConstants.ACQUIRE_FROM_CUBE_FLOOR - 3000).alongWith(collectionSubsystem.collectCube())));
 eventMap.put("StopIntake", collectionSubsystem.stopMotor());
 eventMap.put("ArmGoHome", armSubsystem.setPosition(0).alongWith(wristSubsystem.setPosition(0)));
 eventMap.put("RejectRun2", collectionSubsystem.puffCube());
 eventMap.put("Level", level);
+eventMap.put("ArmGoOut2", new PrintCommand("Pickup").andThen(armSubsystem.setPosition(Constants.ArmConstants.ACQUIRE_FROM_CUBE_FLOOR - 3000).alongWith(wristSubsystem.setPosition(Constants.WristConstants.ACQUIRE_FROM_CUBE_FLOOR - 3000).alongWith(collectionSubsystem.collectCube()))));
+
 
 // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
 SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
