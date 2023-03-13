@@ -1,10 +1,14 @@
 package frc.robot;
 
+import org.opencv.objdetect.CascadeClassifier;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.autos.autoCommands.*;
@@ -195,7 +199,21 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         //return new D1OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
-        return new D2CubeEngage(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision,level);
+        SendableChooser<String> val = (SendableChooser)SmartDashboard.getData("Auton Chooser");
+        switch (val.getSelected()) {
+            case "D1OneCone":
+                return new D1OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision);
+            case "D1TwoCube":
+                return new D1TwoCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level); 
+            case "D2CubeEngage":
+                return new D2CubeEngage(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision, level);
+            case "D2OneCone":
+                return new D2OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level); 
+            case "D3OneCone":
+                return new D3OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision);    
+            default:
+                return null;
+        }
         //return new D3OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }
 

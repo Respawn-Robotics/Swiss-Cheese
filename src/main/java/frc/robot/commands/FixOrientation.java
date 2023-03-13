@@ -38,17 +38,31 @@ public class FixOrientation extends CommandBase {
         }
     }
 
+    public double getAngle(){
+        return s_Swerve.gyro.getRoll();
+    }
+
     public void PIDLevel(){
-        currentAngle = -s_Swerve.gyro.getRoll();
+        currentAngle = -getAngle();
         robotAdjust = KpLevel*(currentAngle-desiredAngle);
-        s_Swerve.drive(new Translation2d(robotAdjust,0), 0, false, false);
+        if (robotAdjust <= 1 || robotAdjust >= -1){
+            s_Swerve.drive(new Translation2d(robotAdjust,0), 0, false, false);
+        }else{
+            System.out.println("level");
+            end(true);
+        }
     }
 
     
     @Override
     public void execute() {
-        
+        getAngle();
         PIDLevel();
         //levelRobot();
+    }
+
+    @Override
+    public void end(boolean interuptted){
+
     }
 }
