@@ -118,7 +118,7 @@ public class RobotContainer {
         d_X.onTrue(vision.togglePipeline());
 
         // Follow retroreflective tape/level
-        d_A.onTrue(level);//new InstantCommand(()-> s_Swerve.setX()));
+        d_A.onTrue(new InstantCommand(() -> s_Swerve.setX()));
 
         // Home arm
         d_B.onTrue(operatorCommands.goToHome().andThen(collectionSubsystem.stopMotor()));
