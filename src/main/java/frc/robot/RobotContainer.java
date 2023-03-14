@@ -212,7 +212,9 @@ public class RobotContainer {
             case "D2OneCone":
                 return new D2OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level); 
             case "D3OneCone":
-                return new D3OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision);    
+                return new D3OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision); 
+            case "D3TwoCube":
+                return new D3TwoCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision); 
             default:
                 return null;
         }

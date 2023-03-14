@@ -43,7 +43,6 @@ new PathConstraints(2, 2)
 // This is just an example event map. It would be better to have a constant, global event map
 // in your code that will be used by all path following commands.
 HashMap<String, Command> eventMap = new HashMap<>();
-eventMap.put("ResetSensors", wristSubsystem.setVoltage(-.1f).andThen(new WaitCommand(.8).andThen(wristSubsystem.setVoltage(0).andThen(wristSubsystem.resetPos()))));
 eventMap.put("ArmGoUp", armSubsystem.setPosition(Constants.ArmConstants.SCORE_IN_HIGH_CONE).andThen(wristSubsystem.setPosition(Constants.WristConstants.SCORE_IN_HIGH_CONE)));
 eventMap.put("RejectRun", collectionSubsystem.ejectCone());
 eventMap.put("ArmGoHome", armSubsystem.setPosition(0).andThen(wristSubsystem.setPosition(0).andThen(collectionSubsystem.stopMotor())));

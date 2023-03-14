@@ -23,6 +23,7 @@ public class ShuffleboardConfig {
         autonChooser.addOption("D2 Score Cube Left Cube Engage", "D2LCubeE");
         autonChooser.addOption("D2 One Cone", "D2OneCone");
         autonChooser.addOption("D3 One Cone Leave", "D3OneCone");
+        autonChooser.addOption("D3 Two Cube Leave", "D3TwoCube");
         SmartDashboard.putData("Auton Chooser", autonChooser);
     }
 }
