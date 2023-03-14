@@ -2,12 +2,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.autos.autoCommands.*;
+import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.commands.manual.ManualArmDown;
 import frc.robot.commands.manual.ManualArmUp;
@@ -31,7 +32,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
 
     /* Config */
-    ShuffleboardConfig shuffleboardConfig = new ShuffleboardConfig();
+    ShuffleboardConfig shuffleboardConfig;
 
     /* Controllers */
     private final Joystick driver = new Joystick(0);
@@ -96,6 +97,7 @@ public class RobotContainer {
                         () -> -driver.getRawAxis(rotationAxis),
                         () -> d_leftBumper.getAsBoolean()));
         
+        shuffleboardConfig = new ShuffleboardConfig();
         // Configure the button 
         configureButtonBindings();
     }
@@ -126,11 +128,11 @@ public class RobotContainer {
         /* Operator Controls */
         
         // Acquire cone ground
-        o_A.and(o_leftStick.negate())
+        o_A.and(o_leftStick)
             .onTrue(operatorCommands.acquireConeFromFloor());
         
         // Acquire cube ground
-        o_A.and(o_leftStick)
+        o_A.and(o_leftStick.negate())
             .onTrue(operatorCommands.acquireCubeFromFloor());
         
         o_X.onTrue(armSubsystem.resetSensor().andThen(wristSubsystem.resetPos()));
@@ -184,7 +186,7 @@ public class RobotContainer {
         // Collection Controls
         //o_rightBumper.onTrue(collectionSubsystem.collectCube());
         //o_leftBumper.onTrue(collectionSubsystem.alterCube());
-        o_povDown.onTrue(collectionSubsystem.stopMotor());
+        o_povDown.onTrue(operatorCommands.scoreInLowCube());
     }
 
     /**
@@ -195,7 +197,25 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
         //return new D1OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
-        return new D1TwoCube(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision, level);
+        SendableChooser<String> val = (SendableChooser)SmartDashboard.getData("Auton Chooser");
+        switch (val.getSelected()) {
+            case "D1OneCone":
+                return new D1OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision);
+            case "D1TwoCubeE":
+                return new D1TwoCubeE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level); 
+            case "D1ThreeCubeE":
+                return new D1ThreeCubeE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level);
+            case "D2RCubeE":
+                return new D2RCubeE(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision, level);
+            case "D2LCubeE":
+                return new D2LCubeE(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision, level);
+            case "D2OneCone":
+                return new D2OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level); 
+            case "D3OneCone":
+                return new D3OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision);    
+            default:
+                return null;
+        }
         //return new D3OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }
 

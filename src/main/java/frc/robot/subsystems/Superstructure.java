@@ -36,34 +36,21 @@ public class Superstructure extends SubsystemBase {
         RobotContainer.coneBeamBreak.update();
         RobotContainer.cubeBeamBreak.update();
 
-        SmartDashboard.putBoolean("Cone", RobotContainer.coneBeamBreak.get());
-        SmartDashboard.putBoolean("Cube", RobotContainer.cubeBeamBreak.get());
+        SmartDashboard.putNumber("Collection Motor", collectionSubsystem.getMotor().getStatorCurrent());
 
-        if(RobotContainer.coneBeamBreak.wasTripped() && (operator.getRawButtonPressed(4) || operator.getRawButtonPressed(1))) {
+        if(collectionSubsystem.getMotor().getStatorCurrent() > 50 && operator.getRawButtonPressed(1)) {
             new PrintCommand("CONE TRIPPED").schedule();
-            new WaitCommand(0.8)
-                .andThen(collectionSubsystem.setConeHoldingPressure())
+            new WaitCommand(0)
+                .andThen(collectionSubsystem.stopMotor())
                 .andThen(collectionSubsystem.holdPosition())
                 .schedule();
             
-            // armSubsystem.setPosition(armSubsystem.getMasterMotor().getSelectedSensorPosition() + 3000)
-            //     .andThen(new WaitCommand(0.2)
-            //     .andThen(wristSubsystem.setPosition(0)
-            //     .andThen(new WaitCommand(.4)
-            //     .andThen(armSubsystem.setPosition(0)))))
-            //     .schedule();
-        }
-
-        if(RobotContainer.cubeBeamBreak.wasTripped() && operator.getRawButtonPressed(1)) {
-            new PrintCommand("CUBE TRIPPED").schedule();
-            new WaitCommand(0.1)
-                .andThen(collectionSubsystem.setCubeHoldingPressure())
-                .andThen(collectionSubsystem.holdPosition())
+            armSubsystem.setPosition(armSubsystem.getMasterMotor().getSelectedSensorPosition() + 3000)
+                .andThen(new WaitCommand(0.2)
+                .andThen(wristSubsystem.setPosition(0)
+                .andThen(new WaitCommand(.4)
+                .andThen(armSubsystem.setPosition(0)))))
                 .schedule();
-            // wristSubsystem.setPosition(0)
-            //     .andThen(new WaitCommand(1)
-            //     .andThen(armSubsystem.setPosition(0)))
-            //     .schedule();
         }
 
         if(RobotContainer.cubeBeamBreak.wasCleared() || RobotContainer.coneBeamBreak.wasCleared()) {

@@ -74,7 +74,7 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command puffCube() {
       return runOnce(
         () -> {
-          collectionMotor.set(ControlMode.PercentOutput, -0.75);
+          collectionMotor.set(ControlMode.PercentOutput, -0.65);
         }
       );
     }

@@ -48,7 +48,7 @@
           "ArmGoOut"
         ],
         "executionBehavior": "parallel",
-        "waitBehavior": "before",
+        "waitBehavior": "none",
         "waitTime": 0.0
       }
     },
@@ -79,12 +79,39 @@
     },
     {
       "anchorPoint": {
-        "x": 1.75,
+        "x": 1.85,
         "y": 4.8
       },
       "prevControl": {
-        "x": 2.138163250685476,
+        "x": 2.238163250685476,
         "y": 5.172883166279154
+      },
+      "nextControl": {
+        "x": 2.238163250685476,
+        "y": 5.172883166279154
+      },
+      "holonomicAngle": 175.0,
+      "isReversal": true,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": true,
+      "stopEvent": {
+        "names": [
+          "RejectRun2"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "after",
+        "waitTime": 0.15
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 4.205032683569641,
+        "y": 3.357235432419583
+      },
+      "prevControl": {
+        "x": 1.4530131624365814,
+        "y": 3.1060137333949887
       },
       "nextControl": null,
       "holonomicAngle": 180.0,
@@ -94,11 +121,11 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "RejectRun2"
+          "Level"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "after",
-        "waitTime": 0.15
+        "waitTime": 1.0
       }
     }
   ],
@@ -111,6 +138,12 @@
     },
     {
       "position": 1.8,
+      "names": [
+        "StopIntake"
+      ]
+    },
+    {
+      "position": 3.25,
       "names": [
         "StopIntake"
       ]

@@ -48,7 +48,7 @@
           "ArmGoOut"
         ],
         "executionBehavior": "parallel",
-        "waitBehavior": "before",
+        "waitBehavior": "none",
         "waitTime": 0.0
       }
     },
@@ -79,19 +79,22 @@
     },
     {
       "anchorPoint": {
-        "x": 1.75,
-        "y": 4.8
+        "x": 1.85,
+        "y": 4.7
       },
       "prevControl": {
-        "x": 2.138163250685476,
-        "y": 5.172883166279154
+        "x": 2.3876852095887005,
+        "y": 4.7
       },
-      "nextControl": null,
-      "holonomicAngle": 180.0,
-      "isReversal": false,
+      "nextControl": {
+        "x": 2.3876852095887005,
+        "y": 4.7
+      },
+      "holonomicAngle": 185.0,
+      "isReversal": true,
       "velOverride": null,
       "isLocked": false,
-      "isStopPoint": false,
+      "isStopPoint": true,
       "stopEvent": {
         "names": [
           "RejectRun2"
@@ -99,6 +102,55 @@
         "executionBehavior": "sequential",
         "waitBehavior": "after",
         "waitTime": 0.15
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 6.774345514502994,
+        "y": 3.6198762995816596
+      },
+      "prevControl": {
+        "x": 5.434659600767609,
+        "y": 4.557934475212541
+      },
+      "nextControl": {
+        "x": 7.49896632162514,
+        "y": 3.1124913480911287
+      },
+      "holonomicAngle": -55.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": true,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "after",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 3.9994876570949724,
+        "y": 3.026079556432617
+      },
+      "prevControl": {
+        "x": 5.79229705467958,
+        "y": 2.5578936627958733
+      },
+      "nextControl": null,
+      "holonomicAngle": 0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [
+          "Level"
+        ],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
       }
     }
   ],
@@ -116,9 +168,28 @@
       ]
     },
     {
+      "position": 3.25,
+      "names": [
+        "StopIntake"
+      ]
+    },
+    {
       "position": 0.1,
       "names": [
         "StopIntake"
+      ]
+    },
+    {
+      "position": 3.25,
+      "names": [
+        "ArmGoOut2"
+      ]
+    },
+    {
+      "position": 4.15,
+      "names": [
+        "StopIntake",
+        "ArmGoHome"
       ]
     }
   ]

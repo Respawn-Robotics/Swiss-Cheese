@@ -1,16 +1,16 @@
 package frc.robot.commands;
 
+import frc.robot.Robot;
 import frc.robot.subsystems.Swerve;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class FixOrientation extends CommandBase {    
     public Swerve s_Swerve;    
-    public double yaw;
-    public double angle;
-    double KpAim = .075;
-    Double steering_adjust = 0.0;
-    double desiredAngle = 180;
+    public double currentAngle;
+    double KpLevel = .5;
+    Double robotAdjust = 0.0;
+    double desiredAngle = 0;
     public Boolean engaged = false;
 
 
@@ -38,12 +38,30 @@ public class FixOrientation extends CommandBase {
         }
     }
 
+    public double getAngle(){
+        return s_Swerve.gyro.getRoll();
+    }
+
+    public void PIDLevel(){
+        currentAngle = -s_Swerve.gyro.getRoll();
+        robotAdjust = KpLevel*(currentAngle-desiredAngle);
+        if (robotAdjust <= 1 || robotAdjust >= -1){
+            s_Swerve.drive(new Translation2d(robotAdjust,0), 0, false, false);
+        }else{
+            System.out.println("level");
+            end(true);
+        }
+    }
+
     
     @Override
     public void execute() {
-        
-        // steering_adjust = KpAim * (desiredAngle - yaw);
-        // s_Swerve.drive(new Translation2d(0,0), steering_adjust, false, true);
+         //PIDLevel();
         levelRobot();
+    }
+
+    @Override
+    public void end(boolean interuptted){
+
     }
 }

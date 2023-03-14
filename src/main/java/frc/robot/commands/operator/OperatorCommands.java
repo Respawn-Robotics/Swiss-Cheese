@@ -80,10 +80,10 @@ public class OperatorCommands {
     }
 
     public Command scoreInLowCone() {
-        return collectionSubsystem.ejectCone();
+        return new Score(0, 20000, true, armSubsystem, wristSubsystem, collectionSubsystem);
     }
 
     public Command scoreInLowCube() {
-        return collectionSubsystem.shootCube();
+        return new Score(0, 20000, false, armSubsystem, wristSubsystem, collectionSubsystem);
     }
 }
