@@ -12,7 +12,7 @@ public class ManualArmUp extends CommandBase {
 
     @Override
     public void execute() {
-        armSubsystem.setVoltage(0.1f).schedule();
+        armSubsystem.setVoltage(0.2f).schedule();
     }
 
     @Override

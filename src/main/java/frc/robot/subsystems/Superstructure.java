@@ -21,14 +21,16 @@ public class Superstructure extends SubsystemBase {
     private WristSubsystem wristSubsystem;
     private CollectionSubsystem collectionSubsystem;
     private Joystick operator;
+    private Joystick driver;
     private OperatorCommands operatorCommands;
     public static ROBOT_STATE currentRobotState;
 
-    public Superstructure(ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Joystick operator, OperatorCommands operatorCommands) {
+    public Superstructure(ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Joystick operator, Joystick driver, OperatorCommands operatorCommands) {
         this.armSubsystem = armSubsystem;
         this.wristSubsystem = wristSubsystem;
         this.collectionSubsystem = collectionSubsystem;
         this.operator = operator;
+        this.driver = driver;
         this.operatorCommands = operatorCommands;
     }
     @Override
@@ -60,10 +62,10 @@ public class Superstructure extends SubsystemBase {
             new PrintCommand("CLEARED").schedule();
         }
 
-        if(operator.getRawAxis(2) >= 0.2) {
-            collectionSubsystem.ejectCone().schedule();
-        } else if (operator.getRawAxis(3) >= 0.2){
+        if(driver.getRawAxis(2) >= 0.2) {
             collectionSubsystem.puffCube().schedule();
+        } else if (driver.getRawAxis(3) >= 0.2){
+            collectionSubsystem.ejectCone().schedule();
         }
     }
 }

@@ -45,7 +45,7 @@ public class RobotContainer {
     private final Swerve s_Swerve = new Swerve();
     private final Vision vision = new Vision();
     private final OperatorCommands operatorCommands = new OperatorCommands(armSubsystem, wristSubsystem, collectionSubsystem);
-    private final Superstructure superstructure = new Superstructure(armSubsystem, wristSubsystem, collectionSubsystem, operator, operatorCommands);
+    private final Superstructure superstructure = new Superstructure(armSubsystem, wristSubsystem, collectionSubsystem, operator, driver, operatorCommands);
     private final FixOrientation level = new FixOrientation(s_Swerve);
 
     public static BeamBreak cubeBeamBreak = new BeamBreak(2);

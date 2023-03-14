@@ -12,7 +12,7 @@ public class ManualWristDown extends CommandBase {
 
     @Override
     public void execute() {
-        wristSubsystem.setVoltage(-0.1f).schedule();
+        wristSubsystem.setVoltage(-0.2f).schedule();
     }
 
     @Override
