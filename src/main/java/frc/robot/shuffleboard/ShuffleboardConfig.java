@@ -14,16 +14,20 @@ public class ShuffleboardConfig {
     public ShuffleboardConfig() {
         addWidgets();
     }
-   
+
     public void addWidgets() {
         autonChooser.addOption("D1 Two Cube Engage", "D1TwoCubeE");
-        autonChooser.addOption("D1 Three Cube Engage", "D1ThreeCubeE");  
+        autonChooser.addOption("D1 Three Cube Engage", "D1ThreeCubeE");
         autonChooser.addOption("D2 Score Cube Right Cube Engage", "D2RCubeE");
         autonChooser.addOption("D2 Score Cube Left Cube Engage", "D2LCubeE");
         autonChooser.addOption("D3 Two Cube Leave", "D3TwoCube");
         autonChooser.addOption("D1 One Cone Leave", "D1OneCone");
         autonChooser.addOption("D2 One Cone", "D2OneCone");
         autonChooser.addOption("D3 One Cone Leave", "D3OneCone");
+        autonChooser.addOption("D1 Two Cube", "D1TwoCube");
+        autonChooser.addOption("D1 Three Cube", "D1ThreeCube");
+        autonChooser.addOption("D2 Score Cube Right Cube", "D2RCube");
+        autonChooser.addOption("D2 Score Cube Left Cube", "D2LCube");
         SmartDashboard.putData("Auton Chooser", autonChooser);
     }
 }

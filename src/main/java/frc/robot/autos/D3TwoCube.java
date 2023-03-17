@@ -41,7 +41,7 @@ new PathConstraints(1,1)
 // in your code that will be used by all path following commands.
 HashMap<String, Command> eventMap = new HashMap<>();
 eventMap.put("RejectRun", collectionSubsystem.shootCube());
-eventMap.put("ArmGoOut", armSubsystem.setPosition(Constants.ArmConstants.ACQUIRE_FROM_CUBE_FLOOR).alongWith(wristSubsystem.setPosition(Constants.WristConstants.ACQUIRE_FROM_CUBE_FLOOR + 3000).alongWith(collectionSubsystem.collectCube())));
+eventMap.put("ArmGoOut", armSubsystem.setPosition(Constants.ArmConstants.ACQUIRE_FROM_CUBE_FLOOR).alongWith(wristSubsystem.setPosition(Constants.WristConstants.ACQUIRE_FROM_CUBE_FLOOR).alongWith(collectionSubsystem.collectCube())));
 eventMap.put("StopIntake", collectionSubsystem.stopMotor());
 eventMap.put("ArmGoHome", armSubsystem.setPosition(0).alongWith(wristSubsystem.setPosition(1500)));
 eventMap.put("RejectRun2", collectionSubsystem.puffCube().andThen(new WaitCommand(1).andThen(collectionSubsystem.stopMotor())));

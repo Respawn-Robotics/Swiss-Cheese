@@ -25,12 +25,12 @@ public class FixOrientation extends CommandBase {
     }
 
     public void levelRobot(){
-        if((s_Swerve.gyro.getRoll() > 3.25) && (!engaged) ){
-            s_Swerve.drive(new Translation2d(-.55,0), 0, false, true);
+        if((s_Swerve.gyro.getRoll() > 5.25) && (!engaged) ){
+            s_Swerve.drive(new Translation2d(-.5,0), 0, false, true);
             System.out.println("Toomuch" + engaged);
-        }else if((s_Swerve.gyro.getRoll() < -3.25) && (!engaged)){
-            s_Swerve.drive(new Translation2d(.55,0), 0, false, true);
-            System.out.println("TooLittle" +engaged);
+        }else if((s_Swerve.gyro.getRoll() < -5.25) && (!engaged)){
+            s_Swerve.drive(new Translation2d(.5,0), 0, false, true);
+            System.out.println("TooLittle" + engaged);
         }else{
             s_Swerve.setX();
             engaged = true;

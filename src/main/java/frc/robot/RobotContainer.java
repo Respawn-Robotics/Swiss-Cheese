@@ -116,11 +116,13 @@ public class RobotContainer {
         d_povDown.onTrue(new InstantCommand(() -> s_Swerve.downGyro()));
         d_povLeft.onTrue(new InstantCommand(() -> s_Swerve.rightGyro()));
 
+
+
         // Toggle Limelight pipeline
-        d_X.onTrue(vision.togglePipeline());
+        d_X.onTrue(collectionSubsystem.stopMotor());
 
         // Follow retroreflective tape/level
-        d_A.onTrue(new InstantCommand(() -> s_Swerve.setX()));
+        d_A.onTrue(collectionSubsystem.shootCube());
 
         // Home arm
         d_B.onTrue(operatorCommands.goToHome().andThen(collectionSubsystem.stopMotor()));
@@ -215,6 +217,14 @@ public class RobotContainer {
                 return new D3OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision); 
             case "D3TwoCube":
                 return new D3TwoCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision); 
+            case "D1TwoCube":
+                return new D1TwoCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level); 
+            case "D1ThreeCube":
+                return new D1ThreeCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level);
+            case "D2RCube":
+                return new D2RCube(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision, level);
+            case "D2LCube":
+                return new D2LCube(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision, level);
             default:
                 return null;
         }
