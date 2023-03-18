@@ -48,7 +48,7 @@
           "ArmGoOut"
         ],
         "executionBehavior": "parallel",
-        "waitBehavior": "before",
+        "waitBehavior": "none",
         "waitTime": 0.0
       }
     },
@@ -79,15 +79,15 @@
     },
     {
       "anchorPoint": {
-        "x": 1.75,
-        "y": 4.8
+        "x": 1.9,
+        "y": 4.7
       },
       "prevControl": {
-        "x": 2.138163250685476,
-        "y": 5.172883166279154
+        "x": 2.288163250685476,
+        "y": 5.072883166279154
       },
       "nextControl": null,
-      "holonomicAngle": 180.0,
+      "holonomicAngle": 175.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
