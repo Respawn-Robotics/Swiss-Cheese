@@ -17,6 +17,6 @@ public class ManualArmDown extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        armSubsystem.setVoltage(0).schedule();
+        armSubsystem.holdPosition().schedule();
     }
 }

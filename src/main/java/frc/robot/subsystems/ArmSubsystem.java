@@ -27,6 +27,7 @@ public class ArmSubsystem extends SubsystemBase {
         config.SetFollowerStatusFrames(armMotorSlave);
         
         armMotorMaster.setSelectedSensorPosition(0);
+        armMotorSlave.setSelectedSensorPosition(0);
 
 		armMotorMaster.config_kF(0, Constants.ArmConstants.UP_kF, 0);
 		armMotorMaster.config_kP(0, Constants.ArmConstants.UP_kP, 0);
