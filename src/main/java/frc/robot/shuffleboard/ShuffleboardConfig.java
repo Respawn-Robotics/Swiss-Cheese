@@ -16,6 +16,9 @@ public class ShuffleboardConfig {
     }
 
     public void addWidgets() {
+        autonChooser.addOption("D1 One Cone One Cube", "D1ConeCubeHigh");
+        autonChooser.addOption("D1 One Cone One Cube Engage", "D1ConeCubeHighE");
+        autonChooser.addOption("D1 One Cone One Cube Pickup", "D1ConeCubeHighPC");
         autonChooser.addOption("D1 Two Cube Engage", "D1TwoCubeE");
         autonChooser.addOption("D1 Three Cube Engage", "D1ThreeCubeE");
         autonChooser.addOption("D2 Score Cube Right Cube Engage", "D2RCubeE");

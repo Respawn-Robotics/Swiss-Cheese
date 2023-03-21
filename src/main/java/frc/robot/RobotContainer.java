@@ -68,6 +68,7 @@ public class RobotContainer {
     private final POVButton d_povRight = new POVButton(driver, 90);
     private final POVButton d_povDown = new POVButton(driver, 180);
     private final POVButton d_povLeft = new POVButton(driver, 270);
+    private final POVButton d_povUp = new POVButton(driver, 0);
 
     /* Operator Buttons */
     private final JoystickButton o_rightBumper = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
@@ -111,21 +112,23 @@ public class RobotContainer {
         d_rightBumper.onFalse(new InstantCommand(() -> s_Swerve.setSlow(false)));
 
         // Gyro Offsets
-        d_Y.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        d_povUp.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         d_povRight.onTrue(new InstantCommand(() -> s_Swerve.leftGyro()));
         d_povDown.onTrue(new InstantCommand(() -> s_Swerve.downGyro()));
         d_povLeft.onTrue(new InstantCommand(() -> s_Swerve.rightGyro()));
 
 
+        // Lock Modules
+        d_Y.onTrue(new InstantCommand(()-> s_Swerve.setX()));
 
-        // Toggle Limelight pipeline
+        // Stop collection motor
         d_X.onTrue(collectionSubsystem.stopMotor());
 
-        // Follow retroreflective tape/level
-        d_A.onTrue(collectionSubsystem.shootCube());
+        // Level Robot
+        d_A.onTrue(level);
 
         // Home arm
-        d_B.onTrue(operatorCommands.goToHome().andThen(collectionSubsystem.stopMotor()));
+        d_B.onTrue(operatorCommands.goToHome());
 
         /* Operator Controls */
         
@@ -203,6 +206,12 @@ public class RobotContainer {
         switch (val.getSelected()) {
             case "D1OneCone":
                 return new D1OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision);
+            case "D1ConeCubeHigh":
+                return new D1ConeCubeHigh(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision);
+            case "D1ConeCubeHighE":
+                return new D1ConeCubeHighE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision,level);
+            case "D1ConeCubeHighPC":
+                return new D1ConeCubeHighPC(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision);
             case "D1TwoCubeE":
                 return new D1TwoCubeE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level); 
             case "D1ThreeCubeE":
@@ -216,7 +225,7 @@ public class RobotContainer {
             case "D3OneCone":
                 return new D3OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision); 
             case "D3TwoCube":
-                return new D3TwoCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision); 
+                return new TestPath(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision); 
             case "D1TwoCube":
                 return new D1TwoCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level); 
             case "D1ThreeCube":
@@ -226,7 +235,7 @@ public class RobotContainer {
             case "D2LCube":
                 return new D2LCube(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision, level);
             default:
-                return null;
+                return new TestPath(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem,vision);
         }
         //return new D3OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }

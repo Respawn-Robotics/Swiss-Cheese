@@ -6,13 +6,12 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class FixOrientation extends CommandBase {    
-    public Swerve s_Swerve;    
-    public double currentAngle;
-    double KpLevel = .5;
-    Double robotAdjust = 0.0;
-    double desiredAngle = 0;
-    public Boolean engaged = false;
+    private Swerve s_Swerve;  
 
+    private double currentAngle;
+    private double error;
+    private double drivePower;
+    private double kPLeveler = .025;
 
     public FixOrientation(Swerve s_Swerve) {
         this.s_Swerve = s_Swerve;
@@ -21,47 +20,29 @@ public class FixOrientation extends CommandBase {
 
     @Override
     public void initialize(){
-        engaged = false;
-    }
-
-    public void levelRobot(){
-        if((s_Swerve.gyro.getRoll() > 5.25) && (!engaged) ){
-            s_Swerve.drive(new Translation2d(-.55,0), 0, false, true);
-            System.out.println("Toomuch" + engaged);
-        }else if((s_Swerve.gyro.getRoll() < -5.25) && (!engaged)){
-            s_Swerve.drive(new Translation2d(.55,0), 0, false, true);
-            System.out.println("TooLittle" + engaged);
-        }else{
-            s_Swerve.setX();
-            engaged = true;
-            System.out.println("right" + engaged);
-        }
-    }
-
-    public double getAngle(){
-        return s_Swerve.gyro.getRoll();
-    }
-
-    public void PIDLevel(){
-        currentAngle = -s_Swerve.gyro.getRoll();
-        robotAdjust = KpLevel*(currentAngle-desiredAngle);
-        if (robotAdjust <= 1 || robotAdjust >= -1){
-            s_Swerve.drive(new Translation2d(robotAdjust,0), 0, false, false);
-        }else{
-            System.out.println("level");
-            end(true);
-        }
     }
 
     
     @Override
     public void execute() {
-         //PIDLevel();
-        levelRobot();
+         //PIDLevel();  
+        this.currentAngle = s_Swerve.gyro.getRoll();
+
+        error = 0 - currentAngle;
+        drivePower = -Math.min(kPLeveler * error, 1);
+
+        s_Swerve.drive(new Translation2d(drivePower,0), 0, false, false);
+        System.out.println(drivePower);
+        System.out.println(currentAngle);
     }
 
     @Override
     public void end(boolean interuptted){
+        s_Swerve.setX(); //End command, sets X mode on wheels
+    }
 
+    @Override
+    public boolean isFinished(){
+        return Math.abs(error) < 1; //End when angle is less than one
     }
 }

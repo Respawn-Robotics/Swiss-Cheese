@@ -82,7 +82,15 @@ public class CollectionSubsystem extends SubsystemBase {
     public Command shootCube() {
       return runOnce(
         () -> {
-          collectionMotor.set(ControlMode.PercentOutput, -.8);
+          collectionMotor.set(ControlMode.PercentOutput, -.9);
+        }
+      );
+    }
+
+    public Command autonShootCube() {
+      return runOnce(
+        () -> {
+          collectionMotor.set(ControlMode.PercentOutput, -.1);
         }
       );
     }
