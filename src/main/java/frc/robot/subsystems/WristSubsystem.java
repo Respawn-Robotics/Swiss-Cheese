@@ -66,6 +66,14 @@ public class WristSubsystem extends SubsystemBase {
         return wristMotor;
     }
 
+    public Command holdPosition() {
+        return runOnce(
+            () -> {
+                wristMotor.set(TalonFXControlMode.MotionMagic, wristMotor.getSelectedSensorPosition());
+            }
+        );
+    }
+
     public Command slowlyGoDown() {
         return runOnce(
             () -> {
