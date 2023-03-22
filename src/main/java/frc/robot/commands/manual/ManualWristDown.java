@@ -17,6 +17,7 @@ public class ManualWristDown extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        wristSubsystem.setVoltage(0f).schedule();
         wristSubsystem.holdPosition().schedule();
     }
 }

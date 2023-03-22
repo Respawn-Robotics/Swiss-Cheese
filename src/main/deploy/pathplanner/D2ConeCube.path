@@ -2,22 +2,22 @@
   "waypoints": [
     {
       "anchorPoint": {
-        "x": 1.75,
-        "y": 4.85
+        "x": 1.7955882065610285,
+        "y": 3.745487149093957
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7830329543107895,
-        "y": 4.85
+        "x": 2.1838137834905282,
+        "y": 3.745487149093957
       },
-      "holonomicAngle": -181.0,
+      "holonomicAngle": 180.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "ConeHigh"
+          "ArmGoUp"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "after",
@@ -26,91 +26,16 @@
     },
     {
       "anchorPoint": {
-        "x": 5.25,
-        "y": 4.59
+        "x": 2.5,
+        "y": 3.0
       },
       "prevControl": {
-        "x": 5.1790002608719305,
-        "y": 4.59
+        "x": 2.0774907789131825,
+        "y": 2.988580831862518
       },
       "nextControl": {
-        "x": 5.3209997391280695,
-        "y": 4.59
-      },
-      "holonomicAngle": 0,
-      "isReversal": false,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": false,
-      "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 6.8,
-        "y": 4.4
-      },
-      "prevControl": {
-        "x": 6.190381384495444,
-        "y": 4.7519634717645625
-      },
-      "nextControl": {
-        "x": 6.190381384495444,
-        "y": 4.7519634717645625
-      },
-      "holonomicAngle": 0,
-      "isReversal": true,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": false,
-      "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 4.5,
-        "y": 4.75
-      },
-      "prevControl": {
-        "x": 4.774297831470369,
-        "y": 4.75
-      },
-      "nextControl": {
-        "x": 4.259925738112523,
-        "y": 4.75
-      },
-      "holonomicAngle": 180.0,
-      "isReversal": false,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": false,
-      "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 1.85,
-        "y": 4.55
-      },
-      "prevControl": {
-        "x": 1.845906969342175,
-        "y": 4.834138794101618
-      },
-      "nextControl": {
-        "x": 1.8526840472484365,
-        "y": 4.363673042730701
+        "x": 2.9225092210868175,
+        "y": 3.011419168137482
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -118,22 +43,98 @@
       "isLocked": false,
       "isStopPoint": true,
       "stopEvent": {
-        "names": [
-          "PuffCube"
-        ],
-        "executionBehavior": "sequential",
-        "waitBehavior": "after",
-        "waitTime": 0.0
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
       }
     },
     {
       "anchorPoint": {
-        "x": 4.8,
+        "x": 5.3812070017302425,
         "y": 3.0
       },
       "prevControl": {
-        "x": 3.1019924441282507,
+        "x": 4.311432673941096,
         "y": 3.0
+      },
+      "nextControl": {
+        "x": 6.450981329519389,
+        "y": 3.0
+      },
+      "holonomicAngle": 0.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": true,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 6.728668841953069,
+        "y": 2.05
+      },
+      "prevControl": {
+        "x": 6.547154873642425,
+        "y": 2.05
+      },
+      "nextControl": {
+        "x": 6.910182810263713,
+        "y": 2.05
+      },
+      "holonomicAngle": 0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 7.5,
+        "y": 2.05
+      },
+      "prevControl": {
+        "x": 7.345244869199468,
+        "y": 2.0573077791454724
+      },
+      "nextControl": {
+        "x": 7.654755130800532,
+        "y": 2.0426922208545273
+      },
+      "holonomicAngle": 0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": true,
+      "stopEvent": {
+        "names": [
+          "IntakeStop",
+          "ArmGoHome"
+        ],
+        "executionBehavior": "sequential",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 7.5,
+        "y": 2.05
+      },
+      "prevControl": {
+        "x": 7.580501011818098,
+        "y": 2.0322018099164403
       },
       "nextControl": null,
       "holonomicAngle": 180.0,
@@ -142,9 +143,7 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [
-          "Level"
-        ],
+        "names": [],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -153,34 +152,15 @@
   ],
   "markers": [
     {
-      "position": 0.6,
+      "position": 0.15,
+      "names": [
+        "ArmGoHome"
+      ]
+    },
+    {
+      "position": 2.0,
       "names": [
         "ArmGoOut"
-      ]
-    },
-    {
-      "position": 2.25,
-      "names": [
-        "IntakeStop",
-        "ArmGoHome"
-      ]
-    },
-    {
-      "position": 3.0,
-      "names": [
-        "CubeHigh"
-      ]
-    },
-    {
-      "position": 0.0,
-      "names": [
-        "ArmGoHome"
-      ]
-    },
-    {
-      "position": 4.15,
-      "names": [
-        "WristFirst"
       ]
     }
   ]

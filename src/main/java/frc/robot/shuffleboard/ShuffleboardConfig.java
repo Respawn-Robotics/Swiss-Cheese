@@ -16,11 +16,13 @@ public class ShuffleboardConfig {
     }
 
     public void addWidgets() {
-        autonChooser.addOption("D1 One Cone One Cube", "D1ConeCubeHigh");
         autonChooser.addOption("D1 One Cone One Cube Engage", "D1ConeCubeHighE");
         autonChooser.addOption("D1 One Cone One Cube Pickup", "D1ConeCubeHighPC");
         autonChooser.addOption("D1 One Cone Leave", "D1OneCone");
-        autonChooser.addOption("D2 One Cone", "D2OneCone");
+        autonChooser.addOption("D2 One Cone One Cube Engage", "D2ConeCubeE");
+        autonChooser.addOption("D2 One Cone One Cube", "D2ConeCube");
+        autonChooser.addOption("D2 One Cone Engage", "D2ConeE");
+        autonChooser.addOption("D3 One Cone One Cube", "D3ConeCube");
         autonChooser.addOption("D3 One Cone", "D3OneCone");
         SmartDashboard.putData("Auton Chooser", autonChooser);
     }

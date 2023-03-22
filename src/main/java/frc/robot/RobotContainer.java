@@ -205,17 +205,21 @@ public class RobotContainer {
         SendableChooser<String> val = (SendableChooser)SmartDashboard.getData("Auton Chooser");
         switch (val.getSelected()) {
             case "D1OneCone":
-                return new D1OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision);
-            case "D1ConeCubeHigh":
-                return new D1ConeCubeHigh(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision);
+                return new D1OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem);
             case "D1ConeCubeHighE":
-                return new D1ConeCubeHighE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision,level);
+                return new D1ConeCubeE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem,level);
             case "D1ConeCubeHighPC":
-                return new D1ConeCubeHighPC(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision);
-            case "D2OneCone":
-                return new D2OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level); 
+                return new D1ConeCubePC(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem);
+            case "D2ConeCubeE":
+                return new D2ConeCubeE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, level); 
+            case "D2ConeCube":
+                return new D2ConeCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem); 
+            case "D2ConeE":
+                return new D2ConeCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem);
+            case"D3ConeCube":
+                return new D3ConeCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem);
             case "D3OneCone":
-                return new D3OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision); 
+                return new D3OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem); 
             default:
                 return null;
         }
