@@ -112,17 +112,17 @@ public class RobotContainer {
         d_rightBumper.onFalse(new InstantCommand(() -> s_Swerve.setSlow(false)));
 
         // Gyro Offsets
-        d_povUp.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        d_Y.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         d_povRight.onTrue(new InstantCommand(() -> s_Swerve.leftGyro()));
         d_povDown.onTrue(new InstantCommand(() -> s_Swerve.downGyro()));
         d_povLeft.onTrue(new InstantCommand(() -> s_Swerve.rightGyro()));
 
 
         // Lock Modules
-        d_Y.onTrue(new InstantCommand(()-> s_Swerve.setX()));
+        d_X.onTrue(/*new InstantCommand(()-> s_Swerve.setX())*/collectionSubsystem.shootCube());
 
         // Stop collection motor
-        d_X.onTrue(collectionSubsystem.stopMotor());
+        d_povUp.onTrue(collectionSubsystem.stopMotor());
 
         // Level Robot
         d_A.onTrue(level);
@@ -212,30 +212,12 @@ public class RobotContainer {
                 return new D1ConeCubeHighE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision,level);
             case "D1ConeCubeHighPC":
                 return new D1ConeCubeHighPC(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision);
-            case "D1TwoCubeE":
-                return new D1TwoCubeE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level); 
-            case "D1ThreeCubeE":
-                return new D1ThreeCubeE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level);
-            case "D2RCubeE":
-                return new D2RCubeE(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision, level);
-            case "D2LCubeE":
-                return new D2LCubeE(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision, level);
             case "D2OneCone":
                 return new D2OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level); 
             case "D3OneCone":
                 return new D3OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision); 
-            case "D3TwoCube":
-                return new TestPath(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision); 
-            case "D1TwoCube":
-                return new D1TwoCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level); 
-            case "D1ThreeCube":
-                return new D1ThreeCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, vision, level);
-            case "D2RCube":
-                return new D2RCube(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision, level);
-            case "D2LCube":
-                return new D2LCube(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision, level);
             default:
-                return new TestPath(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem,vision);
+                return null;
         }
         //return new D3OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
     }

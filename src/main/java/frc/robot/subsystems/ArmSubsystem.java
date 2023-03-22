@@ -118,6 +118,7 @@ public class ArmSubsystem extends SubsystemBase {
             () -> {
                 armMotorMaster.setSelectedSensorPosition(0);
                 armMotorSlave.setSelectedSensorPosition(0);
+                this.holdPosition();
             }
         );
     }

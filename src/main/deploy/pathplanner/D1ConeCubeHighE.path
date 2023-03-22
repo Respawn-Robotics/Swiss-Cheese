@@ -102,15 +102,15 @@
     {
       "anchorPoint": {
         "x": 1.85,
-        "y": 4.4
+        "y": 4.5
       },
       "prevControl": {
         "x": 1.845906969342175,
-        "y": 4.684138794101618
+        "y": 4.784138794101618
       },
       "nextControl": {
         "x": 1.8526840472484365,
-        "y": 4.213673042730702
+        "y": 4.313673042730701
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -180,7 +180,7 @@
     {
       "position": 4.15,
       "names": [
-        "ArmGoHome"
+        "WristFirst"
       ]
     }
   ]

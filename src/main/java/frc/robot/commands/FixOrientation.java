@@ -11,7 +11,7 @@ public class FixOrientation extends CommandBase {
     private double currentAngle;
     private double error;
     private double drivePower;
-    private double kPLeveler = .025;
+    private double kPLeveler = .04;
 
     public FixOrientation(Swerve s_Swerve) {
         this.s_Swerve = s_Swerve;

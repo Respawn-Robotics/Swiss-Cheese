@@ -1,7 +1,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -53,6 +55,9 @@ public class Superstructure extends SubsystemBase {
                 .andThen(new WaitCommand(.4)
                 .andThen(armSubsystem.setPosition(0)))))
                 .schedule();
+            new InstantCommand(() -> driver.setRumble(RumbleType.kBothRumble, 1))
+                .andThen(new WaitCommand(0.2)
+                .andThen(new InstantCommand(() -> driver.setRumble(RumbleType.kBothRumble, 0))));
         }
 
         if(RobotContainer.cubeBeamBreak.wasCleared() || RobotContainer.coneBeamBreak.wasCleared()) {
