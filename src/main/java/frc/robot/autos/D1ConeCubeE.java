@@ -47,7 +47,7 @@ eventMap.put("WristFirst", wristSubsystem.setPosition(0).alongWith(armSubsystem.
 eventMap.put("ArmGoOut", armSubsystem.setPosition(Constants.ArmConstants.ACQUIRE_FROM_CUBE_FLOOR).alongWith(wristSubsystem.setPosition(Constants.WristConstants.ACQUIRE_FROM_CUBE_FLOOR + 4000).alongWith(collectionSubsystem.collectCube())));
 eventMap.put("IntakeStop", collectionSubsystem.stopMotor());
 eventMap.put("CubeHigh", armSubsystem.setPosition(Constants.ArmConstants.SCORE_IN_HIGH_CUBE).andThen(wristSubsystem.setPosition(Constants.WristConstants.SCORE_IN_HIGH_CUBE)));
-eventMap.put("PuffCube", collectionSubsystem.setVoltage(-.3f).andThen(new WaitCommand(.5).andThen(collectionSubsystem.stopMotor())));
+eventMap.put("PuffCube", collectionSubsystem.setVoltage(-.4f).andThen(new WaitCommand(.5).andThen(collectionSubsystem.stopMotor())));
 eventMap.put("Level", level);
 // Create the AutoBuilder. This only needs to be created once when robot code starts, not every time you want to create an auto command. A good place to put this is in RobotContainer along with your subsystems.
 SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(

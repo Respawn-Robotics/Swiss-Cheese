@@ -55,9 +55,9 @@ public class Superstructure extends SubsystemBase {
                 .andThen(new WaitCommand(.4)
                 .andThen(armSubsystem.setPosition(0)))))
                 .schedule();
-            new InstantCommand(() -> driver.setRumble(RumbleType.kBothRumble, 1))
-                .andThen(new WaitCommand(0.2)
-                .andThen(new InstantCommand(() -> driver.setRumble(RumbleType.kBothRumble, 0))));
+            // new InstantCommand(() -> driver.setRumble(RumbleType.kBothRumble, 1))
+            //     .andThen(new WaitCommand(0.2)
+            //     .andThen(new InstantCommand(() -> driver.setRumble(RumbleType.kBothRumble, 0))));
         }
 
         if(RobotContainer.cubeBeamBreak.wasCleared() || RobotContainer.coneBeamBreak.wasCleared()) {
