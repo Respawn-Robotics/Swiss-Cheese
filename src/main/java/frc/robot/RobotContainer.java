@@ -47,6 +47,7 @@ public class RobotContainer {
     private final OperatorCommands operatorCommands = new OperatorCommands(armSubsystem, wristSubsystem, collectionSubsystem);
     private final Superstructure superstructure = new Superstructure(armSubsystem, wristSubsystem, collectionSubsystem, operator, driver, operatorCommands);
     private final FixOrientation level = new FixOrientation(s_Swerve);
+    //private final CANDleSubsystem candle = new CANDleSubsystem();
 
     public static BeamBreak cubeBeamBreak = new BeamBreak(2);
     public static BeamBreak coneBeamBreak = new BeamBreak(1);
@@ -56,7 +57,7 @@ public class RobotContainer {
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
     //private SlewRateLimiter limit = Constants.rateLimit;
-
+ 
 
     /* Driver Buttons */
     private final JoystickButton d_Y = new JoystickButton(driver, XboxController.Button.kY.value);
@@ -142,7 +143,7 @@ public class RobotContainer {
         
         o_X.onTrue(armSubsystem.resetSensor().andThen(wristSubsystem.resetPos()));
 
-        o_B.onTrue(collectionSubsystem.shootCube());
+        o_B.onTrue(operatorCommands.acquireCubeFromDoS());
 
         // Acquire cone DoS
         o_Y.and(o_leftStick.negate())

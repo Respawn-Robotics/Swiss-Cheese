@@ -23,10 +23,10 @@ public class Robot extends TimedRobot {
 
   private Command m_autonomousCommand;
 
-  TalonFX FL = new TalonFX(1);
-  TalonFX FR = new TalonFX(3);
-  TalonFX BL = new TalonFX(5);
-  TalonFX BR = new TalonFX(7);
+  // TalonFX FL = new TalonFX(1);
+  // TalonFX FR = new TalonFX(3);
+  // TalonFX BL = new TalonFX(5);
+  // TalonFX BR = new TalonFX(7);
 
   private RobotContainer m_robotContainer;
   public Robot() {
@@ -66,10 +66,10 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    FL.setNeutralMode(NeutralMode.Coast);
-    FR.setNeutralMode(NeutralMode.Coast);
-    BL.setNeutralMode(NeutralMode.Coast);
-    BR.setNeutralMode(NeutralMode.Coast);
+    // FL.setNeutralMode(NeutralMode.Coast);
+    // FR.setNeutralMode(NeutralMode.Coast);
+    // BL.setNeutralMode(NeutralMode.Coast);
+    // BR.setNeutralMode(NeutralMode.Coast);
   }
 
   @Override

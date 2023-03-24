@@ -60,7 +60,7 @@ public class OperatorCommands {
 
     public Command acquireCubeFromDoS() {
         Superstructure.currentRobotState = SuperstructureConstants.ROBOT_STATE.ACQUIRE_CUBE_DOS;
-        return new Acquire(ArmConstants.ACQUIRE_FROM_DOS, WristConstants.ACQUIRE_FROM_DOS, false, armSubsystem, wristSubsystem, collectionSubsystem, 2f);
+        return new Acquire(5000, 38000, false, armSubsystem, wristSubsystem, collectionSubsystem, 2f);
     }
 
     public Command scoreInHighCone() {

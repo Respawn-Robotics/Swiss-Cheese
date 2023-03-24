@@ -80,9 +80,9 @@ public final class Constants {
 
         /* Drive Motor Characterization Values 
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
-        public static final double driveKS = (0.20585 / 12); 
-        public static final double driveKV = (2.0307 / 12);
-        public static final double driveKA = (0.32092 / 12);
+        public static final double driveKS = (0.18249 / 12); 
+        public static final double driveKV = (2.3025 / 12);
+        public static final double driveKA = (0.38023 / 12);
 
         /* Swerve Profiling Values */
         /** Meters per Second */

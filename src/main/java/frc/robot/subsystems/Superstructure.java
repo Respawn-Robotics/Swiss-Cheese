@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.led.CANdle;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,6 +28,7 @@ public class Superstructure extends SubsystemBase {
     private Joystick driver;
     private OperatorCommands operatorCommands;
     public static ROBOT_STATE currentRobotState;
+    private CANdle candle = new CANdle(17);
 
     public Superstructure(ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Joystick operator, Joystick driver, OperatorCommands operatorCommands) {
         this.armSubsystem = armSubsystem;
@@ -40,9 +43,13 @@ public class Superstructure extends SubsystemBase {
         RobotContainer.coneBeamBreak.update();
         RobotContainer.cubeBeamBreak.update();
 
+        candle.setLEDs(0, 0, 255, 0, 0, 1000);
+
+        new PrintCommand(candle.getLastError().toString());
+
         SmartDashboard.putNumber("Collection Motor", collectionSubsystem.getMotor().getStatorCurrent());
 
-        if(collectionSubsystem.getMotor().getStatorCurrent() > 50 && operator.getRawButtonPressed(1)) {
+        if(collectionSubsystem.getMotor().getStatorCurrent() > 50 && (operator.getRawButtonPressed(1) || operator.getRawButtonPressed(2))) {
             new PrintCommand("CONE TRIPPED").schedule();
             new WaitCommand(0)
                 .andThen(collectionSubsystem.stopMotor())
