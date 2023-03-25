@@ -66,6 +66,7 @@ public class RobotContainer {
     private final JoystickButton d_B = new JoystickButton(driver, XboxController.Button.kB.value);
     private final JoystickButton d_leftBumper = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton d_rightBumper = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton d_rightStick = new JoystickButton(driver, XboxController.Button.kRightStick.value);
     private final POVButton d_povRight = new POVButton(driver, 90);
     private final POVButton d_povDown = new POVButton(driver, 180);
     private final POVButton d_povLeft = new POVButton(driver, 270);
@@ -112,24 +113,29 @@ public class RobotContainer {
         d_rightBumper.onTrue(new InstantCommand(() -> s_Swerve.setSlow(true)));
         d_rightBumper.onFalse(new InstantCommand(() -> s_Swerve.setSlow(false)));
 
+        // Stop collection motor
+        d_povUp.onTrue(level);
+
         // Gyro Offsets
-        d_Y.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         d_povRight.onTrue(new InstantCommand(() -> s_Swerve.leftGyro()));
         d_povDown.onTrue(new InstantCommand(() -> s_Swerve.downGyro()));
         d_povLeft.onTrue(new InstantCommand(() -> s_Swerve.rightGyro()));
 
 
         // Lock Modules
-        d_X.onTrue(/*new InstantCommand(()-> s_Swerve.setX())*/collectionSubsystem.shootCube());
-
-        // Stop collection motor
-        d_povUp.onTrue(collectionSubsystem.stopMotor());
-
-        // Level Robot
-        d_A.onTrue(level);
+        d_A.onTrue(collectionSubsystem.shootCube());
 
         // Home arm
         d_B.onTrue(operatorCommands.goToHome());
+
+        // Level Robot
+        d_X.onTrue(collectionSubsystem.stopMotor());
+
+        // Gyro Offset
+        d_Y.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+
+        // X-Lock
+        d_rightStick.onTrue(new InstantCommand(()-> s_Swerve.setX()));
 
         /* Operator Controls */
         
