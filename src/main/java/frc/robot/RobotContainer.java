@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.util.sendable.SendableRegistry.CallbackData;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -44,10 +45,10 @@ public class RobotContainer {
     public final WristSubsystem wristSubsystem = new WristSubsystem();
     private final Swerve s_Swerve = new Swerve();
     private final Vision vision = new Vision();
-    private final OperatorCommands operatorCommands = new OperatorCommands(armSubsystem, wristSubsystem, collectionSubsystem);
-    private final Superstructure superstructure = new Superstructure(armSubsystem, wristSubsystem, collectionSubsystem, operator, driver, operatorCommands);
     private final FixOrientation level = new FixOrientation(s_Swerve);
-    //private final CANDleSubsystem candle = new CANDleSubsystem();
+    private final CANDleSubsystem candle = new CANDleSubsystem();
+    private final OperatorCommands operatorCommands = new OperatorCommands(armSubsystem, wristSubsystem, collectionSubsystem, candle);
+    private final Superstructure superstructure = new Superstructure(armSubsystem, wristSubsystem, collectionSubsystem, operator, driver, operatorCommands, candle);
 
     public static BeamBreak cubeBeamBreak = new BeamBreak(2);
     public static BeamBreak coneBeamBreak = new BeamBreak(1);
@@ -101,6 +102,7 @@ public class RobotContainer {
                         () -> d_leftBumper.getAsBoolean()));
         
         shuffleboardConfig = new ShuffleboardConfig();
+        candle.setBlue();
         // Configure the button 
         configureButtonBindings();
     }
@@ -145,43 +147,43 @@ public class RobotContainer {
         
         // Acquire cube ground
         o_A.and(o_leftStick.negate())
-            .onTrue(operatorCommands.acquireCubeFromFloor());
+            .onTrue(operatorCommands.acquireCubeFromFloor().alongWith(candle.setRed()));
         
         o_X.onTrue(armSubsystem.resetSensor().andThen(wristSubsystem.resetPos()));
-
+        
         o_B.onTrue(operatorCommands.acquireCubeFromDoS());
 
         // Acquire cone DoS
         o_Y.and(o_leftStick.negate())
-            .onTrue(operatorCommands.acquireConeFromDoS());
+            .onTrue(operatorCommands.acquireConeFromDoS().alongWith(candle.setRed()));
 
         // Acquire cube DoS
         o_Y.and(o_leftStick)
-            .onTrue(operatorCommands.acquireCubeFromDoS());
+            .onTrue(operatorCommands.acquireCubeFromDoS().alongWith(candle.setRed()));
         
         // Score high cone
         o_povUp.and(o_rightStick.negate())
-            .onTrue(operatorCommands.scoreInHighCone());
+            .onTrue(operatorCommands.scoreInHighCone().alongWith(candle.setYellow()));
 
         // Score high cube
         o_povUp.and(o_rightStick)
-            .onTrue(operatorCommands.scoreInHighCube());
+            .onTrue(operatorCommands.scoreInHighCone().alongWith(candle.setPurple()));
 
         // Score mid cone
         o_povLeft.and(o_rightStick.negate())
-            .onTrue(operatorCommands.scoreInMidCone());
+            .onTrue(operatorCommands.scoreInMidCone().alongWith(candle.setYellow()));
 
         // Score mid cube
         o_povLeft.and(o_rightStick)
-            .onTrue(operatorCommands.scoreInMidCube());
+            .onTrue(operatorCommands.scoreInMidCube().alongWith(candle.setPurple()));
         
         // Score low cone
         o_povDown.and(o_rightStick.negate())
-            .onTrue(operatorCommands.scoreInLowCone());
+            .onTrue(operatorCommands.scoreInLowCone().alongWith(candle.setYellow()));
         
         // Score low cube
         o_povDown.and(o_rightStick)
-            .onTrue(operatorCommands.scoreInLowCube());
+            .onTrue(operatorCommands.scoreInLowCube().alongWith(candle.setPurple()));
         
         o_povRight.onTrue(collectionSubsystem.holdPosition());
 

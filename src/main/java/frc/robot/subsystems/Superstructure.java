@@ -28,24 +28,21 @@ public class Superstructure extends SubsystemBase {
     private Joystick driver;
     private OperatorCommands operatorCommands;
     public static ROBOT_STATE currentRobotState;
-    private CANdle candle = new CANdle(17);
+    private CANDleSubsystem candle;
 
-    public Superstructure(ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Joystick operator, Joystick driver, OperatorCommands operatorCommands) {
+    public Superstructure(ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, Joystick operator, Joystick driver, OperatorCommands operatorCommands, CANDleSubsystem candle) {
         this.armSubsystem = armSubsystem;
         this.wristSubsystem = wristSubsystem;
         this.collectionSubsystem = collectionSubsystem;
         this.operator = operator;
         this.driver = driver;
         this.operatorCommands = operatorCommands;
+        this.candle = candle;
     }
     @Override
     public void periodic() {
         RobotContainer.coneBeamBreak.update();
         RobotContainer.cubeBeamBreak.update();
-
-        candle.setLEDs(0, 0, 255, 0, 0, 1000);
-
-        new PrintCommand(candle.getLastError().toString());
 
         SmartDashboard.putNumber("Collection Motor", collectionSubsystem.getMotor().getStatorCurrent());
 
@@ -58,13 +55,23 @@ public class Superstructure extends SubsystemBase {
             
             armSubsystem.setPosition(armSubsystem.getMasterMotor().getSelectedSensorPosition() + 3000)
                 .andThen(new WaitCommand(0.2)
+                .alongWith(candle.setGreen())
                 .andThen(wristSubsystem.setPosition(0)
                 .andThen(new WaitCommand(.4)
-                .andThen(armSubsystem.setPosition(0)))))
+                .andThen(armSubsystem.setPosition(0)
+                .andThen(new WaitCommand(1)
+                .andThen(candle.setBlue()))))))
                 .schedule();
             // new InstantCommand(() -> driver.setRumble(RumbleType.kBothRumble, 1))
             //     .andThen(new WaitCommand(0.2)
             //     .andThen(new InstantCommand(() -> driver.setRumble(RumbleType.kBothRumble, 0))));
+        }
+
+        if(collectionSubsystem.getMotor().getStatorCurrent() > 50 && (operator.getRawButtonPressed(4))) {
+            candle.setGreen()
+                .andThen(new WaitCommand(1))
+                .andThen(candle.setBlue())
+                .schedule();
         }
 
         if(RobotContainer.cubeBeamBreak.wasCleared() || RobotContainer.coneBeamBreak.wasCleared()) {

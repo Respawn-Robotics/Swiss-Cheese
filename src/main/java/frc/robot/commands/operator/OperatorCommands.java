@@ -1,5 +1,7 @@
 package frc.robot.commands.operator;
 
+import com.ctre.phoenix.led.CANdle;
+
 import edu.wpi.first.networktables.IntegerTopic;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,6 +17,7 @@ import frc.robot.commands.operator.commands.Acquire;
 import frc.robot.commands.operator.commands.Score;
 import frc.robot.drivers.BeamBreak;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.CANDleSubsystem;
 import frc.robot.subsystems.CollectionSubsystem;
 import frc.robot.subsystems.Superstructure;
 import frc.robot.subsystems.WristSubsystem;
@@ -24,13 +27,15 @@ public class OperatorCommands {
     private ArmSubsystem armSubsystem;
     private WristSubsystem wristSubsystem;
     private CollectionSubsystem collectionSubsystem;
+    private CANDleSubsystem candle;
     public static String debugArm;
     public static String debugWrist;
 
-    public OperatorCommands(ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem) {
+    public OperatorCommands(ArmSubsystem armSubsystem, WristSubsystem wristSubsystem, CollectionSubsystem collectionSubsystem, CANDleSubsystem candle) {
         this.armSubsystem = armSubsystem;
         this.wristSubsystem = wristSubsystem;
         this.collectionSubsystem = collectionSubsystem;
+        this.candle = candle;
     }
 
     public Command debugPosition() {
@@ -44,7 +49,6 @@ public class OperatorCommands {
     }
     
     public Command acquireConeFromFloor() {
-        Superstructure.currentRobotState = SuperstructureConstants.ROBOT_STATE.ACQUIRE_CONE_FLOOR;
         return new Acquire(ArmConstants.ACQUIRE_FROM_CONE_FLOOR, WristConstants.ACQUIRE_FROM_CONE_FLOOR, true, armSubsystem, wristSubsystem, collectionSubsystem, 0.4f);
     }
 
