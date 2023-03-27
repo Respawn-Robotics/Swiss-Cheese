@@ -72,6 +72,9 @@ public class RobotContainer {
     private final POVButton d_povDown = new POVButton(driver, 180);
     private final POVButton d_povLeft = new POVButton(driver, 270);
     private final POVButton d_povUp = new POVButton(driver, 0);
+    private final JoystickButton d_start = new JoystickButton(driver, XboxController.Button.kStart.value);
+    private final JoystickButton d_back = new JoystickButton(driver, XboxController.Button.kBack.value);
+    
 
     /* Operator Buttons */
     private final JoystickButton o_rightBumper = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
@@ -138,6 +141,12 @@ public class RobotContainer {
 
         // X-Lock
         d_rightStick.onTrue(new InstantCommand(()-> s_Swerve.setX()));
+
+        // Set 0
+        d_start.whileTrue(new SetHeading(s_Swerve, 0));
+
+        // Set 180
+        d_back.whileTrue(new SetHeading(s_Swerve, 180));
 
         /* Operator Controls */
         
