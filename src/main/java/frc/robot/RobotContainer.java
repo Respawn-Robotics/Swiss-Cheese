@@ -47,7 +47,7 @@ public class RobotContainer {
     private final OperatorCommands operatorCommands = new OperatorCommands(armSubsystem, wristSubsystem, collectionSubsystem);
     private final Superstructure superstructure = new Superstructure(armSubsystem, wristSubsystem, collectionSubsystem, operator, driver, operatorCommands);
     private final FixOrientation level = new FixOrientation(s_Swerve);
-    //private final CANDleSubsystem candle = new CANDleSubsystem();
+    private final CANDleSubsystem candle = new CANDleSubsystem();
 
     public static BeamBreak cubeBeamBreak = new BeamBreak(2);
     public static BeamBreak coneBeamBreak = new BeamBreak(1);
@@ -71,6 +71,9 @@ public class RobotContainer {
     private final POVButton d_povDown = new POVButton(driver, 180);
     private final POVButton d_povLeft = new POVButton(driver, 270);
     private final POVButton d_povUp = new POVButton(driver, 0);
+    private final JoystickButton d_start = new JoystickButton(driver, XboxController.Button.kStart.value);
+    private final JoystickButton d_back = new JoystickButton(driver, XboxController.Button.kBack.value);
+    
 
     /* Operator Buttons */
     private final JoystickButton o_rightBumper = new JoystickButton(operator, XboxController.Button.kRightBumper.value);
@@ -101,6 +104,8 @@ public class RobotContainer {
                         () -> d_leftBumper.getAsBoolean()));
         
         shuffleboardConfig = new ShuffleboardConfig();
+        candle.getCandle().setLEDs(0, 0, 255, 0, 0, 7);
+        candle.getCandle().setLEDs(0, 255, 0, 0, 8, 0);
         // Configure the button 
         configureButtonBindings();
     }
@@ -136,6 +141,12 @@ public class RobotContainer {
 
         // X-Lock
         d_rightStick.onTrue(new InstantCommand(()-> s_Swerve.setX()));
+
+        // Set 0
+        d_start.whileTrue(new SetHeading(s_Swerve, 0));
+
+        // Set 180
+        d_back.whileTrue(new SetHeading(s_Swerve, 180));
 
         /* Operator Controls */
         

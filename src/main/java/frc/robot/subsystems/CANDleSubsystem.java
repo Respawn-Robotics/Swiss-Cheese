@@ -15,7 +15,11 @@ public class CANDleSubsystem {
         config.brightnessScalar = 1;
         candle.configAllSettings(config);
 
-        RainbowAnimation anim = new RainbowAnimation(1, 1, 1000);
-        candle.animate(anim);
+        // RainbowAnimation anim = new RainbowAnimation(1, 1, 1000);
+        // candle.animate(anim);
+    }
+
+    public CANdle getCandle() {
+        return candle;
     }
 }

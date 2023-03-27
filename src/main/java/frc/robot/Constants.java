@@ -193,7 +193,7 @@ public final class Constants {
         public static final int ACUQIRE_FROM_SIS = 133000;
 
         public static final int SCORE_IN_HIGH_CONE = 102000; 
-        public static final int SCORE_IN_HIGH_CUBE = 41000; // 16500 shoot
+        public static final int SCORE_IN_HIGH_CUBE = 46000; // 16500 shoot
         public static final int SCORE_IN_MID_CONE = 98000;
         public static final int SCORE_IN_MID_CUBE = 43000;
         
