@@ -1,23 +1,13 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.led.CANdle;
-
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.JointMovementType;
-import frc.robot.Constants.WristConstants;
 import frc.robot.Constants.SuperstructureConstants.ROBOT_STATE;
-import frc.robot.commands.JointsSetPosition;
 import frc.robot.commands.operator.OperatorCommands;
-import frc.robot.drivers.BeamBreak;
 
 public class Superstructure extends SubsystemBase {
 

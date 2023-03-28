@@ -1,12 +1,7 @@
 package frc.robot.shuffleboard;
 
-import java.util.Map;
-
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.autos.D1OneCone;
 
 public class ShuffleboardConfig {
     SendableChooser<String> autonChooser = new SendableChooser<String>();

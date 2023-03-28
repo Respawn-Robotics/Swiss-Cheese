@@ -1,9 +1,6 @@
 package frc.robot.commands.operator.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.RobotContainer;
-import frc.robot.Constants.JointMovementType;
 import frc.robot.commands.JointsSetPosition;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CollectionSubsystem;

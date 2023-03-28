@@ -1,29 +1,20 @@
 package frc.robot.autos;
 
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
-import frc.robot.commands.JointsSetPosition;
-import frc.robot.commands.operator.OperatorCommands;
-import frc.robot.drivers.BeamBreak;
-import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.WristSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.CollectionSubsystem;
 import frc.robot.subsystems.Swerve;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
-import com.pathplanner.lib.PathPlannerTrajectory.StopEvent;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
