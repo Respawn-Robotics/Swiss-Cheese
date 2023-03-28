@@ -43,6 +43,6 @@ public class FixOrientation extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return Math.abs(error) < 1; //End when angle is less than one
+        return Math.abs(error) < .5; //End when angle is less than one
     }
 }

@@ -119,7 +119,7 @@ public class RobotContainer {
         d_rightBumper.onFalse(new InstantCommand(() -> s_Swerve.setSlow(false)));
 
         // Stop collection motor
-        d_povUp.onTrue(level);
+        d_povUp.onTrue(collectionSubsystem.stopMotor());
 
         // Gyro Offsets
         d_povRight.onTrue(new InstantCommand(() -> s_Swerve.leftGyro()));
@@ -133,14 +133,11 @@ public class RobotContainer {
         // Home arm
         d_B.onTrue(operatorCommands.goToHome());
 
-        // Level Robot
-        d_X.onTrue(collectionSubsystem.stopMotor());
+        // Lock Robot
+        d_X.onTrue(new InstantCommand(()-> s_Swerve.setX()));
 
         // Gyro Offset
         d_Y.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-
-        // X-Lock
-        d_rightStick.onTrue(new InstantCommand(()-> s_Swerve.setX()));
 
         // Set 0
         d_start.whileTrue(new SetHeading(s_Swerve, 0));
@@ -151,7 +148,7 @@ public class RobotContainer {
         /* Operator Controls */
         
         // Acquire cone ground
-        o_A.and(o_leftStick)
+        o_leftStick
             .onTrue(operatorCommands.acquireConeFromFloor());
         
         // Acquire cube ground
