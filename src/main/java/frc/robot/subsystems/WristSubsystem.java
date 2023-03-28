@@ -94,7 +94,6 @@ public class WristSubsystem extends SubsystemBase {
         return runOnce(
           () -> {
             wristMotor.setSelectedSensorPosition(0);
-            this.holdPosition();
           }
         );
       }
