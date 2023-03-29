@@ -45,7 +45,7 @@ SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
     new PIDConstants(Constants.AutoConstants.kPThetaController, 0.0, Constants.AutoConstants.kDThetaController), // PID constants to correct for rotation error (used to create the rotation controller)
     s_Swerve::setModuleStates, // Module states consumer used to output to the drive subsystem
     eventMap,
-    false, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
+    true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
     s_Swerve // The drive subsystem. Used to properly set the requirements of path following commands
 );
 

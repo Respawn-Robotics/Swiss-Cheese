@@ -118,7 +118,7 @@ public class RobotContainer {
         d_rightBumper.onFalse(new InstantCommand(() -> s_Swerve.setSlow(false)));
 
         // Stop collection motor
-        d_povUp.onTrue(collectionSubsystem.stopMotor());
+        d_povUp.onTrue(collectionSubsystem.holdPosition());
 
         // Gyro Offsets
         d_povRight.onTrue(new InstantCommand(() -> s_Swerve.leftGyro()));

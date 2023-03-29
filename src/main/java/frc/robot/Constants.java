@@ -158,8 +158,8 @@ public final class Constants {
         public static final int ACQUIRE_FROM_SIS = 25000;
 
         public static final int SCORE_IN_HIGH_CONE = 60000;
-        public static final int SCORE_IN_HIGH_CUBE = 36000; // 14200
-        public static final int SCORE_IN_MID_CONE = 49000;
+        public static final int SCORE_IN_HIGH_CUBE = 47000; // 14200
+        public static final int SCORE_IN_MID_CONE = 52000;
         public static final int SCORE_IN_MID_CUBE = 24000;
 
         // Movement
