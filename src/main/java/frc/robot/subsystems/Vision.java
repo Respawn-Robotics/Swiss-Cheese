@@ -65,15 +65,6 @@ public class Vision extends SubsystemBase {
         });
   }
 
-  //pseudocode for team switch
-  public Command TeamAprilTags() {
-    return runOnce(
-      () -> {
-        
-      }
-    );
-  }
-
   public double getV() {
     return v;
   }
@@ -121,7 +112,6 @@ public class Vision extends SubsystemBase {
     LimelightDistanceOffset();
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
-    SmartDashboard.putNumber("LimelightArea", a);
     SmartDashboard.putNumber("LimeLightV", v);
   }
 }

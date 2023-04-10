@@ -187,15 +187,15 @@ public final class Constants {
 
         // Setpoints
         public static final int HOME = 0;
-        public static final int ACQUIRE_FROM_CUBE_FLOOR = 47000;
-        public static final int ACQUIRE_FROM_CONE_FLOOR = 111000;
-        public static final int ACQUIRE_FROM_DOS = 58000;
-        public static final int ACUQIRE_FROM_SIS = 133000;
+        public static final int ACQUIRE_FROM_CUBE_FLOOR = 47000 - 9000;
+        public static final int ACQUIRE_FROM_CONE_FLOOR = 111000 - 9000;
+        public static final int ACQUIRE_FROM_DOS = 58000 - 20000;
+        public static final int ACUQIRE_FROM_SIS = 133000 - 9000;
 
-        public static final int SCORE_IN_HIGH_CONE = 102000; 
-        public static final int SCORE_IN_HIGH_CUBE = 46000; // 16500 shoot
-        public static final int SCORE_IN_MID_CONE = 98000;
-        public static final int SCORE_IN_MID_CUBE = 43000;
+        public static final int SCORE_IN_HIGH_CONE = 102000 - 9000; 
+        public static final int SCORE_IN_HIGH_CUBE = 46000 - 9000; // 16500 shoot
+        public static final int SCORE_IN_MID_CONE = 98000 - 9000;
+        public static final int SCORE_IN_MID_CUBE = 25000;
         
 
         // Movement

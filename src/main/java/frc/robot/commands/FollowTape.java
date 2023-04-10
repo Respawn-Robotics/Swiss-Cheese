@@ -29,16 +29,11 @@ public class FollowTape extends CommandBase {
         Double steering_adjust = 0.0;
         Double driving_adjust = 0.0;
             
-            if(LimelightSubsystem.getV() == 0){
-                steering_adjust = 1.5;
-                s_Swerve.drive(new Translation2d(0,0), steering_adjust, false, true);
-            }else if(LimelightSubsystem.getV() == 1){
-                if (tx > 1.0)
-                {
+        if(LimelightSubsystem.getV() == 1){
+            if (tx > 1.0){
                         steering_adjust = KpAim*heading_error - min_command;
                 }
-                else if (tx < -1.0)
-                {
+            else if (tx < -1.0){
                         steering_adjust = KpAim*heading_error + min_command;
                 }
                 driving_adjust = KpDistance * ty;

@@ -31,8 +31,12 @@ public class FixOrientation extends CommandBase {
         drivePower = -Math.min(kPLeveler * error, 1);
 
         s_Swerve.drive(new Translation2d(drivePower,0), 0, false, false);
-        System.out.println(drivePower);
-        System.out.println(currentAngle);
+
+        // if(Math.abs(currentAngle) > 17){
+        //     s_Swerve.drive(new Translation2d(drivePower,0), 0, false, false);
+        // }else if(Math.abs(currentAngle) < 11) {
+        //     s_Swerve.drive(new Translation2d(drivePower * .5,0), 0, false, false);
+        // }
     }
 
     @Override

@@ -118,7 +118,7 @@ public class RobotContainer {
         d_rightBumper.onFalse(new InstantCommand(() -> s_Swerve.setSlow(false)));
 
         // Stop collection motor
-        d_povUp.onTrue(collectionSubsystem.holdPosition());
+        d_povUp.onTrue(collectionSubsystem.shootCube());
 
         // Gyro Offsets
         d_povRight.onTrue(new InstantCommand(() -> s_Swerve.leftGyro()));
@@ -127,7 +127,7 @@ public class RobotContainer {
 
 
         // Lock Modules
-        d_A.onTrue(collectionSubsystem.shootCube());
+        d_A.whileTrue(new FollowTape(s_Swerve));
 
         // Home arm
         d_B.onTrue(operatorCommands.goToHome());
@@ -229,7 +229,9 @@ public class RobotContainer {
             case "D2ConeCube":
                 return new D2ConeCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem); 
             case "D2ConeE":
-                return new D2ConeCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem);
+                return new D2ConeE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem,level);
+            case "D2Cone":
+                return new D2Cone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem);
             case"D3ConeCube":
                 return new D3ConeCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem);
             case "D3OneCone":

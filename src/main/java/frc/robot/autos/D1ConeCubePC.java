@@ -32,7 +32,7 @@ new PathConstraints(4, 2)
 HashMap<String, Command> eventMap = new HashMap<>();
 eventMap.put("ConeHigh", armSubsystem.setPosition(Constants.ArmConstants.SCORE_IN_HIGH_CONE).andThen(new WaitCommand(.5)).andThen(wristSubsystem.setPosition(Constants.WristConstants.SCORE_IN_HIGH_CONE)).andThen(new WaitCommand(1.5).andThen(collectionSubsystem.ejectCone().andThen(new WaitCommand(.25).andThen(collectionSubsystem.stopMotor())))));
 eventMap.put("ArmGoHome", armSubsystem.setPosition(0).alongWith(wristSubsystem.setPosition(0)));
-eventMap.put("ArmGoOut", armSubsystem.setPosition(Constants.ArmConstants.ACQUIRE_FROM_CUBE_FLOOR).alongWith(wristSubsystem.setPosition(Constants.WristConstants.ACQUIRE_FROM_CUBE_FLOOR + 4000).alongWith(collectionSubsystem.collectCube())));
+eventMap.put("ArmGoOut", armSubsystem.setPosition(Constants.ArmConstants.ACQUIRE_FROM_CUBE_FLOOR).alongWith(wristSubsystem.setPosition(Constants.WristConstants.ACQUIRE_FROM_CUBE_FLOOR).alongWith(collectionSubsystem.collectCube())));
 eventMap.put("IntakeStop", collectionSubsystem.stopMotor());
 eventMap.put("CubeHigh", armSubsystem.setPosition(Constants.ArmConstants.SCORE_IN_HIGH_CUBE).andThen(wristSubsystem.setPosition(Constants.WristConstants.SCORE_IN_HIGH_CUBE)));
 eventMap.put("PuffCube", collectionSubsystem.setVoltage(-.4f).andThen(new WaitCommand(.5).andThen(collectionSubsystem.stopMotor())));

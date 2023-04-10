@@ -99,11 +99,11 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    var schedular = CommandScheduler.getInstance();
+    // var schedular = CommandScheduler.getInstance();
 
-    schedular.disable();
-    schedular.cancelAll();
-    schedular.enable();
+    // schedular.disable();
+    // schedular.cancelAll();
+    // schedular.enable();
   }
 
   /** This function is called periodically during operator control. */
