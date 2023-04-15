@@ -14,6 +14,7 @@ public class FollowTape extends CommandBase {
     Vision LimelightSubsystem = new Vision();
     double tx;
     double ty;
+    double ta;
 
     public FollowTape(Swerve s_Swerve) {
         this.s_Swerve = s_Swerve;
@@ -24,20 +25,22 @@ public class FollowTape extends CommandBase {
     public void execute() {
         tx = LimelightSubsystem.getTX();
         ty = LimelightSubsystem.getTY();
+        ta = LimelightSubsystem.getTA();
 
-        Double heading_error = -tx;
         Double steering_adjust = 0.0;
         Double driving_adjust = 0.0;
             
-        if(LimelightSubsystem.getV() == 1){
-            if (tx > 1.0){
-                        steering_adjust = KpAim*heading_error - min_command;
-                }
-            else if (tx < -1.0){
-                        steering_adjust = KpAim*heading_error + min_command;
-                }
-                driving_adjust = KpDistance * ty;
+        if(LimelightSubsystem.isTargetValid()){
+            if(ta < 1.56 && ty < 0){
+                System.out.println(ty);
+                driving_adjust = 1.0;
                 s_Swerve.drive(new Translation2d(driving_adjust,0), steering_adjust, false, true);
+            }
         }
+    }
+
+@Override
+    public boolean isFinished(){
+        return (ta > 1.56 || ty >= 0); //End when angle is less than one
     }
 }

@@ -18,6 +18,8 @@ public class ShuffleboardConfig {
         autonChooser.addOption("D2 One Cone One Cube", "D2ConeCube");
         autonChooser.addOption("D2 One Cone Engage", "D2ConeE");
         autonChooser.addOption("D2 One Cone Leave", "D2Cone");
+        autonChooser.addOption("D2 One Cube Engage", "D2CubeE");
+        autonChooser.addOption("D2 One Cube Stay", "D2Cube");
         autonChooser.addOption("D3 One Cone One Cube", "D3ConeCube");
         autonChooser.addOption("D3 One Cone", "D3OneCone");
         SmartDashboard.putData("Auton Chooser", autonChooser);

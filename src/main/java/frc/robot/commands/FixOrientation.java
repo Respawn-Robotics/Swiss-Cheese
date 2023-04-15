@@ -1,19 +1,29 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Swerve;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class FixOrientation extends CommandBase {    
     private Swerve s_Swerve;  
+    private PIDController controller, controller2;
 
-    private double currentAngle;
-    private double error;
-    private double drivePower;
-    private double kPLeveler = .04;
+    // private double currentAngle;
+    // private double error;
+    // private double drivePower;
+    // private double kPLeveler = .04;
 
     public FixOrientation(Swerve s_Swerve) {
         this.s_Swerve = s_Swerve;
+        controller = new PIDController(1, 0, 0);
+        controller.setTolerance(9.5);
+        controller.setSetpoint(0);
+        controller2 = new PIDController(1, 0, 0);
+        controller2.setTolerance(1);
+        controller2.setSetpoint(0);
         addRequirements(s_Swerve);
     }
 
@@ -25,13 +35,14 @@ public class FixOrientation extends CommandBase {
     @Override
     public void execute() {
          //PIDLevel();  
-        this.currentAngle = s_Swerve.gyro.getRoll();
+        SmartDashboard.putBoolean("At Tolerance", controller.atSetpoint());
 
-        error = 0 - currentAngle;
-        drivePower = -Math.min(kPLeveler * error, 1);
+        double translationVal = MathUtil.clamp(controller.calculate(s_Swerve.gyro.getRoll(), 0.0), -1,
+        1);
 
-        s_Swerve.drive(new Translation2d(drivePower,0), 0, false, false);
+        s_Swerve.drive(new Translation2d(-translationVal, 0.0), 0.0, false, false);
 
+        System.out.println(s_Swerve.gyro.getRoll());
         // if(Math.abs(currentAngle) > 17){
         //     s_Swerve.drive(new Translation2d(drivePower,0), 0, false, false);
         // }else if(Math.abs(currentAngle) < 11) {
@@ -41,11 +52,13 @@ public class FixOrientation extends CommandBase {
 
     @Override
     public void end(boolean interuptted){
-        s_Swerve.setX(); //End command, sets X mode on wheels
+       
+            s_Swerve.setX();
+             //End command, sets X mode on wheels
     }
 
     @Override
     public boolean isFinished(){
-        return Math.abs(error) < .5; //End when angle is less than one
+        return controller.atSetpoint(); //End when angle is less than one
     }
 }

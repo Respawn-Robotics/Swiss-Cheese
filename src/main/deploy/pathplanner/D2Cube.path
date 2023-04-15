@@ -3,12 +3,12 @@
     {
       "anchorPoint": {
         "x": 1.8,
-        "y": 3.1
+        "y": 2.75
       },
       "prevControl": null,
       "nextControl": {
         "x": 2.149634140980906,
-        "y": 3.1
+        "y": 2.75
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -17,7 +17,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "ConeHigh"
+          "CubeHigh"
         ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
@@ -27,38 +27,11 @@
     {
       "anchorPoint": {
         "x": 2.6,
-        "y": 3.1
+        "y": 2.75
       },
       "prevControl": {
         "x": 2.3911838479924454,
-        "y": 3.1
-      },
-      "nextControl": {
-        "x": 2.8088161520075547,
-        "y": 3.1
-      },
-      "holonomicAngle": 180.0,
-      "isReversal": false,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": true,
-      "stopEvent": {
-        "names": [
-          "ArmGoHome"
-        ],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 6.0,
-        "y": 3.1
-      },
-      "prevControl": {
-        "x": 5.938066503582499,
-        "y": 3.1
+        "y": 2.75
       },
       "nextControl": null,
       "holonomicAngle": 180.0,
@@ -67,7 +40,9 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "ArmGoHome"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0

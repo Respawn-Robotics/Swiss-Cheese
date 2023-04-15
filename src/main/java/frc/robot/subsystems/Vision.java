@@ -31,10 +31,10 @@ public class Vision extends SubsystemBase {
   double limelightMountAngleDegrees = 0;
   
   // distance from the center of the Limelight lens to the floor
-  double limelightLensHeightInches = 46.75;
+  double limelightLensHeightInches = 21.875;
   
   // distance from the target to the floor
-  double goalHeightInches = 23.6875;
+  double goalHeightInches = 27.38;
   
   double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
   double angleToGoalRadians = angleToGoalDegrees * (Math.PI / 180.0);
@@ -42,8 +42,6 @@ public class Vision extends SubsystemBase {
   //calculate distance
   double distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
   SmartDashboard.putNumber("DistanceOffset", distanceFromLimelightToGoalInches);
-  SmartDashboard.putNumber("AngleOffset", angleToGoalDegrees);
-
   return distanceFromLimelightToGoalInches;
   }
 
@@ -78,12 +76,7 @@ public class Vision extends SubsystemBase {
   }
 
   public double getTA() {
-    double sum = 0;
-
-    for (Double num : m_targetList) { 		      
-      sum += num.doubleValue();
-    }
-    return sum/m_targetList.size();
+    return a;
   }
 
   public boolean isTargetValid() {
@@ -110,8 +103,5 @@ public class Vision extends SubsystemBase {
     v = limelightTable.getEntry("tv").getDouble(0);
 
     LimelightDistanceOffset();
-    SmartDashboard.putNumber("LimelightX", x);
-    SmartDashboard.putNumber("LimelightY", y);
-    SmartDashboard.putNumber("LimeLightV", v);
   }
 }

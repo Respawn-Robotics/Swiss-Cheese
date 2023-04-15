@@ -67,10 +67,10 @@ public class RobotContainer {
     private final JoystickButton d_leftBumper = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton d_rightBumper = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     private final JoystickButton d_rightStick = new JoystickButton(driver, XboxController.Button.kRightStick.value);
-    private final POVButton d_povRight = new POVButton(driver, 90);
-    private final POVButton d_povDown = new POVButton(driver, 180);
-    private final POVButton d_povLeft = new POVButton(driver, 270);
-    private final POVButton d_povUp = new POVButton(driver, 0);
+    private final POVButton      d_povRight = new POVButton(driver, 90);
+    private final POVButton      d_povDown = new POVButton(driver, 180);
+    private final POVButton      d_povLeft = new POVButton(driver, 270);
+    private final POVButton      d_povUp = new POVButton(driver, 0);
     private final JoystickButton d_start = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton d_back = new JoystickButton(driver, XboxController.Button.kBack.value);
     
@@ -120,11 +120,12 @@ public class RobotContainer {
         // Stop collection motor
         d_povUp.onTrue(collectionSubsystem.shootCube());
 
+        d_rightStick.onTrue(collectionSubsystem.stopMotor());
+
         // Gyro Offsets
         d_povRight.onTrue(new InstantCommand(() -> s_Swerve.leftGyro()));
         d_povDown.onTrue(new InstantCommand(() -> s_Swerve.downGyro()));
         d_povLeft.onTrue(new InstantCommand(() -> s_Swerve.rightGyro()));
-
 
         // Lock Modules
         d_A.whileTrue(new FollowTape(s_Swerve));
@@ -133,7 +134,7 @@ public class RobotContainer {
         d_B.onTrue(operatorCommands.goToHome());
 
         // Lock Robot
-        d_X.onTrue(new InstantCommand(()-> s_Swerve.setX()));
+        d_X.onTrue(level);//new InstantCommand(()-> s_Swerve.setX())
 
         // Gyro Offset
         d_Y.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
@@ -218,12 +219,12 @@ public class RobotContainer {
         //return new D1OnePieceDrive(s_Swerve,armSubsystem,wristSubsystem,collectionSubsystem, vision);
         SendableChooser<String> val = (SendableChooser)SmartDashboard.getData("Auton Chooser");
         switch (val.getSelected()) {
-            case "D1OneCone":
-                return new D1OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem);
             case "D1ConeCubeHighE":
                 return new D1ConeCubeE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem,level);
             case "D1ConeCubeHighPC":
                 return new D1ConeCubePC(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem);
+            case "D1OneCone":
+                return new D1OneCone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem);
             case "D2ConeCubeE":
                 return new D2ConeCubeE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem, level); 
             case "D2ConeCube":
@@ -232,6 +233,10 @@ public class RobotContainer {
                 return new D2ConeE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem,level);
             case "D2Cone":
                 return new D2Cone(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem);
+            case "D2CubeE":
+                return new D2CubeE(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem,level);
+            case "D2Cube":
+                return new D2CubeStay(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem);
             case"D3ConeCube":
                 return new D3ConeCube(s_Swerve, armSubsystem, wristSubsystem, collectionSubsystem);
             case "D3OneCone":

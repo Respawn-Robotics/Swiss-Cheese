@@ -36,7 +36,7 @@ public class Superstructure extends SubsystemBase {
 
         SmartDashboard.putNumber("Collection Motor", collectionSubsystem.getMotor().getStatorCurrent());
 
-        if(collectionSubsystem.getMotor().getStatorCurrent() > 50 && (operator.getRawButtonPressed(1) || operator.getRawButtonPressed(2))) {
+        if(collectionSubsystem.getMotor().getStatorCurrent() > 30 && (operator.getRawButtonPressed(1) || operator.getRawButtonPressed(2))) {
             new PrintCommand("CONE TRIPPED").schedule();
             new WaitCommand(0)
                 .andThen(collectionSubsystem.stopMotor())

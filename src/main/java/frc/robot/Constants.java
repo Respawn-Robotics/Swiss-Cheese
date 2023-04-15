@@ -62,10 +62,6 @@ public final class Constants {
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
 
-        /* These values are used by the angle falcon to ramp in open loop and closed loop driving. Default is closed loop*/
-        public static final double openLoopRampA = 0.0;
-        public static final double closedLoopRampA = 0.0;
-
         /* Angle Motor PID Values */
         public static final double angleKP = chosenModule.angleKP;
         public static final double angleKI = chosenModule.angleKI;
